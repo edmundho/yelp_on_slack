@@ -4,20 +4,9 @@ const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fx
 
 const app = express();
 
-const dummyObj = {
-  height: 1293,
-  width: 654654,
-  volume: 43958,
-  area: 958,
-  time: 580000,
-};
-
 app.get('/', (req, res) => {
-  
-  res.set('Content-Type', 'text/html');
-  res.send(dummyObj);
-  console.log('more stuff');
-  
+
+  res.json({ hello: "world" });
 });
 
 app.get('/userrequest', (req, res) => {
