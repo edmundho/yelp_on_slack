@@ -1,5 +1,5 @@
 'use strict';
-
+require('dotenv').config();
 const express = require('express');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
@@ -9,8 +9,7 @@ const slackTestFunction = require('./routes.js');
 const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fxVufMS-GkjpubE75qvcr4Qf6Wm5HvMHgGwBRSSQUVj7kXD6hBmEa8wnu6FIa0lFssF2NWIm4tW3Yx");
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 
-process.env.SLACK_VERIFICATION_TOKEN = 'hymKkILsxWJZWZ5g9JTSJt3X';
-process.env.SLACK_ACCESS_TOKEN = "xoxp-387620765190-386655980211-387881579638-1be047bf2e90fa4411e24f1e5603c9ba";
+
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
 const app = express();
