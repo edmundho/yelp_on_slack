@@ -36,7 +36,7 @@ app.get('/restaurants', function (req, res) {
     term: 'asian',
     location: 'soma, san francisco',
     price: 4,
-    sort_by: 'rating'
+    sort_by: 'best_match'
   }).then(response => {
     const businesses = response.jsonBody.businesses.slice(0, 3);
     restaurantMessage(businesses);
@@ -72,7 +72,8 @@ const restaurantMessage = (businesses) => {
       "title_link": businesses[0].url,
       "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      "image_url": businesses[0].image_url
+      // "image_url": businesses[0].image_url
+      "thumb_url": businesses[0].image_url
     }]
   };
 
@@ -103,7 +104,8 @@ const restaurantMessage = (businesses) => {
       "title_link": businesses[1].url,
       "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      "image_url": businesses[1].image_url
+      "thumb_url": businesses[1].image_url
+      // "image_url": businesses[1].image_url
     }]
   };
 
@@ -134,7 +136,8 @@ const restaurantMessage = (businesses) => {
       "title_link": businesses[2].url,
       "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      "image_url": businesses[2].image_url
+      "thumb_url": businesses[2].image_url
+      // "image_url": businesses[2].image_url
     }]
   };
 
