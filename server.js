@@ -10,6 +10,7 @@ const client = yelp.client(process.env.YELP_KEY);
 
 const { createMessageAdapter } = require('@slack/interactive-messages');
 
+
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
 const app = express();
@@ -36,6 +37,7 @@ app.post('/posttest', (req, res) => {
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
     const dialog = {
+      token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id, 
       dialog: JSON.stringify({
         title: 'Create a Poll',
