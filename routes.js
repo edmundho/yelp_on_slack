@@ -7,7 +7,6 @@ const app = express();
 module.exports = function(req, response){
 
   const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
-  // const url = process.env.SLACK_WEBHOOK_URL;
   const webhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
   const object = {
@@ -103,13 +102,14 @@ module.exports = function(req, response){
     ]
   };
 
-  // Send simple text to the webhook channel
   webhook.send(object, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
       console.log('Message sent: ', res);
-      response.send("All good");
+      console.log('in slack test');
+      response.send("change");
     }
   });
 };
+
