@@ -109,7 +109,7 @@ module.exports = function(req, response){
       console.log('Error:', err);
     } else {
       console.log('Message sent: ', res);
-      response.send("All good");
+      response.send("All good!!!");
     }
   });
 };
