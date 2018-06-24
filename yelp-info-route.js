@@ -70,13 +70,89 @@ const restaurantMessage = (businesses) => {
       ],
       "title": businesses[0].name,
       "title_link": businesses[0].url,
-      "author_name": "Travis Nguyen",
+      "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
       "image_url": businesses[0].image_url
     }]
   };
 
+  const secondBus = {
+    "attachments": [{
+      "fields": [{
+          "title": "Type",
+          "value": businesses[1].categories[0].title,
+          "short": true
+        },
+        {
+          "title": "Price",
+          "value": businesses[1].price,
+          "short": true
+        },
+        {
+          "title": "Reviews",
+          "value": businesses[1].review_count,
+          "short": true
+        },
+        {
+          "title": "Avg Rating",
+          "value": businesses[1].rating,
+          "short": true
+        },
+      ],
+      "title": businesses[1].name,
+      "title_link": businesses[1].url,
+      "author_name": "Yack Team",
+      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
+      "image_url": businesses[1].image_url
+    }]
+  };
+
+  const thirdBus = {
+    "attachments": [{
+      "fields": [{
+          "title": "Type",
+          "value": businesses[2].categories[0].title,
+          "short": true
+        },
+        {
+          "title": "Price",
+          "value": businesses[2].price,
+          "short": true
+        },
+        {
+          "title": "Reviews",
+          "value": businesses[2].review_count,
+          "short": true
+        },
+        {
+          "title": "Avg Rating",
+          "value": businesses[2].rating,
+          "short": true
+        },
+      ],
+      "title": businesses[2].name,
+      "title_link": businesses[2].url,
+      "author_name": "Yack Team",
+      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
+      "image_url": businesses[2].image_url
+    }]
+  };
+
   webHook.send(test, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
+  });
+  webHook.send(secondBus, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
+  });
+  webHook.send(thirdBus, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
