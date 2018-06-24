@@ -16,21 +16,14 @@ app.get('/userrequest', (req, res) => {
 
   client.search({
     term: 'indian',
-    price: 2,
+    price: [1, 2], // 1 or 2 dollar signs
     location: 'soma, san francisco',
   }).then(response => {
     const filteredResults = response.jsonBody.businesses;
-    // const hellaExpensive = response.jsonBody.businesses.filter(business => {
-      // if (business.price === '$$$$')
-      // return business;
-      // if (business.price === '$')
-      // if (business.price === '$' || business.price === '$$')
-      // return business;
-    // });
-    // res.json(response.jsonBody);
-    filteredResults.forEach(bus => console.log(bus.name));
+
+    // logs to server console
+    filteredResults.forEach(bus => console.log(bus.name)); 
     res.json(filteredResults);
-    
   });
 
 });
