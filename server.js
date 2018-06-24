@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const yelp = require('yelp-fusion');
 const slackTestFunction = require('./routes.js');
