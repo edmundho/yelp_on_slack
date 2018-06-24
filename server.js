@@ -10,7 +10,7 @@ const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fx
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 
 process.env.SLACK_VERIFICATION_TOKEN = 'hymKkILsxWJZWZ5g9JTSJt3X';
-
+process.env.SLACK_ACCESS_TOKEN = "xoxp-387620765190-386655980211-387881579638-1be047bf2e90fa4411e24f1e5603c9ba";
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
 const app = express();
@@ -33,6 +33,7 @@ app.post('/posttest', (req, res) => {
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
     const dialog = {
+      token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id, 
       dialog: JSON.stringify({
         title: 'Create a Poll',
