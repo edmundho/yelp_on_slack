@@ -18,6 +18,8 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "nodemon": "^1.17.5",
+    "qs": "^6.5.2",
+    "querystring": "^0.2.0",
     "yelp-fusion": "^2.0.3"
   }
 }
