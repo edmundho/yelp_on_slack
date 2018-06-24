@@ -34,15 +34,18 @@ const PRICE_HASH = {
 app.get('/restaurants', function (req, res) {
   client.search({
     term: 'asian',
-    location: 'soma, san francisco',
+    location: '825 Battery St. San Francisco',
     price: 4,
-    sort_by: 'best_match'
+    sort_by: 'rating'
   }).then(response => {
+    console.log(response.jsonBody.businesses);
     const businesses = response.jsonBody.businesses.slice(0, 3);
     restaurantMessage(businesses);
     res.send('Success!');
   });
 });
+
+const metersToMiles = meters => (meters * 0.0006).toFixed(1);
 
 const restaurantMessage = (businesses) => {
   const test = {
@@ -67,6 +70,11 @@ const restaurantMessage = (businesses) => {
           "value": businesses[0].rating,
           "short": true
         },
+        {
+          "title": "Distance (mi.)",
+          "value": metersToMiles(businesses[0].distance),
+          "short": true
+        },
       ],
       "title": businesses[0].name,
       "title_link": businesses[0].url,
@@ -77,7 +85,7 @@ const restaurantMessage = (businesses) => {
     }]
   };
 
-  const secondBus = {
+  const secondBiz = {
     "attachments": [{
       "fields": [{
           "title": "Type",
@@ -99,6 +107,11 @@ const restaurantMessage = (businesses) => {
           "value": businesses[1].rating,
           "short": true
         },
+        {
+          "title": "Distance (mi.)",
+          "value": metersToMiles(businesses[1].distance),
+          "short": true
+        },
       ],
       "title": businesses[1].name,
       "title_link": businesses[1].url,
@@ -109,7 +122,7 @@ const restaurantMessage = (businesses) => {
     }]
   };
 
-  const thirdBus = {
+  const thirdBiz = {
     "attachments": [{
       "fields": [{
           "title": "Type",
@@ -131,6 +144,11 @@ const restaurantMessage = (businesses) => {
           "value": businesses[2].rating,
           "short": true
         },
+        {
+          "title": "Distance (mi.)",
+          "value": metersToMiles(businesses[2].distance),
+          "short": true
+        },
       ],
       "title": businesses[2].name,
       "title_link": businesses[2].url,
@@ -148,14 +166,14 @@ const restaurantMessage = (businesses) => {
       console.log('Message successfully sent');
     }
   });
-  webHook.send(secondBus, function (err, res) {
+  webHook.send(secondBiz, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
       console.log('Message successfully sent');
     }
   });
-  webHook.send(thirdBus, function (err, res) {
+  webHook.send(thirdBiz, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
