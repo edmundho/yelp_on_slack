@@ -34,15 +34,18 @@ const PRICE_HASH = {
 app.get('/restaurants', function (req, res) {
   client.search({
     term: 'asian',
-    location: 'soma, san francisco',
+    location: '825 Battery St. San Francisco',
     price: 4,
     sort_by: 'rating'
   }).then(response => {
+    console.log(response.jsonBody.businesses);
     const businesses = response.jsonBody.businesses.slice(0, 3);
     restaurantMessage(businesses);
     res.send('Success!');
   });
 });
+
+const metersToMiles = meters => (meters * 0.0006).toFixed(1);
 
 const restaurantMessage = (businesses) => {
   const test = {
@@ -67,16 +70,110 @@ const restaurantMessage = (businesses) => {
           "value": businesses[0].rating,
           "short": true
         },
+        {
+          "title": "Distance (mi.)",
+          "value": metersToMiles(businesses[0].distance),
+          "short": true
+        },
       ],
       "title": businesses[0].name,
       "title_link": businesses[0].url,
-      "author_name": "Travis Nguyen",
+      "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      "image_url": businesses[0].image_url
+      // "image_url": businesses[0].image_url
+      "thumb_url": businesses[0].image_url
+    }]
+  };
+
+  const secondBiz = {
+    "attachments": [{
+      "fields": [{
+          "title": "Type",
+          "value": businesses[1].categories[0].title,
+          "short": true
+        },
+        {
+          "title": "Price",
+          "value": businesses[1].price,
+          "short": true
+        },
+        {
+          "title": "Reviews",
+          "value": businesses[1].review_count,
+          "short": true
+        },
+        {
+          "title": "Avg Rating",
+          "value": businesses[1].rating,
+          "short": true
+        },
+        {
+          "title": "Distance (mi.)",
+          "value": metersToMiles(businesses[1].distance),
+          "short": true
+        },
+      ],
+      "title": businesses[1].name,
+      "title_link": businesses[1].url,
+      "author_name": "Yack Team",
+      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
+      "thumb_url": businesses[1].image_url
+      // "image_url": businesses[1].image_url
+    }]
+  };
+
+  const thirdBiz = {
+    "attachments": [{
+      "fields": [{
+          "title": "Type",
+          "value": businesses[2].categories[0].title,
+          "short": true
+        },
+        {
+          "title": "Price",
+          "value": businesses[2].price,
+          "short": true
+        },
+        {
+          "title": "Reviews",
+          "value": businesses[2].review_count,
+          "short": true
+        },
+        {
+          "title": "Avg Rating",
+          "value": businesses[2].rating,
+          "short": true
+        },
+        {
+          "title": "Distance (mi.)",
+          "value": metersToMiles(businesses[2].distance),
+          "short": true
+        },
+      ],
+      "title": businesses[2].name,
+      "title_link": businesses[2].url,
+      "author_name": "Yack Team",
+      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
+      "thumb_url": businesses[2].image_url
+      // "image_url": businesses[2].image_url
     }]
   };
 
   webHook.send(test, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
+  });
+  webHook.send(secondBiz, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
+  });
+  webHook.send(thirdBiz, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
