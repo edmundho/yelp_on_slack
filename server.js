@@ -1,6 +1,6 @@
 const express = require('express');
 const yelp = require('yelp-fusion');
-
+const slackTestFunction = require('./routes.js');
 const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fxVufMS-GkjpubE75qvcr4Qf6Wm5HvMHgGwBRSSQUVj7kXD6hBmEa8wnu6FIa0lFssF2NWIm4tW3Yx");
 
 const app = express();
@@ -11,6 +11,8 @@ app.get('/', (req, res) => {
 
   res.json({ hello: "world" });
 });
+
+app.get('/slacktest', slackTestFunction);
 
 app.get('/userrequest', (req, res) => {
 
