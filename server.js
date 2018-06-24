@@ -16,6 +16,11 @@ app.get('/', (req, res) => {
 
 app.get('/slacktest', slackTestFunction);
 
+app.post('/posttest', (req, res) => {
+  res.redirect('/slacktest');
+  // res.send('POSTING');
+});
+
 app.get('/userrequest', (req, res) => {
 
   client.search({
