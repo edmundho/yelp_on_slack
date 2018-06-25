@@ -38,7 +38,7 @@ app.post('/posttest', (req, res) => {
 
   if (token === 'hymKkILsxWJZWZ5g9JTSJt3X') {
     const dialog = {
-      token: process.env.SLACK_ACCESS_TOKEN,
+      token: "xoxp-387620765190-386655980211-386643882977-ce0aff035cb23351fc0476e25ae3b239",
       trigger_id, 
       dialog: JSON.stringify({
         title: 'Create a Poll',
