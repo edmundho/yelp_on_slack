@@ -9,8 +9,8 @@ const mongoose = require('mongoose');
 const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
 
 mongoose.connect(mongoDB);
-require('./models/workspace');
-require('./populatedb');
+
+const Workspace = require('./models/workspace');
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -69,7 +69,8 @@ app.get('/auth', (req, res) => {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
-      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,// + 
+      // '&redirect_uri=https://yelponslack.herokuapp.com/',
     method: 'GET'
   };
 
@@ -80,9 +81,14 @@ app.get('/auth', (req, res) => {
       console.log(JSONresponse);
       res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
     } else {
-      console.log(JSONresponse);
-      // res.send("Success!")
-      res.send(JSONresponse);
+      // extract workspace information from JSONresponse after workspace installs our app
+      const workspaceAccessToken = JSONresponse.access_token;
+      const workspaceTeamName = JSONresponse.team_name;
+      const workspaceTeamId = JSONresponse.team_id;
+      const newEntry = new Workspace({ team_id: workspaceTeamId, access_token: workspaceAccessToken });
+      newEntry.save();
+      res.send("Success!")
+      // res.send(JSONresponse);
     }
   });
 });
@@ -93,18 +99,20 @@ app.get('/slacktest', slackTestFunction);
 app.post('/posttest', (req, res) => {
 
   // trigger id lets us match up our response to whatever action triggered it
-  const { token, text, trigger_id} = req.body;
   // this topmost token refers to the token sent by the request specifying that it came from slack
-
-  if (token === process.env.SLACK_VERIFICATION_TOKEN) {
-    // dialog object
+  const { token, team_id, trigger_id} = req.body;
+  let slackAccessToken;
+  Workspace.findOne({ team_id: team_id}).then(workspace => {
+    slackAccessToken = workspace.access_token;
+    
+    if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+      // dialog object
+   
     const dialog = {
       // token that allows us to take actions on behalf of the workplace/user
-      token: process.env.SLACK_ACCESS_TOKEN,
-
+      token: slackAccessToken,
       trigger_id, 
       // convert to a json string
-
       dialog: JSON.stringify({
         title: 'Create a Poll',
         callback_id: 'submit-form',
@@ -167,14 +175,17 @@ app.post('/posttest', (req, res) => {
       .then((result) => {
         debug('dialog.open: %o', result.data);
         res.send(JSON.stringify(req.body));
-      }).catch((err) => {
-        debug('dialog.open call failed: $o', err);
+      }).catch((error) => {
+        debug('dialog.open call failed: $o', error);
         res.sendStatus(501);
       });
   } else {
     debug('Verification token mismatch');
     res.sendStatus(400);
   }
+  }, () => {
+    res.sendStatus(505);
+  });
 });
 
 //route to accept button-presses and form submissions
@@ -201,9 +212,11 @@ app.post('/interactive-component', (req, res) => {
 app.get('/userrequest', (req, res) => {
 
   client.search({
-    term: 'indian',
+    term: 'hamburger',
     price: [1, 2], // 1 or 2 dollar signs
-    location: 'soma, san francisco',
+    location: 'ferry plaza, san francisco',
+    radius: 1500,
+    sort_by: "distance",
   }).then(response => {
     const filteredResults = response.jsonBody.businesses;
 
