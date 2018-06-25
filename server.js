@@ -149,7 +149,7 @@ app.post('/posttest', (req, res) => {
 });
 
 //route to accept button-presses and form submissions
-app.post('interactive-component', (req, res) => {
+app.post('/interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
 
   // check for verification token
