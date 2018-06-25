@@ -1,5 +1,6 @@
 'use strict';
 require('dotenv').config();
+const YelpAPIUtil = require('./util/yelp_api_helpers');
 const express = require('express');
 const request = require('request');
 const yelp = require('yelp-fusion');
@@ -10,6 +11,7 @@ const slackTestFunction = require('./routes.js');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
+const { IncomingWebhook } = require('@slack/client');
 
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
@@ -131,40 +133,6 @@ app.post('/posttest', (req, res) => {
   }
 });
 
-// Using localStorage on server to store tokens but will probably want to use a real DB (MongoDB)
-const storage = require('node-persist');
-storage.initSync();
-
-let apiUrl = 'https://slack.com/api';
-
-app.get('/auth2', function (req, res) {
-  if (!req.query.code) { // access denied
-    console.log('Access denied');
-    return;
-  }
-  const data = {
-    form: {
-      client_id: process.env.SLACK_CLIENT_ID,
-      client_secret: process.env.SLACK_CLIENT_SECRET,
-      code: req.query.code
-    }
-  };
-  request.post(apiUrl + '/oauth.access', data, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-
-      // Get an auth token (and store the team_id / token)
-      // storage defined above takes place of a DB that we would implement in the future (MongoDB)
-      // Would use MongoDB.insert method
-      storage.setItemSync(JSON.parse(body).team_id, JSON.parse(body).access_token);
-
-      res.sendStatus(200);
-
-      // Show a nicer web page or redirect to Slack, instead of just giving a status 200
-      //res.redirect(__dirname + "/public/success.html");
-    }
-  });
-});
-
 
 
 // slackInteractions.action({ type: 'button' }, (payload, respond) => {
@@ -195,8 +163,42 @@ app.get('/userrequest', (req, res) => {
     filteredResults.forEach(bus => console.log(bus.name)); 
     res.json(filteredResults);
   });
-
 });
+
+const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
+const webHook = new IncomingWebhook(SLACK_WEBHOOK_URL);
+
+app.get('/restaurants', function (req, res) {
+  client.search({
+    term: 'asian',
+    location: '825 Battery St. San Francisco',
+    price: 4,
+    sort_by: 'rating'
+  }).then(response => {
+    console.log(response.jsonBody.businesses);
+    const businesses = response.jsonBody.businesses.slice(0, 3);
+    restaurantMessage(businesses);
+    res.send('Success!');
+  });
+});
+
+const restaurantMessage = (businesses) => {
+  const test = {
+    "attachments": [
+      YelpAPIUtil.buildRestaurantMessage(businesses[0], 0),
+      YelpAPIUtil.buildRestaurantMessage(businesses[1], 1),
+      YelpAPIUtil.buildRestaurantMessage(businesses[2], 2)
+    ]
+  };
+
+  webHook.send(test, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
+  });
+};
 
 app.listen(app.get('port'), () => {
   console.log('App is listening on port ' + app.get('port'));
