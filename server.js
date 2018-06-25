@@ -36,9 +36,9 @@ app.get('/slacktest', slackTestFunction);
 app.post('/posttest', (req, res) => {
   const { token, text, trigger_id} = req.body;
 
-  if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+  if (token === 'hymKkILsxWJZWZ5g9JTSJt3X') {
     const dialog = {
-      token: process.env.SLACK_ACCESS_TOKEN,
+      token: "xoxp-387620765190-386170709969-387144984133-8a4f4b92cd23b2f1b2a60dac6bdf8cc7",
       trigger_id, 
       dialog: JSON.stringify({
         title: 'Create a Poll',
