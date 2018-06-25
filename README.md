@@ -71,33 +71,34 @@ Deciding on a place to go for lunch is a common issue amongst teams in the workp
 
 
 ### Day 1
-  - Determine need for own composite score function for filtering of restaurant data
-  - Complete dialog option to create an interactive timed poll 
-  - Determine necessary restaurant information to display to slack users
-  - Format the data provided by Yelp Fusion API to Slack message builder API
+  - Determine need for own composite score function for filtering of restaurant data **GROUP**
+  - Complete dialog option to create an interactive timed poll **Marshall**
+  - Determine necessary restaurant information to display to slack users **Henry**
+  - Format the data provided by Yelp Fusion API and correctly display as message using Slack message builder API **Travis**
+  - Research Oauth of Slack API and determine need for database (storing channel webhooks) **Edmund**
 
 ### Day 2
-  - Create slash command to create a timed poll
-  - Start on conversion of timed poll results to create request to Yelp Fusion API
-  - Research slack api auth tokens and present findings to group mates
-  - Implement alert that notifies slack channel members that a poll is closing within a specified time frame
+  - Create slash command to create a timed poll **Henry**
+  - Start on conversion of timed poll results to create request to Yelp Fusion API **Marshall**
+  - Research slack api auth tokens and present findings to group mates **Edmund**
+  - Implement alert that notifies slack channel members that a poll is closing within a specified time frame **Travis**
 
 ### Day 3
-  - Reconvene to ensure data and project files are in an organized state
-  - Run tests to ensure whether data yielded from Yelp Fusion API meet group expectations (Bayesian rating filter from yelp)
-  - Walk through process of app to ensure members have general understanding of data flow
-  - Reconfigure data in slack message builder to create interactive and presentable messages for slack users
+  - Reconvene to ensure data and project files are in an organized state **GROUP**
+  - Run tests to ensure whether data yielded from Yelp Fusion API meet group expectations (Bayesian rating filter from yelp) **GROUP**
+  - Walk through process of app to ensure members have general understanding of data flow **GROUP**
+  - Reconfigure data in slack message builder to create interactive and presentable messages for slack users **GROUP**
 
 
 ### Day 4
-  - Setup necessary files and components to create splash page for app
-  - Create user auth for when teams add app to their workspace (determine which users have option of initializing a poll)
-  - Create button that users can click to automatically install the app in their workspace
+  - Setup necessary files and components to create splash page for app **Henry**
+  - Create user auth for when teams add app to their workspace (determine which users have option of initializing a poll) **Edmund / Travis**
+  - Create button that users can click to automatically install the app in their workspace **Marshall**
 
 ### Day 5
-  - Style the splash page
-  - Add directions to front end to ensure users understand purpose and commands of app
+  - Style the splash page **Henry / Travis**
+  - Add directions to front end to ensure users understand purpose and commands of app **Marshall / Edmund**
 
 ### Day 6
- - Look over project and ensure everything is functioning correctly
- - Make styling changes to ensure great UI/UX
+ - Look over project and ensure everything is functioning correctly **GROUP**
+ - Make styling changes to ensure great UI/UX **GROUP**
