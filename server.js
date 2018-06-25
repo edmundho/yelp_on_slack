@@ -2,6 +2,15 @@
 require('dotenv').config();
 const YelpAPIUtil = require('./util/yelp_api_helpers');
 const express = require('express');
+
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://admin:y@ckapril18@ds217671.mlab.com:17671/local_library';
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 const request = require('request');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
