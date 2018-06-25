@@ -64,37 +64,3 @@ const restaurantMessage = (businesses) => {
     }
   });
 };
-
-// Using localStorage on server to store tokens but will probably want to use a real DB (MongoDB)
-// const storage = require('node-persist');
-// storage.initSync();
-
-// let apiUrl = 'https://slack.com/api';
-
-// app.get('/auth2', function (req, res) {
-//   if (!req.query.code) { // access denied
-//     console.log('Access denied');
-//     return;
-//   }
-//   const data = {
-//     form: {
-//       client_id: process.env.SLACK_CLIENT_ID,
-//       client_secret: process.env.SLACK_CLIENT_SECRET,
-//       code: req.query.code
-//     }
-//   };
-//   request.post(apiUrl + '/oauth.access', data, function (error, response, body) {
-//     if (!error && response.statusCode === 200) {
-
-//       // Get an auth token (and store the team_id / token)
-//       // storage defined above takes place of a DB that we would implement in the future (MongoDB)
-//       // Would use MongoDB.insert method
-//       storage.setItemSync(JSON.parse(body).team_id, JSON.parse(body).access_token);
-
-//       res.sendStatus(200);
-
-//       // Show a nicer web page or redirect to Slack, instead of just giving a status 200
-//       //res.redirect(__dirname + "/public/success.html");
-//     }
-//   });
-// });
