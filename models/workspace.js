@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var WorkspaceSchema = new Schema(
+var workspaceSchema = new Schema(
   {
-    teams: {type: Object, required: true}
+    team_id: {type: String, required: true},
+    access_token: {type: String, required: true},
 
 
   }
 );
-
-module.exports = mongoose.Model('Workspace', WorkspaceSchema);
+module.exports = mongoose.model('workspaces', workspaceSchema);

@@ -13,6 +13,7 @@
   "dependencies": {
     "@slack/client": "^4.3.1",
     "@slack/interactive-messages": "^0.4.0",
+    "async": "^2.6.1",
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "body-parser": "^1.18.3",

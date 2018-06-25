@@ -5,8 +5,10 @@ const express = require('express');
 
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://admin:y@ckapril18@ds217671.mlab.com:17671/local_library';
+var mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
 mongoose.connect(mongoDB);
+require('./models/workspace');
+require('./populatedb');
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -58,7 +60,7 @@ app.get('/auth', (req, res) => {
     const JSONresponse = JSON.parse(body);
     if (!JSONresponse.ok) {
       console.log(JSONresponse);
-      res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end()
+      res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
     } else {
       console.log(JSONresponse);
       // res.send("Success!")
