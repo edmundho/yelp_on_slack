@@ -4,3 +4,4 @@
 ./node_modules
 dev.js
 ./dev.js
+node_modules/
