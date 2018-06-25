@@ -7,6 +7,7 @@ const axios = require('axios');
 const qs = require('querystring');
 const slackTestFunction = require('./routes.js');
 const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fxVufMS-GkjpubE75qvcr4Qf6Wm5HvMHgGwBRSSQUVj7kXD6hBmEa8wnu6FIa0lFssF2NWIm4tW3Yx");
+const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 
 
@@ -97,10 +98,15 @@ app.post('/posttest', (req, res) => {
 
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
       .then((result) => {
+        debug('dialog.open: %o', result.data);
         res.send('All done');
       }).catch((err) => {
+        debug('dialog.open call failed: $o', err);
         res.sendStatus(500);
       });
+  } else {
+    debug('Verification token mismatch');
+    res.sendStatus(500);
   }
 });
 
