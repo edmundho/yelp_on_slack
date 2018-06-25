@@ -1,9 +1,18 @@
+const YelpAPIUtil = require('./util/yelp_api_helpers');
+const request = require('request');
 const express = require('express');
 const yelp = require('yelp-fusion');
 const {
   IncomingWebhook,
   WebClient
 } = require('@slack/client');
+
+const PRICE_HASH = {
+  "$": "1",
+  "$$": "2",
+  "$$$": "3",
+  "$$$$": "4"
+};
 
 const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fxVufMS-GkjpubE75qvcr4Qf6Wm5HvMHgGwBRSSQUVj7kXD6hBmEa8wnu6FIa0lFssF2NWIm4tW3Yx");
 const app = express();
@@ -18,18 +27,11 @@ const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/TBDJ8NH5L/BBCVBA02E/
 const webHook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
 app.get('/', (req, res) => {
-
   res.json({
     hello: "test"
   });
 });
 
-const PRICE_HASH = {
-  "$": "1",
-  "$$": "2",
-  "$$$": "3",
-  "$$$$": "4"
-};
 
 app.get('/restaurants', function (req, res) {
   client.search({
@@ -45,118 +47,13 @@ app.get('/restaurants', function (req, res) {
   });
 });
 
-const metersToMiles = meters => (meters * 0.0006).toFixed(1);
-
 const restaurantMessage = (businesses) => {
   const test = {
-    "attachments": [{
-      "fields": [{
-          "title": "Type",
-          "value": businesses[0].categories[0].title,
-          "short": true
-        },
-        {
-          "title": "Price",
-          "value": businesses[0].price,
-          "short": true
-        },
-        {
-          "title": "Reviews",
-          "value": businesses[0].review_count,
-          "short": true
-        },
-        {
-          "title": "Avg Rating",
-          "value": businesses[0].rating,
-          "short": true
-        },
-        {
-          "title": "Distance (mi.)",
-          "value": metersToMiles(businesses[0].distance),
-          "short": true
-        },
-      ],
-      "title": businesses[0].name,
-      "title_link": businesses[0].url,
-      "author_name": "Yack Team",
-      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      // "image_url": businesses[0].image_url
-      "thumb_url": businesses[0].image_url
-    }]
-  };
-
-  const secondBiz = {
-    "attachments": [{
-      "fields": [{
-          "title": "Type",
-          "value": businesses[1].categories[0].title,
-          "short": true
-        },
-        {
-          "title": "Price",
-          "value": businesses[1].price,
-          "short": true
-        },
-        {
-          "title": "Reviews",
-          "value": businesses[1].review_count,
-          "short": true
-        },
-        {
-          "title": "Avg Rating",
-          "value": businesses[1].rating,
-          "short": true
-        },
-        {
-          "title": "Distance (mi.)",
-          "value": metersToMiles(businesses[1].distance),
-          "short": true
-        },
-      ],
-      "title": businesses[1].name,
-      "title_link": businesses[1].url,
-      "author_name": "Yack Team",
-      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      "thumb_url": businesses[1].image_url
-      // "image_url": businesses[1].image_url
-    }]
-  };
-
-  const thirdBiz = {
-    "attachments": [{
-      "fields": [{
-          "title": "Type",
-          "value": businesses[2].categories[0].title,
-          "short": true
-        },
-        {
-          "title": "Price",
-          "value": businesses[2].price,
-          "short": true
-        },
-        {
-          "title": "Reviews",
-          "value": businesses[2].review_count,
-          "short": true
-        },
-        {
-          "title": "Avg Rating",
-          "value": businesses[2].rating,
-          "short": true
-        },
-        {
-          "title": "Distance (mi.)",
-          "value": metersToMiles(businesses[2].distance),
-          "short": true
-        },
-      ],
-      "title": businesses[2].name,
-      "title_link": businesses[2].url,
-      "author_name": "Yack Team",
-      "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-      "thumb_url": businesses[2].image_url
-      // "image_url": businesses[2].image_url
-    }]
+    "attachments": [
+      YelpAPIUtil.buildRestaurantMessage(businesses[0], 0), 
+      YelpAPIUtil.buildRestaurantMessage(businesses[1], 1), 
+      YelpAPIUtil.buildRestaurantMessage(businesses[2], 2)
+    ]
   };
 
   webHook.send(test, function (err, res) {
@@ -166,18 +63,38 @@ const restaurantMessage = (businesses) => {
       console.log('Message successfully sent');
     }
   });
-  webHook.send(secondBiz, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      console.log('Message successfully sent');
-    }
-  });
-  webHook.send(thirdBiz, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      console.log('Message successfully sent');
-    }
-  });
 };
+
+// Using localStorage on server to store tokens but will probably want to use a real DB (MongoDB)
+// const storage = require('node-persist');
+// storage.initSync();
+
+// let apiUrl = 'https://slack.com/api';
+
+// app.get('/auth2', function (req, res) {
+//   if (!req.query.code) { // access denied
+//     console.log('Access denied');
+//     return;
+//   }
+//   const data = {
+//     form: {
+//       client_id: process.env.SLACK_CLIENT_ID,
+//       client_secret: process.env.SLACK_CLIENT_SECRET,
+//       code: req.query.code
+//     }
+//   };
+//   request.post(apiUrl + '/oauth.access', data, function (error, response, body) {
+//     if (!error && response.statusCode === 200) {
+
+//       // Get an auth token (and store the team_id / token)
+//       // storage defined above takes place of a DB that we would implement in the future (MongoDB)
+//       // Would use MongoDB.insert method
+//       storage.setItemSync(JSON.parse(body).team_id, JSON.parse(body).access_token);
+
+//       res.sendStatus(200);
+
+//       // Show a nicer web page or redirect to Slack, instead of just giving a status 200
+//       //res.redirect(__dirname + "/public/success.html");
+//     }
+//   });
+// });
