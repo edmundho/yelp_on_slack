@@ -1,4 +1,5 @@
 const YelpAPIUtil = require('./util/yelp_api_helpers');
+const request = require('request');
 const express = require('express');
 const yelp = require('yelp-fusion');
 const {
