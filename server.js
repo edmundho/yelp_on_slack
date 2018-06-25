@@ -193,11 +193,22 @@ app.get('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     console.log(response.jsonBody.businesses);
-    const businesses = response.jsonBody.businesses.slice(4, 8);
+    const businesses = selectRandomRestaurants(response.jsonBody.businesses);
     restaurantMessage(businesses); //Helper method that creates restaurant messages using slack api message builder
     res.send('Success!');
   });
 });
+
+const selectRandomRestaurants = (businesses) => {
+  const arr = [];
+  while (arr.length < 3) {
+    var randomNum = Math.floor(Math.random() * businesses.length);
+    if (arr.indexOf(randomNum) > -1) continue;
+    arr.push(businesses[randomNum]);
+  }
+
+  return arr;
+};
 
 // Helper method that selects the first three businesses that were filtered from the yelp fusion api
 // Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
