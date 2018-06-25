@@ -84,7 +84,6 @@ const restaurantMessage = (businesses) => {
         "title_link": businesses[0].url,
         "author_name": "Yack Team",
         "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
-        // "image_url": businesses[0].image_url
         "thumb_url": businesses[0].image_url
       },
       {
@@ -123,7 +122,6 @@ const restaurantMessage = (businesses) => {
         "author_name": "Yack Team",
         "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
         "thumb_url": businesses[1].image_url
-        // "image_url": businesses[1].image_url
       }, {
         "fields": [{
             "title": "Type",
@@ -160,7 +158,6 @@ const restaurantMessage = (businesses) => {
         "author_name": "Yack Team",
         "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
         "thumb_url": businesses[2].image_url
-        // "image_url": businesses[2].image_url
       }
     ]
   };
@@ -198,7 +195,6 @@ const restaurantMessage = (businesses) => {
       "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
       "thumb_url": businesses[1].image_url
-      // "image_url": businesses[1].image_url
     }]
   };
 
@@ -235,7 +231,6 @@ const restaurantMessage = (businesses) => {
       "author_name": "Yack Team",
       "author_icon": "http://a.slack-edge.com/7f18/img/api/homepage_custom_integrations-2x.png",
       "thumb_url": businesses[2].image_url
-      // "image_url": businesses[2].image_url
     }]
   };
 
@@ -246,20 +241,4 @@ const restaurantMessage = (businesses) => {
       console.log('Message successfully sent');
     }
   });
-
-
-  // webHook.send(secondBiz, function (err, res) {
-  //   if (err) {
-  //     console.log('Error:', err);
-  //   } else {
-  //     console.log('Message successfully sent');
-  //   }
-  // });
-  // webHook.send(thirdBiz, function (err, res) {
-  //   if (err) {
-  //     console.log('Error:', err);
-  //   } else {
-  //     console.log('Message successfully sent');
-  //   }
-  // });
 };
