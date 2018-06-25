@@ -6,9 +6,10 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const qs = require('querystring');
 const slackTestFunction = require('./routes.js');
-const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fxVufMS-GkjpubE75qvcr4Qf6Wm5HvMHgGwBRSSQUVj7kXD6hBmEa8wnu6FIa0lFssF2NWIm4tW3Yx");
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
+const client = yelp.client(process.env.YELP_KEY);
+
 
 
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
@@ -25,6 +26,10 @@ app.get('/', (req, res) => {
 
   res.json({ hello: "world" });
 });
+
+// app.get('/auth', (req, res) => {
+
+// })
 // SLACK
 app.get('/slacktest', slackTestFunction);
 
