@@ -148,20 +148,6 @@ app.post('/posttest', (req, res) => {
   }
 });
 
-
-
-// slackInteractions.action({ type: 'button' }, (payload, respond) => {
-//   // console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed a button`);
-//   // console.log(payload);
-//   respond({
-//     text: 'Thanks for pressing the button, idiot.'
-//   });
-
-//   const reply = payload.original_message;
-//   delete reply.attachments[0].actions;
-//   return reply;
-// });
-// // app.post('/posttest', slackResponseFunction);
 //route to accept button-presses and form submissions
 app.post('interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
@@ -171,9 +157,11 @@ app.post('interactive-component', (req, res) => {
     debug(`Form submission received: ${body.submission.trigger_id}`);
 
     // default response so slack doesnt close our request
-    res.send('');
+    res.send('nicenice');
 
-    
+    axios.get('https://yelponslack.herokuapp.com/restaurants');
+
+
   }
 });
 
