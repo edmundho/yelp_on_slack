@@ -170,9 +170,11 @@ app.post('/interactive-component', (req, res) => {
 app.get('/userrequest', (req, res) => {
 
   client.search({
-    term: 'indian',
+    term: 'hamburger',
     price: [1, 2], // 1 or 2 dollar signs
-    location: 'soma, san francisco',
+    location: 'ferry plaza, san francisco',
+    radius: 1500,
+    sort_by: "distance",
   }).then(response => {
     const filteredResults = response.jsonBody.businesses;
 
