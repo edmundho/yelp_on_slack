@@ -5,6 +5,7 @@ const express = require('express');
 
 //Set up mongoose connection
 const mongoose = require('mongoose');
+//to be hidden later and removed user
 const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
 
 mongoose.connect(mongoDB);
@@ -15,18 +16,20 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const Workspace = require('./models/workspace');
 
-
-var sample = new Workspace({
+//testing the seed
+const sample = new Workspace({
   team_id: '6',
   access_token: '2'
 });
-var sample2 = new Workspace({
+const sample2 = new Workspace({
   team_id: '7',
   access_token: '5'
 });
 
 sample.save();
 sample2.save();
+
+
 
 const request = require('request');
 const yelp = require('yelp-fusion');
