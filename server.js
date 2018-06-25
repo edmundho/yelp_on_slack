@@ -7,7 +7,7 @@ const express = require('express');
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
 mongoose.connect(mongoDB);
-require('./populatedb');
+
 const Workspace = require('./models/workspace');
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -67,6 +67,8 @@ app.get('/auth', (req, res) => {
       const workspaceAccessToken = JSONresponse.access_token;
       const workspaceTeamName = JSONresponse.team_name;
       const workspaceTeamId = JSONresponse.team_id;
+      const newEntry = new Workspace({ team_id: workspaceTeamId, access_token: workspaceAccessToken });
+      newEntry.save();
       res.send("Success!")
       // res.send(JSONresponse);
     }
