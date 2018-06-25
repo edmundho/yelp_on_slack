@@ -1,8 +1,13 @@
 const metersToMiles = (meters) => (meters * 0.0006).toFixed(1);
+const ICON_HASH = {
+  0: ":fire:",
+  1: ":thumbsup:",
+  2: ":star:"
+};
 
 module.exports = {
   metersToMiles: (meters) => (meters * 0.0006).toFixed(1),
-  buildRestaurantMessage: (restaurant) => (
+  buildRestaurantMessage: (restaurant, num) => (
     {
       "fields": [{
           "title": "Type",
@@ -29,7 +34,7 @@ module.exports = {
           "value": metersToMiles(restaurant.distance),
           "short": true
         }, {
-          "title": "Vote with :fire:",
+          "title": `Vote with ${ICON_HASH[num]}`,
           "value": '',
           "short": true
         }

@@ -7,6 +7,13 @@ const {
   WebClient
 } = require('@slack/client');
 
+const PRICE_HASH = {
+  "$": "1",
+  "$$": "2",
+  "$$$": "3",
+  "$$$$": "4"
+};
+
 const client = yelp.client("BJY8o0hC_pZdzuFqjbGW7cdeZR-TWCULNZnzzle-X7OchaPm_4fxVufMS-GkjpubE75qvcr4Qf6Wm5HvMHgGwBRSSQUVj7kXD6hBmEa8wnu6FIa0lFssF2NWIm4tW3Yx");
 const app = express();
 
@@ -25,12 +32,6 @@ app.get('/', (req, res) => {
   });
 });
 
-const PRICE_HASH = {
-  "$": "1",
-  "$$": "2",
-  "$$$": "3",
-  "$$$$": "4"
-};
 
 app.get('/restaurants', function (req, res) {
   client.search({
@@ -49,9 +50,9 @@ app.get('/restaurants', function (req, res) {
 const restaurantMessage = (businesses) => {
   const test = {
     "attachments": [
-      YelpAPIUtil.buildRestaurantMessage(businesses[0]), 
-      YelpAPIUtil.buildRestaurantMessage(businesses[1]), 
-      YelpAPIUtil.buildRestaurantMessage(businesses[2])
+      YelpAPIUtil.buildRestaurantMessage(businesses[0], 0), 
+      YelpAPIUtil.buildRestaurantMessage(businesses[1], 1), 
+      YelpAPIUtil.buildRestaurantMessage(businesses[2], 2)
     ]
   };
 
