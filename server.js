@@ -146,7 +146,7 @@ app.post('/posttest', (req, res) => {
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
       .then((result) => {
         debug('dialog.open: %o', result.data);
-        res.send('All done');
+        res.send(JSON.stringify(req.body));
       }).catch((err) => {
         debug('dialog.open call failed: $o', err);
         res.sendStatus(501);
@@ -157,22 +157,8 @@ app.post('/posttest', (req, res) => {
   }
 });
 
-
-
-// slackInteractions.action({ type: 'button' }, (payload, respond) => {
-//   // console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed a button`);
-//   // console.log(payload);
-//   respond({
-//     text: 'Thanks for pressing the button, idiot.'
-//   });
-
-//   const reply = payload.original_message;
-//   delete reply.attachments[0].actions;
-//   return reply;
-// });
-// // app.post('/posttest', slackResponseFunction);
 //route to accept button-presses and form submissions
-app.post('interactive-component', (req, res) => {
+app.post('/interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
 
   // check for verification token
@@ -182,7 +168,12 @@ app.post('interactive-component', (req, res) => {
     // default response so slack doesnt close our request
     res.send('');
 
-    
+    axios.get('https://yelponslack.herokuapp.com/restaurants');
+
+
+  } else {
+    debug("Token mismatch");
+    res.sendStatus(500);
   }
 });
 
