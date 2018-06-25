@@ -184,7 +184,7 @@ app.get('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     console.log(response.jsonBody.businesses);
-    const businesses = response.jsonBody.businesses.slice(0, 3);
+    const businesses = response.jsonBody.businesses.slice(4, 8);
     restaurantMessage(businesses); //Helper method that creates restaurant messages using slack api message builder
     res.send('Success!');
   });
