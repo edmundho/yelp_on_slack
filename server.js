@@ -4,14 +4,29 @@ const YelpAPIUtil = require('./util/yelp_api_helpers');
 const express = require('express');
 
 //Set up mongoose connection
-var mongoose = require('mongoose');
-var mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
+const mongoose = require('mongoose');
+const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
+
 mongoose.connect(mongoDB);
 require('./models/workspace');
 require('./populatedb');
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+const Workspace = require('./models/workspace');
+
+
+var sample = new Workspace({
+  team_id: '6',
+  access_token: '2'
+});
+var sample2 = new Workspace({
+  team_id: '7',
+  access_token: '5'
+});
+
+sample.save();
+sample2.save();
 
 const request = require('request');
 const yelp = require('yelp-fusion');
