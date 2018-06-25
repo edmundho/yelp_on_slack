@@ -34,14 +34,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/auth', (req, res) => {
+  // when a team installs our app on their workspace by pressing our "add to slack" button, they will get re-directed to our /auth route with a code they get from the oauth.access website.
+
   const options = {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
-      '&client_id=' + process.env.CLIENT_ID +
-      '&client_secret=' + process.env.CLIENT_SECRET,
+      '&client_id=' + process.env.SLACK_CLIENT_ID +
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,
     method: 'GET'
   };
 
+  // we then take the code, put it in the above options object, and then make a new request to Slack, which authorizes our app to do stuff with the workspace. this is the only time we get access to the workspace's webhook url, slack access token, workspace name, etc. via the body, which we store in JSONresponse.
   request(options, (error, response, body) => {
     const JSONresponse = JSON.parse(body);
     if (!JSONresponse.ok) {

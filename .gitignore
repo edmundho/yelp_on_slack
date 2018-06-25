@@ -1,3 +1,11 @@
+./.env
+/.env
 .env
+<<<<<<< HEAD
 node_modules/
 package-lock.json
+=======
+./node_modules
+dev.js
+./dev.js
+>>>>>>> c1a23c7a72faf0b821965fb1a1a1a4ab0f95fe35
