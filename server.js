@@ -63,9 +63,12 @@ app.get('/auth', (req, res) => {
       console.log(JSONresponse);
       res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
     } else {
-      console.log(JSONresponse);
-      // res.send("Success!")
-      res.send(JSONresponse);
+      // extract workspace information from JSONresponse after workspace installs our app
+      const workspaceAccessToken = JSONresponse.access_token;
+      const workspaceTeamName = JSONresponse.team_name;
+      const workspaceTeamId = JSONresponse.team_id;
+      res.send("Success!")
+      // res.send(JSONresponse);
     }
   });
 });
