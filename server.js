@@ -11,19 +11,25 @@ const slackTestFunction = require('./routes.js');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
-const { IncomingWebhook } = require('@slack/client');
+const {
+  IncomingWebhook
+} = require('@slack/client');
 
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 // app.use('/posttest', slackInteractions.expressMiddleware());
 app.set('port', process.env.PORT || 5000);
 
 app.get('/', (req, res) => {
-  res.json({ hello: "world" });
+  res.json({
+    hello: "world"
+  });
 });
 
 app.get('/auth', (req, res) => {
@@ -52,25 +58,27 @@ app.get('/auth', (req, res) => {
 app.get('/slacktest', slackTestFunction);
 
 app.post('/posttest', (req, res) => {
-  const { token, text, trigger_id} = req.body;
+  const {
+    token,
+    text,
+    trigger_id
+  } = req.body;
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
     const dialog = {
       token: process.env.SLACK_ACCESS_TOKEN,
-      trigger_id, 
+      trigger_id,
       dialog: JSON.stringify({
         title: 'Create a Poll',
         callback_id: 'submit-form',
         submit_label: 'Submit',
-        elements: [
-          {
+        elements: [{
             label: 'Price',
             type: 'select',
             name: 'price_list',
-            options: [
-              {
+            options: [{
                 label: "$",
-                value: "one$" 
+                value: "one$"
               },
               {
                 label: "$$",
@@ -90,8 +98,7 @@ app.post('/posttest', (req, res) => {
             label: 'Distance',
             type: 'select',
             name: 'distance_range',
-            options: [
-              {
+            options: [{
                 label: "0.5mi",
                 value: 0.5
               },
@@ -160,7 +167,7 @@ app.get('/userrequest', (req, res) => {
     const filteredResults = response.jsonBody.businesses;
 
     // logs to server console
-    filteredResults.forEach(bus => console.log(bus.name)); 
+    filteredResults.forEach(bus => console.log(bus.name));
     res.json(filteredResults);
   });
 });
@@ -168,6 +175,7 @@ app.get('/userrequest', (req, res) => {
 const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
 const webHook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
+// Hard-coded at the moment and will want to replace with user request data
 app.get('/restaurants', function (req, res) {
   client.search({
     term: 'asian',
@@ -177,11 +185,13 @@ app.get('/restaurants', function (req, res) {
   }).then(response => {
     console.log(response.jsonBody.businesses);
     const businesses = response.jsonBody.businesses.slice(0, 3);
-    restaurantMessage(businesses);
+    restaurantMessage(businesses); //Helper method that creates restaurant messages using slack api message builder
     res.send('Success!');
   });
 });
 
+// Helper method that selects the first three businesses that were filtered from the yelp fusion api
+// Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
 const restaurantMessage = (businesses) => {
   const test = {
     "attachments": [
