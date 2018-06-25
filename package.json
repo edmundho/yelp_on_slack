@@ -19,6 +19,7 @@
     "debug": "^3.1.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "mongoose": "^5.1.6",
     "nodemon": "^1.17.5",
     "qs": "^6.5.2",
     "querystring": "^0.2.0",
