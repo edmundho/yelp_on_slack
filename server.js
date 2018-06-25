@@ -2,6 +2,17 @@
 require('dotenv').config();
 const YelpAPIUtil = require('./util/yelp_api_helpers');
 const express = require('express');
+
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
+mongoose.connect(mongoDB);
+require('./models/workspace');
+require('./populatedb');
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 const request = require('request');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
@@ -50,7 +61,7 @@ app.get('/auth', (req, res) => {
     const JSONresponse = JSON.parse(body);
     if (!JSONresponse.ok) {
       console.log(JSONresponse);
-      res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end()
+      res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
     } else {
       console.log(JSONresponse);
       // res.send("Success!")
@@ -138,7 +149,7 @@ app.post('/posttest', (req, res) => {
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
       .then((result) => {
         debug('dialog.open: %o', result.data);
-        res.send('All done');
+        res.send(JSON.stringify(req.body));
       }).catch((err) => {
         debug('dialog.open call failed: $o', err);
         res.sendStatus(501);
@@ -158,11 +169,14 @@ app.post('/interactive-component', (req, res) => {
     debug(`Form submission received: ${body.submission.trigger_id}`);
 
     // default response so slack doesnt close our request
-    res.send('nicenice');
+    res.send('');
 
     axios.get('https://yelponslack.herokuapp.com/restaurants');
 
 
+  } else {
+    debug("Token mismatch");
+    res.sendStatus(500);
   }
 });
 
@@ -196,11 +210,22 @@ app.get('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     console.log(response.jsonBody.businesses);
-    const businesses = response.jsonBody.businesses.slice(4, 8);
+    const businesses = selectRandomRestaurants(response.jsonBody.businesses);
     restaurantMessage(businesses); //Helper method that creates restaurant messages using slack api message builder
     res.send('Success!');
   });
 });
+
+const selectRandomRestaurants = (businesses) => {
+  const arr = [];
+  while (arr.length < 3) {
+    var randomNum = Math.floor(Math.random() * businesses.length);
+    if (arr.indexOf(randomNum) > -1) continue;
+    arr.push(businesses[randomNum]);
+  }
+
+  return arr;
+};
 
 // Helper method that selects the first three businesses that were filtered from the yelp fusion api
 // Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
