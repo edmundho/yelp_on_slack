@@ -159,7 +159,20 @@ app.post('/posttest', (req, res) => {
 //   return reply;
 // });
 // // app.post('/posttest', slackResponseFunction);
+//route to accept button-presses and form submissions
+app.post('interactive-component', (req, res) => {
+  const body = JSON.parse(req.body.payload);
 
+  // check for verification token
+  if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+    debug(`Form submission received: ${body.submission.trigger_id}`);
+
+    // default response so slack doesnt close our request
+    res.send('');
+
+    
+  }
+});
 
 // YELP
 app.get('/userrequest', (req, res) => {
