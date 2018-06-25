@@ -19,9 +19,10 @@ const {
 
 const app = express();
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+// extended: true allows nested objects
+app.use(bodyParser.urlencoded({ extended: true }));
+// specifying that we want json to be used
+
 app.use(bodyParser.json());
 // app.use('/posttest', slackInteractions.expressMiddleware());
 app.set('port', process.env.PORT || 5000);
@@ -59,18 +60,22 @@ app.get('/auth', (req, res) => {
 
 // SLACK
 app.get('/slacktest', slackTestFunction);
-
+// /yack slash command send HTTP post request to this url. We send back a dialog window.
 app.post('/posttest', (req, res) => {
-  const {
-    token,
-    text,
-    trigger_id
-  } = req.body;
+
+  // trigger id lets us match up our response to whatever action triggered it
+  const { token, text, trigger_id} = req.body;
+  // this topmost token refers to the token sent by the request specifying that it came from slack
 
   if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+    // dialog object
     const dialog = {
+      // token that allows us to take actions on behalf of the workplace/user
       token: process.env.SLACK_ACCESS_TOKEN,
-      trigger_id,
+
+      trigger_id, 
+      // convert to a json string
+
       dialog: JSON.stringify({
         title: 'Create a Poll',
         callback_id: 'submit-form',
@@ -128,7 +133,7 @@ app.post('/posttest', (req, res) => {
         ]
       })
     };
-
+    // send an http post request to open the dialog, and we pass the dialog
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
       .then((result) => {
         debug('dialog.open: %o', result.data);

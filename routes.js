@@ -9,27 +9,7 @@ module.exports = function(req, response){
   const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
   const webhook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
-  const object = {
-    "trigger_id": "13345224609.738474920.8088930838d88f008e0",
-    "dialog": {
-      "callback_id": "ryde-46e2b0",
-      "title": "Request a Ride",
-      "submit_label": "Request",
-      "notify_on_cancel": true,
-      "elements": [
-        {
-          "type": "text",
-          "label": "Pickup Location",
-          "name": "loc_origin"
-        },
-        {
-          "type": "text",
-          "label": "Dropoff Location",
-          "name": "loc_destination"
-        }
-      ]
-    }
-  };
+  
   // const object = {
   //   "text": "Time to decide where to eat!",
   //   "response_type": "in_channel",
