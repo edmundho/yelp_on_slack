@@ -39,7 +39,8 @@ app.get('/auth', (req, res) => {
       res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end()
     } else {
       console.log(JSONresponse)
-      res.send("Success!")
+      // res.send("Success!")
+      res.send(JSONresponse);
     }
   })
 })
