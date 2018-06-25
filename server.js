@@ -7,7 +7,7 @@ const express = require('express');
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
 mongoose.connect(mongoDB);
-require('./populatedb');
+
 const Workspace = require('./models/workspace');
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -51,7 +51,8 @@ app.get('/auth', (req, res) => {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
-      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,// + 
+      // '&redirect_uri=https://yelponslack.herokuapp.com/',
     method: 'GET'
   };
 
@@ -62,9 +63,14 @@ app.get('/auth', (req, res) => {
       console.log(JSONresponse);
       res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
     } else {
-      console.log(JSONresponse);
-      // res.send("Success!")
-      res.send(JSONresponse);
+      // extract workspace information from JSONresponse after workspace installs our app
+      const workspaceAccessToken = JSONresponse.access_token;
+      const workspaceTeamName = JSONresponse.team_name;
+      const workspaceTeamId = JSONresponse.team_id;
+      const newEntry = new Workspace({ team_id: workspaceTeamId, access_token: workspaceAccessToken });
+      newEntry.save();
+      res.send("Success!")
+      // res.send(JSONresponse);
     }
   });
 });
@@ -188,9 +194,11 @@ app.post('/interactive-component', (req, res) => {
 app.get('/userrequest', (req, res) => {
 
   client.search({
-    term: 'indian',
+    term: 'hamburger',
     price: [1, 2], // 1 or 2 dollar signs
-    location: 'soma, san francisco',
+    location: 'ferry plaza, san francisco',
+    radius: 1500,
+    sort_by: "distance",
   }).then(response => {
     const filteredResults = response.jsonBody.businesses;
 
