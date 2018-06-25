@@ -41,7 +41,7 @@ app.get('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     console.log(response.jsonBody.businesses);
-    const businesses = response.jsonBody.businesses.slice(4, 8);
+    const businesses = response.jsonBody.businesses.slice(0, 3);
     restaurantMessage(businesses);
     res.send('Success!');
   });
@@ -56,115 +56,7 @@ const restaurantMessage = (businesses) => {
     ]
   };
 
-  const test2 = {
-    "attachments": [{
-        "fields": [{
-            "title": "Type",
-            "value": businesses[0].categories[0].title,
-            "short": true
-          },
-          {
-            "title": "Price",
-            "value": businesses[0].price,
-            "short": true
-          },
-          {
-            "title": "Reviews",
-            "value": businesses[0].review_count,
-            "short": true
-          },
-          {
-            "title": "Avg Rating",
-            "value": businesses[0].rating,
-            "short": true
-          },
-          {
-            "title": "Distance (mi.)",
-            "value": YelpAPIUtil.metersToMiles(businesses[0].distance),
-            "short": true
-          }, {
-            "title": "Vote with :thumbsup:",
-            "value": '',
-            "short": true
-          }
-        ],
-        "title": businesses[0].name,
-        "title_link": businesses[0].url,
-        "thumb_url": businesses[0].image_url
-      },
-      {
-        "fields": [{
-            "title": "Type",
-            "value": businesses[1].categories[0].title,
-            "short": true
-          },
-          {
-            "title": "Price",
-            "value": businesses[1].price,
-            "short": true
-          },
-          {
-            "title": "Reviews",
-            "value": businesses[1].review_count,
-            "short": true
-          },
-          {
-            "title": "Avg Rating",
-            "value": businesses[1].rating,
-            "short": true
-          },
-          {
-            "title": "Distance (mi.)",
-            "value": YelpAPIUtil.metersToMiles(businesses[1].distance),
-            "short": true
-          }, {
-            "title": "Vote with :fire:",
-            "value": '',
-            "short": true
-          }
-        ],
-        "title": businesses[1].name,
-        "title_link": businesses[1].url,
-        "thumb_url": businesses[1].image_url
-      }, {
-        "fields": [{
-            "title": "Type",
-            "value": businesses[2].categories[0].title,
-            "short": true
-          },
-          {
-            "title": "Price",
-            "value": businesses[2].price,
-            "short": true
-          },
-          {
-            "title": "Reviews",
-            "value": businesses[2].review_count,
-            "short": true
-          },
-          {
-            "title": "Avg Rating",
-            "value": businesses[2].rating,
-            "short": true
-          },
-          {
-            "title": "Distance (mi.)",
-            "value": YelpAPIUtil.metersToMiles(businesses[2].distance),
-            "short": true
-          }, {
-            "title": "Vote with :star:",
-            "value": '',
-            "short": true
-          }
-        ],
-        "title": businesses[2].name,
-        "title_link": businesses[2].url,
-        "thumb_url": businesses[2].image_url
-      }
-    ]
-  };
-
-  webHook.send(test2, function (err, res) {
+  webHook.send(test, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
