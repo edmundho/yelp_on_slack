@@ -1,6 +1,7 @@
 'use strict';
 require('dotenv').config();
 const express = require('express');
+const request = require('request');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
 const axios = require('axios');
@@ -9,8 +10,6 @@ const slackTestFunction = require('./routes.js');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
-
-
 
 // const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
@@ -21,15 +20,29 @@ app.use(bodyParser.json());
 // app.use('/posttest', slackInteractions.expressMiddleware());
 app.set('port', process.env.PORT || 5000);
 
-
 app.get('/', (req, res) => {
-
   res.json({ hello: "world" });
 });
 
-// app.get('/auth', (req, res) => {
-
-// })
+app.get('/auth', (req, res) => {
+  const options = {
+    uri: 'https://slack.com/api/oauth.access?code=' +
+      req.query.code +
+      '&client_id=' + process.env.CLIENT_ID +
+      '&client_secret=' + process.env.CLIENT_SECRET,
+    method: 'GET'
+  }
+  request(options, (error, response, body) => {
+    const JSONresponse = JSON.parse(body)
+    if (!JSONresponse.ok) {
+      console.log(JSONresponse)
+      res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end()
+    } else {
+      console.log(JSONresponse)
+      res.send("Success!")
+    }
+  })
+})
 // SLACK
 app.get('/slacktest', slackTestFunction);
 
