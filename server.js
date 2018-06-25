@@ -78,12 +78,8 @@ app.post('/posttest', (req, res) => {
   // this topmost token refers to the token sent by the request specifying that it came from slack
   const { token, team_id, trigger_id} = req.body;
   let slackAccessToken;
-  Workspace.findOne({ team_id: team_id}, (err, workspace) => {
-    if (err) {
-      res.sendStatus(400);
-    } else {
-      slackAccessToken = workspace.access_token;
-    }
+  Workspace.findOne({ team_id: team_id}).then(workspace => {
+    slackAccessToken = workspace.access_token;
     
     if (token === process.env.SLACK_VERIFICATION_TOKEN) {
       // dialog object
@@ -163,6 +159,8 @@ app.post('/posttest', (req, res) => {
     debug('Verification token mismatch');
     res.sendStatus(400);
   }
+  }, () => {
+    res.sendStatus(505);
   });
 });
 
