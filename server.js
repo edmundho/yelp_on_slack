@@ -36,7 +36,7 @@ app.get('/slacktest', slackTestFunction);
 app.post('/posttest', (req, res) => {
   const { token, text, trigger_id} = req.body;
 
-  if (token === process.env.SLACK_VERIFICATION_TOKEN) {
+  if (token === 'hymKkILsxWJZWZ5g9JTSJt3X') {
     const dialog = {
       token: process.env.SLACK_ACCESS_TOKEN,
       trigger_id, 
