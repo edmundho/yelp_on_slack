@@ -39,8 +39,8 @@ app.get('/auth', (req, res) => {
   const options = {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
-      '&client_id=' + process.env.CLIENT_ID +
-      '&client_secret=' + process.env.CLIENT_SECRET,
+      '&client_id=' + process.env.SLACK_CLIENT_ID +
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,
     method: 'GET'
   };
 
