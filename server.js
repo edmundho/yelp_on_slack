@@ -107,11 +107,11 @@ app.post('/posttest', (req, res) => {
         res.send('All done');
       }).catch((err) => {
         debug('dialog.open call failed: $o', err);
-        res.sendStatus(500);
+        res.sendStatus(501);
       });
   } else {
     debug('Verification token mismatch');
-    res.sendStatus(500);
+    res.sendStatus(400);
   }
 });
 
