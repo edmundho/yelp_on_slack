@@ -1,3 +1,4 @@
+const YelpAPIUtil = require('./util/yelp_api_util');
 const express = require('express');
 const yelp = require('yelp-fusion');
 const {
@@ -18,7 +19,6 @@ const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/TBDJ8NH5L/BBCVBA02E/
 const webHook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
 app.get('/', (req, res) => {
-
   res.json({
     hello: "test"
   });
@@ -45,8 +45,6 @@ app.get('/restaurants', function (req, res) {
   });
 });
 
-const metersToMiles = meters => (meters * 0.0006).toFixed(1);
-
 const restaurantMessage = (businesses) => {
   const test = {
     "attachments": [{
@@ -72,7 +70,7 @@ const restaurantMessage = (businesses) => {
           },
           {
             "title": "Distance (mi.)",
-            "value": metersToMiles(businesses[0].distance),
+            "value": YelpAPIUtil.metersToMiles(businesses[0].distance),
             "short": true
           }, {
             "title": "Vote with :thumbsup:",
@@ -107,7 +105,7 @@ const restaurantMessage = (businesses) => {
           },
           {
             "title": "Distance (mi.)",
-            "value": metersToMiles(businesses[1].distance),
+            "value": YelpAPIUtil.metersToMiles(businesses[1].distance),
             "short": true
           }, {
             "title": "Vote with :fire:",
@@ -141,7 +139,7 @@ const restaurantMessage = (businesses) => {
           },
           {
             "title": "Distance (mi.)",
-            "value": metersToMiles(businesses[2].distance),
+            "value": YelpAPIUtil.metersToMiles(businesses[2].distance),
             "short": true
           }, {
             "title": "Vote with :star:",
@@ -180,7 +178,7 @@ const restaurantMessage = (businesses) => {
         },
         {
           "title": "Distance (mi.)",
-          "value": metersToMiles(businesses[1].distance),
+          "value": YelpAPIUtil.metersToMiles(businesses[1].distance),
           "short": true
         },
       ],
@@ -216,7 +214,7 @@ const restaurantMessage = (businesses) => {
         },
         {
           "title": "Distance (mi.)",
-          "value": metersToMiles(businesses[2].distance),
+          "value": YelpAPIUtil.metersToMiles(businesses[2].distance),
           "short": true
         },
       ],
