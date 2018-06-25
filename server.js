@@ -157,11 +157,14 @@ app.post('/interactive-component', (req, res) => {
     debug(`Form submission received: ${body.submission.trigger_id}`);
 
     // default response so slack doesnt close our request
-    res.send('nicenice');
+    res.send('');
 
     axios.get('https://yelponslack.herokuapp.com/restaurants');
 
 
+  } else {
+    debug("Token mismatch");
+    res.sendStatus(500);
   }
 });
 
