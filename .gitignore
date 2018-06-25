@@ -2,3 +2,5 @@
 /.env
 .env
 ./node_modules
+dev.js
+./dev.js
