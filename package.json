@@ -4,17 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "--inspect"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@slack/client": "^4.3.1",
+    "@slack/interactive-messages": "^0.4.0",
+    "async": "^2.6.1",
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "body-parser": "^1.18.3",
+    "debug": "^3.1.0",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "mongoose": "^5.1.6",
     "nodemon": "^1.17.5",
+    "qs": "^6.5.2",
+    "querystring": "^0.2.0",
+    "request": "^2.87.0",
     "yelp-fusion": "^2.0.3"
   }
 }
