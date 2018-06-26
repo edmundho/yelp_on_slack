@@ -15,6 +15,23 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+// const sample = new Channel({channel_id: 69});
+
+// const handleError = function (err, result) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(result);
+//   }
+// };
+
+// sample.save(function(err, result) {
+//   if (err) {
+//     handleError(err);
+//   } else {
+//     handleError(err, result);
+//   }
+// });
 
 const request = require('request');
 const yelp = require('yelp-fusion');
