@@ -16,11 +16,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-
-const sampleData = new Channel({channel_id: 30, access_token: 5});
-sampleData.save();
-
-
 const request = require('request');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
@@ -72,10 +67,10 @@ app.get('/auth', (req, res) => {
       res.send("Error encountered: \n" + JSON.stringify(JSONresponse)).status(200).end();
     } else {
       // extract workspace information from JSONresponse after workspace installs our app
-      const workspaceAccessToken = JSONresponse.access_token;
-      const workspaceTeamName = JSONresponse.team_name;
-      const workspaceTeamId = JSONresponse.team_id;
-      const newEntry = new Workspace({ team_id: workspaceTeamId, access_token: workspaceAccessToken });
+      const channelAccessToken = JSONresponse.access_token;
+      const channelName = JSONresponse.incoming_webhook.channel;
+      const channelId = JSONresponse.incoming_webhook.channel_id;
+      const newEntry = new Channel({ channel_id: channelId, access_token: channelAccessToken });
       newEntry.save();
       res.send("Success!");
       // res.send(JSONresponse);
@@ -90,10 +85,10 @@ app.post('/posttest', (req, res) => {
 
   // trigger id lets us match up our response to whatever action triggered it
   // this topmost token refers to the token sent by the request specifying that it came from slack
-  const { token, team_id, trigger_id} = req.body;
+  const { token, channel_id, trigger_id} = req.body;
   let slackAccessToken;
-  Workspace.findOne({ team_id: team_id}).then(workspace => {
-    slackAccessToken = workspace.access_token;
+  Channel.findOne({ channel_id: channel_id}).then(channel => {
+    slackAccessToken = channel.access_token;
     
     if (token === process.env.SLACK_VERIFICATION_TOKEN) {
       // dialog object
