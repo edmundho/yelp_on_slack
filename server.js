@@ -15,7 +15,7 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-//USE THIS FORMAT TO CATCH ERRORS
+//USE THIS FORMAT TO CATCH ERRORS for DB creations
 // Channel.create({channel_id: '1', access_token: '2', webhook_url: '3'}, function(err, result){
 //   if (err) {
 //     console.log(err);
