@@ -4,14 +4,22 @@ const YelpAPIUtil = require('./util/yelp_api_helpers');
 const express = require('express');
 
 //Set up mongoose connection
-var mongoose = require('mongoose');
-var mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
+const mongoose = require('mongoose');
+//to be hidden later and removed user
+const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
+
 mongoose.connect(mongoDB);
 
-const Workspace = require('./models/workspace');
+const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+
+const sampleData = new Channel({channel_id: 30, access_token: 5});
+sampleData.save();
+
 
 const request = require('request');
 const yelp = require('yelp-fusion');
@@ -69,7 +77,7 @@ app.get('/auth', (req, res) => {
       const workspaceTeamId = JSONresponse.team_id;
       const newEntry = new Workspace({ team_id: workspaceTeamId, access_token: workspaceAccessToken });
       newEntry.save();
-      res.send("Success!")
+      res.send("Success!");
       // res.send(JSONresponse);
     }
   });
