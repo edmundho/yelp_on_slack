@@ -230,7 +230,7 @@ const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/TBDJ8NH5L/BBCVBA02E/
 
 // Hard-coded at the moment and will want to replace with user request data
 app.post('/restaurants', function (req, res) {
-  // console.log(req.body.channel.webhook_url);
+
   client.search({
     term: 'asian',
     location: '825 Battery St. San Francisco',
@@ -256,6 +256,7 @@ const selectRandomRestaurants = (businesses) => {
 // Helper method that selects the first three businesses that were filtered from the yelp fusion api
 // Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
 const restaurantMessage = (businesses, webHook) => {
+  const webHookUrl = new IncomingWebhook(webHook);
   const test = {
     "attachments": [
       YelpAPIUtil.buildRestaurantMessage(businesses[0], 0),
@@ -264,7 +265,7 @@ const restaurantMessage = (businesses, webHook) => {
     ]
   };
 
-  webHook.send(test, function (err, res) {
+  webHookUrl.send(test, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
