@@ -80,9 +80,12 @@ app.get('/auth', (req, res) => {
       const channelName = JSONresponse.incoming_webhook.channel;
       const channelId = JSONresponse.incoming_webhook.channel_id;
       const webHookUrl = JSONresponse.incoming_webhook.url;
-      const newEntry = new Channel({ channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl });
-      newEntry.save();
-      res.send("Success!");
+      const conditions = { channel_id: channelId};
+      const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
+      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
+        if (err) return res.send(500, {error: err});
+        return res.send('Saved!');
+      });
       // res.send(JSONresponse);
     }
   });
