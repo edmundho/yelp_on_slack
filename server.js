@@ -237,7 +237,7 @@ app.post('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
-    restaurantMessage(businesses, req.data.channel.webhook_url);
+    restaurantMessage(businesses, req);
   });
 });
 
