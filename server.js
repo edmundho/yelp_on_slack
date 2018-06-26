@@ -259,7 +259,7 @@ const selectRandomRestaurants = (businesses) => {
 // Helper method that selects the first three businesses that were filtered from the yelp fusion api
 // Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
 const restaurantMessage = (businesses, webHook) => {
-  const webHookUrl = new IncomingWebhook('https://hooks.slack.com/services/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');
+  const webHookUrl = new IncomingWebhook(webHook);
   const test = {
     "attachments": [
       YelpAPIUtil.buildRestaurantMessage(businesses[0], 0),
