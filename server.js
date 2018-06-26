@@ -10,25 +10,15 @@ const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_librar
 
 mongoose.connect(mongoDB);
 
-const Workspace = require('./models/workspace');
+const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-const Workspace = require('./models/workspace');
 
-//testing the seed
-const sample = new Workspace({
-  team_id: '6',
-  access_token: '2'
-});
-const sample2 = new Workspace({
-  team_id: '7',
-  access_token: '5'
-});
 
-sample.save();
-sample2.save();
 
+const sampleData = new Channel({channel_id: 30, access_token: 5});
+sampleData.save();
 
 
 const request = require('request');
@@ -87,7 +77,7 @@ app.get('/auth', (req, res) => {
       const workspaceTeamId = JSONresponse.team_id;
       const newEntry = new Workspace({ team_id: workspaceTeamId, access_token: workspaceAccessToken });
       newEntry.save();
-      res.send("Success!")
+      res.send("Success!");
       // res.send(JSONresponse);
     }
   });
