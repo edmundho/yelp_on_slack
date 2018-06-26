@@ -249,7 +249,7 @@ const selectRandomRestaurants = (businesses) => {
   const arr = [];
   while (arr.length < 3) {
     var randomNum = Math.floor(Math.random() * businesses.length);
-    if (arr.indexOf(randomNum) > -1) continue;
+    if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
     arr.push(businesses[randomNum]);
   }
 
