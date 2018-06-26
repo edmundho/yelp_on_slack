@@ -70,7 +70,8 @@ app.get('/auth', (req, res) => {
       const channelAccessToken = JSONresponse.access_token;
       const channelName = JSONresponse.incoming_webhook.channel;
       const channelId = JSONresponse.incoming_webhook.channel_id;
-      const newEntry = new Channel({ channel_id: channelId, access_token: channelAccessToken });
+      const webHookUrl = JSONresponse.incoming_webhook.url;
+      const newEntry = new Channel({ channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl });
       newEntry.save();
       res.send("Success!");
       // res.send(JSONresponse);
@@ -176,21 +177,24 @@ app.post('/posttest', (req, res) => {
 //route to accept button-presses and form submissions
 app.post('/interactive-component', (req, res) => {
   const body = JSON.parse(req.body.payload);
+  Channel.findOne({channel_id: body.channel.id}).then( channel => {
+    // check for verification token
+    if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+      debug(`Form submission received: ${body.submission.trigger_id}`);
+  
+      // default response so slack doesnt close our request
+      res.send('');
+  
+      const businesses = axios.get('https://yelponslack.herokuapp.com/restaurants');
+      restaurantMessage(businesses, channel.webhook_url);
+  
+    } else {
+      debug("Token mismatch");
+      res.sendStatus(500);
+      }
+    }
+  );
 
-  // check for verification token
-  if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-    debug(`Form submission received: ${body.submission.trigger_id}`);
-
-    // default response so slack doesnt close our request
-    res.send('');
-
-    axios.get('https://yelponslack.herokuapp.com/restaurants');
-
-
-  } else {
-    debug("Token mismatch");
-    res.sendStatus(500);
-  }
 });
 
 // YELP
@@ -212,7 +216,6 @@ app.get('/userrequest', (req, res) => {
 });
 
 const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
-const webHook = new IncomingWebhook(SLACK_WEBHOOK_URL);
 
 // Hard-coded at the moment and will want to replace with user request data
 app.get('/restaurants', function (req, res) {
@@ -224,8 +227,7 @@ app.get('/restaurants', function (req, res) {
   }).then(response => {
     console.log(response.jsonBody.businesses);
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
-    restaurantMessage(businesses); //Helper method that creates restaurant messages using slack api message builder
-    res.send('Success!');
+    return businesses;
   });
 });
 
@@ -242,7 +244,7 @@ const selectRandomRestaurants = (businesses) => {
 
 // Helper method that selects the first three businesses that were filtered from the yelp fusion api
 // Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
-const restaurantMessage = (businesses) => {
+const restaurantMessage = (businesses, webHook) => {
   const test = {
     "attachments": [
       YelpAPIUtil.buildRestaurantMessage(businesses[0], 0),
