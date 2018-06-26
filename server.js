@@ -236,13 +236,12 @@ const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/TBDJ8NH5L/BBCVBA02E/
 
 // Hard-coded at the moment and will want to replace with user request data
 app.get('/restaurants', function (req, res) {
-  client.search({
+  return client.search({
     term: 'asian',
     location: '825 Battery St. San Francisco',
     price: 4,
     sort_by: 'rating'
   }).then(response => {
-    console.log(response.jsonBody.businesses);
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
     return businesses;
   });
