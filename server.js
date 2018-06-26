@@ -5,10 +5,7 @@ const express = require('express');
 
 //Set up mongoose connection
 const mongoose = require('mongoose');
-//to be hidden later and removed user
-const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
-
-mongoose.connect(mongoDB);
+mongoose.connect(process.env.MONGO);
 
 const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
@@ -23,7 +20,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 //     console.log(result);
 //   }
 // });
-
 
 const request = require('request');
 const yelp = require('yelp-fusion');
@@ -47,13 +43,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // specifying that we want json to be used
 
 app.use(bodyParser.json());
-// app.use('/posttest', slackInteractions.expressMiddleware());
+
 app.set('port', process.env.PORT || 5000);
 
 app.get('/', (req, res) => {
-  res.json({
-    hello: "world"
-  });
+  // res.render('my-app/src/index');
+  res.json({hello: 'world'});
 });
 
 app.get('/auth', (req, res) => {
@@ -63,8 +58,8 @@ app.get('/auth', (req, res) => {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
-      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,// + 
-      // '&redirect_uri=https://yelponslack.herokuapp.com/',
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET, + 
+      '&redirect_uri=https://yelponslack.herokuapp.com/',
     method: 'GET'
   };
 
@@ -80,9 +75,12 @@ app.get('/auth', (req, res) => {
       const channelName = JSONresponse.incoming_webhook.channel;
       const channelId = JSONresponse.incoming_webhook.channel_id;
       const webHookUrl = JSONresponse.incoming_webhook.url;
-      const newEntry = new Channel({ channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl });
-      newEntry.save();
-      res.send("Success!");
+      const conditions = { channel_id: channelId};
+      const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
+      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
+        if (err) return res.send(500, {error: err});
+        return res.send('Saved!');
+      });
       // res.send(JSONresponse);
     }
   });
@@ -234,7 +232,7 @@ const selectRandomRestaurants = (businesses) => {
   const arr = [];
   while (arr.length < 3) {
     var randomNum = Math.floor(Math.random() * businesses.length);
-    if (arr.indexOf(randomNum) > -1) continue;
+    if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
     arr.push(businesses[randomNum]);
   }
 
