@@ -7,6 +7,7 @@ const ICON_HASH = {
 
 module.exports = {
   metersToMiles: (meters) => (meters * 0.0006).toFixed(1),
+  milesToMeters: (miles) => (miles * 1609.34).toFixed(),
   buildRestaurantMessage: (restaurant, num) => (
     {
       "fields": [{
