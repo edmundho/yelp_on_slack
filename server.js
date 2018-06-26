@@ -204,6 +204,7 @@ app.get('/userrequest', (req, res) => {
     location: 'ferry plaza, san francisco',
     radius: 1500,
     sort_by: "distance",
+    limit: 30
   }).then(response => {
     const filteredResults = response.jsonBody.businesses;
 
