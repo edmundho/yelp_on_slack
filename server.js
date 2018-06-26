@@ -201,9 +201,11 @@ app.post('/interactive-component', (req, res) => {
   
       // default response so slack doesnt close our request
       res.send('');
-  
-      const businesses = axios.get('https://yelponslack.herokuapp.com/restaurants');
-      restaurantMessage(businesses, channel.webhook_url);
+      const payload = {
+        channel: body.channel
+      };
+      axios.post('https://yelponslack.herokuapp.com/restaurants', payload);
+      
   
     } else {
       debug("Token mismatch");
@@ -235,15 +237,15 @@ app.get('/userrequest', (req, res) => {
 const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
 
 // Hard-coded at the moment and will want to replace with user request data
-app.get('/restaurants', function (req, res) {
-  return client.search({
+app.post('/restaurants', function (req, res) {
+  client.search({
     term: 'asian',
     location: '825 Battery St. San Francisco',
     price: 4,
     sort_by: 'rating'
   }).then(response => {
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
-    return businesses;
+    restaurantMessage(businesses, req.channel.webhook_url);
   });
 });
 
