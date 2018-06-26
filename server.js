@@ -196,7 +196,7 @@ app.post('/interactive-component', (req, res) => {
       const data = {
         channel: channel
       };
-      axios.post('https://yelponslack.herokuapp.com/restaurants', data);
+      axios.post('http://yelponslack.herokuapp.com/restaurants', data);
       
   
     } else {
@@ -230,6 +230,7 @@ const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/TBDJ8NH5L/BBCVBA02E/
 
 // Hard-coded at the moment and will want to replace with user request data
 app.post('/restaurants', function (req, res) {
+  // console.log(req.body.channel.webhook_url);
   client.search({
     term: 'asian',
     location: '825 Battery St. San Francisco',
@@ -237,7 +238,7 @@ app.post('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
-    restaurantMessage(businesses, req.data.channel.webhook_url);
+    restaurantMessage(businesses, req.body.channel.webhook_url);
   });
 });
 
