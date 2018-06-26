@@ -226,8 +226,6 @@ app.get('/userrequest', (req, res) => {
   });
 });
 
-const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
-
 // Hard-coded at the moment and will want to replace with user request data
 app.post('/restaurants', function (req, res) {
 
