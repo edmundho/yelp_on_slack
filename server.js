@@ -114,14 +114,14 @@ app.post('/posttest', (req, res) => {
         submit_label: 'Submit',
         elements: [{
           label: 'Search Term',
-          name: "search-term",
+          name: "search",
           type: 'text',
           placeholder: 'e.g. Japanese tapas'
           },
           {
             label: 'Price',
             type: 'select',
-            name: 'price_list',
+            name: 'price',
             options: [
               { label: "$",value: 1 },
               { label: "$$", value: 2 },
@@ -132,7 +132,7 @@ app.post('/posttest', (req, res) => {
           {
             label: 'Distance',
             type: 'select',
-            name: 'distance_range',
+            name: 'distance',
             options: [
               { label: "0.5mi",value: 0.5},
               { label: "1.0mi",value: 1.0},
@@ -177,8 +177,12 @@ app.post('/interactive-component', (req, res) => {
   
       // default response so slack doesnt close our request
       res.send('');
+    
       const data = {
-        
+        term: body.submission['search'],
+        price: body.submission['price'],
+        location: body.submission['location'],
+        radius: YelpAPIUtil.milesToMeters(body.submission['distance']),
         channel: channel
       };
       axios.post('http://yelponslack.herokuapp.com/restaurants', data);
