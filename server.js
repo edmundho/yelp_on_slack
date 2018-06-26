@@ -5,10 +5,7 @@ const express = require('express');
 
 //Set up mongoose connection
 const mongoose = require('mongoose');
-//to be hidden later and removed user
-const mongoDB = 'mongodb://admin123:yack456@ds217671.mlab.com:17671/local_library';
-
-mongoose.connect(mongoDB);
+mongoose.connect(process.env.MONGO);
 
 const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
@@ -23,7 +20,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 //     console.log(result);
 //   }
 // });
-
 
 const request = require('request');
 const yelp = require('yelp-fusion');
@@ -47,14 +43,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // specifying that we want json to be used
 
 app.use(bodyParser.json());
-// app.use('/posttest', slackInteractions.expressMiddleware());
+
 app.set('port', process.env.PORT || 5000);
 
 app.get('/', (req, res) => {
-  // res.json({
-  //   hello: "world"
-  // });
-  res.render('my-app/src/index');
+  // res.render('my-app/src/index');
+  res.json({hello: 'world'});
 });
 
 app.get('/auth', (req, res) => {
@@ -64,8 +58,8 @@ app.get('/auth', (req, res) => {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
-      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,// + 
-      // '&redirect_uri=https://yelponslack.herokuapp.com/',
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET, + 
+      '&redirect_uri=https://yelponslack.herokuapp.com/',
     method: 'GET'
   };
 
