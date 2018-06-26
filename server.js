@@ -81,9 +81,12 @@ app.get('/auth', (req, res) => {
       const channelName = JSONresponse.incoming_webhook.channel;
       const channelId = JSONresponse.incoming_webhook.channel_id;
       const webHookUrl = JSONresponse.incoming_webhook.url;
-      const newEntry = new Channel({ channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl });
-      newEntry.save();
-      res.send("Success!");
+      const conditions = { channel_id: channelId};
+      const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
+      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
+        if (err) return res.send(500, {error: err});
+        return res.send('Saved!');
+      });
       // res.send(JSONresponse);
     }
   });
@@ -226,10 +229,6 @@ app.get('/userrequest', (req, res) => {
     res.json(filteredResults);
   });
 });
-
-const webhookeee = 'https://hooks.slack.com/services/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';
-const other_url = 'https://hooks.slack.com/services/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';
-const SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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";
 
 
 // Hard-coded at the moment and will want to replace with user request data
