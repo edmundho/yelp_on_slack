@@ -193,10 +193,10 @@ app.post('/interactive-component', (req, res) => {
   
       // default response so slack doesnt close our request
       res.send('');
-      const payload = {
+      const data = {
         channel: body.channel
       };
-      axios.post('https://yelponslack.herokuapp.com/restaurants', payload);
+      axios.post('https://yelponslack.herokuapp.com/restaurants', data);
       
   
     } else {
@@ -237,7 +237,7 @@ app.post('/restaurants', function (req, res) {
     sort_by: 'rating'
   }).then(response => {
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
-    restaurantMessage(businesses, req.channel.webhook_url);
+    restaurantMessage(businesses, req.data.channel.webhook_url);
   });
 });
 
