@@ -58,8 +58,7 @@ app.get('/auth', (req, res) => {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
-      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,// + 
-      // '&redirect_uri=' + 'https://yelponslack.herokuapp.com',
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,
     method: 'GET'
   };
 
@@ -79,7 +78,7 @@ app.get('/auth', (req, res) => {
       const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
       Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
         if (err) return res.send(500, {error: err});
-        // return res.send('Saved!');
+        // redirect to home/splash page upon successful authorization
         return res.redirect('https://yelponslack.herokuapp.com');
       });
       // res.send(JSONresponse);
