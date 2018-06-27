@@ -6,7 +6,6 @@ const express = require('express');
 //Set up mongoose connection
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO);
-
 const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
@@ -26,22 +25,16 @@ const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const qs = require('querystring');
-const slackTestFunction = require('./routes.js');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
-const {
-  IncomingWebhook
-} = require('@slack/client');
-
-// const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
+const { IncomingWebhook } = require('@slack/client');
 
 const app = express();
 
 // extended: true allows nested objects
 app.use(bodyParser.urlencoded({ extended: true }));
 // specifying that we want json to be used
-
 app.use(bodyParser.json());
 
 app.set('port', process.env.PORT || 5000);
@@ -62,7 +55,9 @@ app.get('/auth', (req, res) => {
     method: 'GET'
   };
 
-  // we then take the code, put it in the above options object, and then make a new request to Slack, which authorizes our app to do stuff with the workspace. this is the only time we get access to the workspace's webhook url, slack access token, workspace name, etc. via the body, which we store in JSONresponse.
+  // we then take the code, put it in the above options object, and then make a new request to Slack, 
+  // which authorizes our app to do stuff with the workspace. 
+  // this is the only time we get access to the workspace's webhook url, slack access token, workspace name, etc. via the body, which we store in JSONresponse.
   request(options, (error, response, body) => {
     const JSONresponse = JSON.parse(body);
     if (!JSONresponse.ok) {
@@ -71,36 +66,34 @@ app.get('/auth', (req, res) => {
     } else {
       // extract workspace information from JSONresponse after workspace installs our app
       const channelAccessToken = JSONresponse.access_token;
-      const channelName = JSONresponse.incoming_webhook.channel;
       const channelId = JSONresponse.incoming_webhook.channel_id;
       const webHookUrl = JSONresponse.incoming_webhook.url;
       const conditions = { channel_id: channelId};
       const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
-      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
+      // if channel already exists, update it with new info. if it doesn't, create it
+      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err){
         if (err) return res.send(500, {error: err});
         // redirect to home/splash page upon successful authorization
         return res.redirect('https://yelponslack.herokuapp.com');
       });
-      // res.send(JSONresponse);
     }
   });
 });
 
 // SLACK
-app.get('/slacktest', slackTestFunction);
-// /yack slash command send HTTP post request to this url. We send back a dialog window.
+
+// /yack slash command sends HTTP post request to this url. We send back a dialog window.
 app.post('/posttest', (req, res) => {
 
   // trigger id lets us match up our response to whatever action triggered it
-  // this topmost token refers to the token sent by the request specifying that it came from slack
   const { token, channel_id, trigger_id} = req.body;
   let slackAccessToken;
+  // search our database for the right channel
   Channel.findOne({ channel_id: channel_id}).then(channel => {
     slackAccessToken = channel.access_token;
-    
+    // this topmost token refers to the token sent by the request specifying that it came from slack
     if (token === process.env.SLACK_VERIFICATION_TOKEN) {
       // dialog object
-   
     const dialog = {
       // token that allows us to take actions on behalf of the workplace/user
       token: slackAccessToken,
@@ -110,11 +103,12 @@ app.post('/posttest', (req, res) => {
         title: 'Create a Poll',
         callback_id: 'submit-form',
         submit_label: 'Submit',
-        elements: [{
-          label: 'Search Term',
-          name: "search",
-          type: 'text',
-          placeholder: 'e.g. Japanese tapas'
+        elements: [
+          {
+            label: 'Search Term',
+            name: "search",
+            type: 'text',
+            placeholder: 'e.g. Japanese tapas'
           },
           {
             label: 'Price',
