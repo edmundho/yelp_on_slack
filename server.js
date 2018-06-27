@@ -80,6 +80,7 @@ app.get('/auth', (req, res) => {
       Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
         if (err) return res.send(500, {error: err});
         return res.send('Saved!');
+        return res.redirect('https://yelponslack.herokuapp.com');
       });
       // res.send(JSONresponse);
     }
