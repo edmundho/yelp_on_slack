@@ -167,16 +167,17 @@ app.post('/interactive-component', (req, res) => {
     if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
       debug(`Form submission received: ${body.submission.trigger_id}`);
   
-      // default response so slack doesnt close our request
+      // we send an empty response because slack requires us to respond within 3 seconds or else timeout
       res.send('');
-    
+      // structure a payload based on filters user gave through dialog form
       const data = {
         term: body.submission['search'],
         price: body.submission['price'],
         location: body.submission['location'],
         radius: YelpAPIUtil.milesToMeters(body.submission['distance']),
-        channel: channel
+        channel
       };
+      //request to yelp api
       axios.post('http://yelponslack.herokuapp.com/restaurants', data);
       
   
