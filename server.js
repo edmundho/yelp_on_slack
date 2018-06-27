@@ -29,18 +29,13 @@ const slackTestFunction = require('./routes.js');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
-const {
-  IncomingWebhook
-} = require('@slack/client');
-
-// const slackInteractions = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
+const { IncomingWebhook } = require('@slack/client');
 
 const app = express();
 
 // extended: true allows nested objects
 app.use(bodyParser.urlencoded({ extended: true }));
 // specifying that we want json to be used
-
 app.use(bodyParser.json());
 
 app.set('port', process.env.PORT || 5000);
@@ -61,7 +56,9 @@ app.get('/auth', (req, res) => {
     method: 'GET'
   };
 
-  // we then take the code, put it in the above options object, and then make a new request to Slack, which authorizes our app to do stuff with the workspace. this is the only time we get access to the workspace's webhook url, slack access token, workspace name, etc. via the body, which we store in JSONresponse.
+  // we then take the code, put it in the above options object, and then make a new request to Slack, 
+  // which authorizes our app to do stuff with the workspace. 
+  // this is the only time we get access to the workspace's webhook url, slack access token, workspace name, etc. via the body, which we store in JSONresponse.
   request(options, (error, response, body) => {
     const JSONresponse = JSON.parse(body);
     if (!JSONresponse.ok) {
@@ -70,17 +67,16 @@ app.get('/auth', (req, res) => {
     } else {
       // extract workspace information from JSONresponse after workspace installs our app
       const channelAccessToken = JSONresponse.access_token;
-      const channelName = JSONresponse.incoming_webhook.channel;
       const channelId = JSONresponse.incoming_webhook.channel_id;
       const webHookUrl = JSONresponse.incoming_webhook.url;
       const conditions = { channel_id: channelId};
       const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
-      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
+      // if channel already exists, update it with new info. if it doesn't, create it
+      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err){
         if (err) return res.send(500, {error: err});
         // redirect to home/splash page upon successful authorization
         return res.redirect('https://yelponslack.herokuapp.com');
       });
-      // res.send(JSONresponse);
     }
   });
 });
