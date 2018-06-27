@@ -57,8 +57,7 @@ app.get('/auth', (req, res) => {
     uri: 'https://slack.com/api/oauth.access?code=' +
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
-      '&client_secret=' + process.env.SLACK_CLIENT_SECRET, + 
-      '&redirect_uri=https://yelponslack.herokuapp.com/',
+      '&client_secret=' + process.env.SLACK_CLIENT_SECRET,
     method: 'GET'
   };
 
@@ -78,7 +77,8 @@ app.get('/auth', (req, res) => {
       const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
       Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
         if (err) return res.send(500, {error: err});
-        return res.send('Saved!');
+        // redirect to home/splash page upon successful authorization
+        return res.redirect('https://yelponslack.herokuapp.com');
       });
       // res.send(JSONresponse);
     }
@@ -195,32 +195,13 @@ app.post('/interactive-component', (req, res) => {
 });
 
 // YELP
-app.get('/userrequest', (req, res) => {
-
-  client.search({
-    term: 'hamburger',
-    price: [1, 2], // 1 or 2 dollar signs
-    location: 'ferry plaza, san francisco',
-    radius: 1500,
-    sort_by: "distance",
-  }).then(response => {
-    const filteredResults = response.jsonBody.businesses;
-
-    // logs to server console
-    filteredResults.forEach(bus => console.log(bus.name));
-    res.json(filteredResults);
-  });
-});
-
-
-// Hard-coded at the moment and will want to replace with user request data
 app.post('/restaurants', function (req, res) {
-
   client.search({
-    term: req.body.search,
+    term: req.body.term,
     location: req.body.location,
     price: req.body.price,
-    sort_by: 'rating'
+    sort_by: 'rating',
+    radius: req.body.radius
   }).then(response => {
     const businesses = selectRandomRestaurants(response.jsonBody.businesses);
     restaurantMessage(businesses, req.body.channel.webhook_url);
