@@ -119,7 +119,7 @@ app.post('/interactive-component', (req, res) => {
       client.search({
         term: body.submission['search'] || 'restaurant',
         location: body.submission['location'],
-        price: body.submission['price'] || [1,2,3,4],
+        price: body.submission['price'] || (1,2,3,4),
         sort_by: 'rating',
         radius: YelpAPIUtil.milesToMeters(milesDistance)
       }).then(restaurants => {
@@ -127,6 +127,8 @@ app.post('/interactive-component', (req, res) => {
         const businesses = YelpAPIUtil.selectRandomRestaurants(restaurants.jsonBody.businesses);
         // send poll to channel that made request
         YelpAPIUtil.restaurantMessage(businesses, channel.webhook_url);
+      }, (err) => {
+        res.sendStatus('Not enough restaurants');
       });
       
     } else {
