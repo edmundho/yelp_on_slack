@@ -1,5 +1,6 @@
 'use strict';
 require('dotenv').config();
+const SlackAPIUtil = require('./util/slack_api_helpers');
 const YelpAPIUtil = require('./util/yelp_api_helpers');
 const express = require('express');
 
@@ -16,7 +17,6 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const qs = require('querystring');
 const debug = require('debug')('yelp_on_slack:server');
-// const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
 
 const app = express();
@@ -87,48 +87,8 @@ app.post('/posttest', (req, res) => {
       // token that allows us to take actions on behalf of the workplace/user
       token: slackAccessToken,
       trigger_id, 
-      // convert to a json string
-      dialog: JSON.stringify({
-        title: 'Create a Poll',
-        callback_id: 'submit-form',
-        submit_label: 'Submit',
-        elements: [
-          {
-            label: 'Search Term',
-            name: "search",
-            type: 'text',
-            placeholder: 'e.g. Japanese tapas'
-          },
-          {
-            label: 'Price',
-            type: 'select',
-            name: 'price',
-            options: [
-              { label: "$",value: 1 },
-              { label: "$$", value: 2 },
-              { label: "$$$", value: 3 },
-              { label: '$$$$', value: 4 }
-            ]
-          },
-          {
-            label: 'Distance',
-            type: 'select',
-            name: 'distance',
-            options: [
-              { label: "0.5mi",value: 0.5},
-              { label: "1.0mi",value: 1.0},
-              { label: "1.5mi",value: 1.5},
-              { label: "2.0mi",value: 2.0}
-            ]
-          },
-          {
-            label: 'Location',
-            name: "location",
-            type: 'text',
-            placeholder: 'Starting Location'
-          }
-        ]
-      })
+      // dialog form
+      dialog: SlackAPIUtil.form
     };
     // send an http post request to open the dialog, and we pass the dialog
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
