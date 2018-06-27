@@ -168,9 +168,9 @@ app.post('/interactive-component', (req, res) => {
         radius: YelpAPIUtil.milesToMeters(body.submission['distance'])
       }).then(restaurants => {
         // select random, unique restaurants from payload
-        const businesses = selectRandomRestaurants(restaurants.jsonBody.businesses);
+        const businesses = YelpAPIUtil.selectRandomRestaurants(restaurants.jsonBody.businesses);
         // send poll to channel that made request
-        restaurantMessage(businesses, channel.webhook_url);
+        YelpAPIUtil.restaurantMessage(businesses, channel.webhook_url);
       });
       
     } else {
@@ -181,21 +181,6 @@ app.post('/interactive-component', (req, res) => {
   );
 
 });
-
-const selectRandomRestaurants = (businesses) => {
-  const arr = [];
-  while (arr.length < 3) {
-    var randomNum = Math.floor(Math.random() * businesses.length);
-    if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
-    arr.push(businesses[randomNum]);
-  }
-
-  return arr;
-};
-
-// Helper method that selects the first three businesses that were filtered from the yelp fusion api
-// Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
-
 
 app.listen(app.get('port'), () => {
   console.log('App is listening on port ' + app.get('port'));
