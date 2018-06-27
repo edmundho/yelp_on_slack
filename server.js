@@ -28,7 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.set('port', process.env.PORT || 3000);
-app.use(express.static(__dirname));
 
 app.get('/auth', (req, res) => {
   // when a team installs our app on their workspace by pressing our "add to slack" button, they will get re-directed to our /auth route with a code they get from the oauth.access website.
