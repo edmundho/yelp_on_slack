@@ -6,7 +6,6 @@ const express = require('express');
 //Set up mongoose connection
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO);
-
 const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
