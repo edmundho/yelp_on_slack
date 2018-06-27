@@ -39,7 +39,7 @@ const form = JSON.stringify({
       label: 'Location',
       name: "location",
       type: 'text',
-      placeholder: 'Starting Location',
+      placeholder: 'e.g. 825 Battery St, San Francisco',
     }
   ]
 });
