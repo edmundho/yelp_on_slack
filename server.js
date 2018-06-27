@@ -10,16 +10,6 @@ const Channel = require('./models/channel');
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-//USE THIS FORMAT TO CATCH ERRORS for DB creations
-// Channel.create({channel_id: '1', access_token: '2', webhook_url: '3'}, function(err, result){
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(result);
-//   }
-// });
-
 const request = require('request');
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
@@ -28,7 +18,6 @@ const qs = require('querystring');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
-const { IncomingWebhook } = require('@slack/client');
 
 const app = express();
 
@@ -206,24 +195,7 @@ const selectRandomRestaurants = (businesses) => {
 
 // Helper method that selects the first three businesses that were filtered from the yelp fusion api
 // Utilizes the buildRestaurantMessage helper method located in the util folder to create message format
-const restaurantMessage = (businesses, webHook) => {
-  const webHookUrl = new IncomingWebhook(webHook);
-  const test = {
-    "attachments": [
-      YelpAPIUtil.buildRestaurantMessage(businesses[0], 0),
-      YelpAPIUtil.buildRestaurantMessage(businesses[1], 1),
-      YelpAPIUtil.buildRestaurantMessage(businesses[2], 2)
-    ]
-  };
 
-  webHookUrl.send(test, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      console.log('Message successfully sent');
-    }
-  });
-};
 
 app.listen(app.get('port'), () => {
   console.log('App is listening on port ' + app.get('port'));
