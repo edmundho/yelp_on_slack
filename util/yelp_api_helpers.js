@@ -65,8 +65,21 @@ const restaurantMessage = (businesses, webHook) => {
   });
 };
 
+const selectRandomRestaurants = (businesses) => {
+  const arr = [];
+  while (arr.length < 3) {
+    var randomNum = Math.floor(Math.random() * businesses.length);
+    if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
+    arr.push(businesses[randomNum]);
+  }
+
+  return arr;
+};
+
+
 module.exports = {
   metersToMiles: (meters) => (meters * 0.0006).toFixed(1),
   milesToMeters: (miles) => (miles * 1609.34).toFixed(),
-  restaurantMessage
+  restaurantMessage,
+  selectRandomRestaurants
 };
