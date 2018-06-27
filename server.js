@@ -118,14 +118,14 @@ app.post('/interactive-component', (req, res) => {
   
       // we send an empty response because slack requires us to respond within 3 seconds or else timeout
       res.send('');
-
+      const milesDistance = body.submission['distance'] || 10;
       // ping yelp api with our search terms from dialog form
       client.search({
         term: body.submission['search'] || 'restaurant',
         location: body.submission['location'],
         price: body.submission['price'] || [1,2,3,4],
         sort_by: 'rating',
-        radius: YelpAPIUtil.milesToMeters((body.submission['distance'] || 10))
+        radius: YelpAPIUtil.milesToMeters(milesDistance)
       }).then(restaurants => {
         // select random, unique restaurants from payload
         const businesses = YelpAPIUtil.selectRandomRestaurants(restaurants.jsonBody.businesses);
