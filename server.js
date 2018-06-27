@@ -117,11 +117,11 @@ app.post('/interactive-component', (req, res) => {
 
       // ping yelp api with our search terms from dialog form
       client.search({
-        term: body.submission['search'],
+        term: body.submission['search'] || 'restaurant',
         location: body.submission['location'],
-        price: body.submission['price'],
+        price: body.submission['price'] || [1,2,3,4],
         sort_by: 'rating',
-        radius: YelpAPIUtil.milesToMeters(body.submission['distance'])
+        radius: YelpAPIUtil.milesToMeters((body.submission['distance'] || 10))
       }).then(restaurants => {
         // select random, unique restaurants from payload
         const businesses = YelpAPIUtil.selectRandomRestaurants(restaurants.jsonBody.businesses);
