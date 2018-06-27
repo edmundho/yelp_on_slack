@@ -59,7 +59,7 @@ app.get('/auth', (req, res) => {
       req.query.code +
       '&client_id=' + process.env.SLACK_CLIENT_ID +
       '&client_secret=' + process.env.SLACK_CLIENT_SECRET + 
-      '&redirect_uri=https://yelponslack.herokuapp.com/',
+      '&redirect_uri=' + 'https://yelponslack.herokuapp.com',
     method: 'GET'
   };
 
