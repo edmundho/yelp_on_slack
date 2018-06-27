@@ -125,6 +125,7 @@ app.post('/interactive-component', (req, res) => {
         location: body.submission['location'],
         price: body.submission['price'] || '',
         sort_by: 'rating',
+        limit: 30,
         radius: YelpAPIUtil.milesToMeters(milesDistance)
       }).then(restaurants => {
         // select random, unique restaurants from payload
