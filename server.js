@@ -25,7 +25,6 @@ const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const qs = require('querystring');
-const slackTestFunction = require('./routes.js');
 const debug = require('debug')('yelp_on_slack:server');
 // const { createMessageAdapter } = require('@slack/interactive-messages');
 const client = yelp.client(process.env.YELP_KEY);
@@ -82,20 +81,19 @@ app.get('/auth', (req, res) => {
 });
 
 // SLACK
-app.get('/slacktest', slackTestFunction);
-// /yack slash command send HTTP post request to this url. We send back a dialog window.
+
+// /yack slash command sends HTTP post request to this url. We send back a dialog window.
 app.post('/posttest', (req, res) => {
 
   // trigger id lets us match up our response to whatever action triggered it
-  // this topmost token refers to the token sent by the request specifying that it came from slack
   const { token, channel_id, trigger_id} = req.body;
   let slackAccessToken;
+  // search our database for the right channel
   Channel.findOne({ channel_id: channel_id}).then(channel => {
     slackAccessToken = channel.access_token;
-    
+    // this topmost token refers to the token sent by the request specifying that it came from slack
     if (token === process.env.SLACK_VERIFICATION_TOKEN) {
       // dialog object
-   
     const dialog = {
       // token that allows us to take actions on behalf of the workplace/user
       token: slackAccessToken,
@@ -105,11 +103,12 @@ app.post('/posttest', (req, res) => {
         title: 'Create a Poll',
         callback_id: 'submit-form',
         submit_label: 'Submit',
-        elements: [{
-          label: 'Search Term',
-          name: "search",
-          type: 'text',
-          placeholder: 'e.g. Japanese tapas'
+        elements: [
+          {
+            label: 'Search Term',
+            name: "search",
+            type: 'text',
+            placeholder: 'e.g. Japanese tapas'
           },
           {
             label: 'Price',
