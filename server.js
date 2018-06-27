@@ -114,7 +114,7 @@ app.post('/interactive-component', (req, res) => {
   
       // we send an empty response because slack requires us to respond within 3 seconds or else timeout
       res.send('');
-      const milesDistance = body.submission['distance'] || 10;
+      const milesDistance = body.submission['distance'] || 5;
       // ping yelp api with our search terms from dialog form
       client.search({
         term: body.submission['search'] || 'restaurant',
