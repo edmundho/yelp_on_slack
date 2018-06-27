@@ -133,6 +133,8 @@ app.post('/interactive-component', (req, res) => {
       debug("Token mismatch");
       res.sendStatus(500);
       }
+    }, () => {
+      res.sendStatus(505);
     }
   );
 
