@@ -20,7 +20,7 @@ const debug = require('debug')('yelp_on_slack:server');
 const client = yelp.client(process.env.YELP_KEY);
 
 const app = express();
-app.use(express.static(__dirname + './../../'));
+app.use(express.static(__dirname));
 
 // extended: true allows nested objects
 app.use(bodyParser.urlencoded({ extended: true }));
