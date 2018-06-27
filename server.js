@@ -169,18 +169,21 @@ app.post('/interactive-component', (req, res) => {
   
       // we send an empty response because slack requires us to respond within 3 seconds or else timeout
       res.send('');
-      // structure a payload based on filters user gave through dialog form
-      const data = {
+
+      // ping yelp api with our search terms from dialog form
+      client.search({
         term: body.submission['search'],
-        price: body.submission['price'],
         location: body.submission['location'],
-        radius: YelpAPIUtil.milesToMeters(body.submission['distance']),
-        channel
-      };
-      //request to yelp api
-      axios.post('http://yelponslack.herokuapp.com/restaurants', data);
+        price: body.submission['price'],
+        sort_by: 'rating',
+        radius: YelpAPIUtil.milesToMeters(body.submission['distance'])
+      }).then(restaurants => {
+        // select random, unique restaurants from payload
+        const businesses = selectRandomRestaurants(restaurants.jsonBody.businesses);
+        // send poll to channel that made request
+        restaurantMessage(businesses, channel.webhook_url);
+      });
       
-  
     } else {
       debug("Token mismatch");
       res.sendStatus(500);
@@ -188,20 +191,6 @@ app.post('/interactive-component', (req, res) => {
     }
   );
 
-});
-
-// YELP
-app.post('/restaurants', function (req, res) {
-  client.search({
-    term: req.body.term,
-    location: req.body.location,
-    price: req.body.price,
-    sort_by: 'rating',
-    radius: req.body.radius
-  }).then(response => {
-    const businesses = selectRandomRestaurants(response.jsonBody.businesses);
-    restaurantMessage(businesses, req.body.channel.webhook_url);
-  });
 });
 
 const selectRandomRestaurants = (businesses) => {
