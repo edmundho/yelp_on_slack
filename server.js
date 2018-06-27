@@ -79,7 +79,8 @@ app.get('/auth', (req, res) => {
       const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
       Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err, doc){
         if (err) return res.send(500, {error: err});
-        return res.send('Saved!');
+        // return res.send('Saved!');
+        return res.redirect('https://yelponslack.herokuapp.com');
       });
       // res.send(JSONresponse);
     }
