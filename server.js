@@ -20,18 +20,15 @@ const debug = require('debug')('yelp_on_slack:server');
 const client = yelp.client(process.env.YELP_KEY);
 
 const app = express();
+app.use(express.static(__dirname));
 
 // extended: true allows nested objects
 app.use(bodyParser.urlencoded({ extended: true }));
 // specifying that we want json to be used
 app.use(bodyParser.json());
 
-app.set('port', process.env.PORT || 5000);
-
-app.get('/', (req, res) => {
-  // res.render('my-app/src/index');
-  res.json({hello: 'world'});
-});
+app.set('port', process.env.PORT || 3000);
+app.use(express.static(__dirname));
 
 app.get('/auth', (req, res) => {
   // when a team installs our app on their workspace by pressing our "add to slack" button, they will get re-directed to our /auth route with a code they get from the oauth.access website.
