@@ -123,15 +123,7 @@ app.post('/interactive-component', (req, res) => {
         YelpAPIUtil.restaurantMessage(businesses, channel.webhook_url);
       }, (err) => {
         res.sendStatus('Not enough restaurants');
-      }).then( someRes => {
-        const pinTarget = {
-          token: channel.access_token,
-          channel: channel.channel_id,
-          timestamp: body.action_ts
-        };
-        axios.post("https://slack.com/api/pins.add", qs.stringify(pinTarget));
       });
-      
     } else {
       debug("Token mismatch");
       res.sendStatus(500);

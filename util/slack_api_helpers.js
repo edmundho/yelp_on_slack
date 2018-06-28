@@ -19,7 +19,7 @@ const form = JSON.stringify({
         { label: "$$", value: 2 },
         { label: "$$$", value: 3 },
         { label: '$$$$', value: 4 },
-        { label: 'Any Price', value: 0 }
+        { label: 'Any Price', value: '1, 2, 3' }
       ]
     },
     {
