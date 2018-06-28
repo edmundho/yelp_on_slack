@@ -126,7 +126,7 @@ app.post('/interactive-component', (req, res) => {
       }).then( someRes => {
         const pinTarget = {
           token: channel.access_token,
-          channel: channel.id,
+          channel: channel.channel_id,
           timestamp: body.action_ts
         };
         axios.post("https://slack.com/api/pins.add", qs.stringify(pinTarget));
