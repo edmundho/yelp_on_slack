@@ -77,10 +77,34 @@ const selectRandomRestaurants = (businesses) => {
   return arr;
 };
 
+const setClientObject = (body) => {
+  const milesDistance = body.submission['distance'] || 5;
+
+  if (body.submission['price'] === 0) {
+    return {
+      term: body.submission['search'] || 'restaurant',
+      location: body.submission['location'],
+      sort_by: 'rating',
+      limit: 30,
+      radius: milesToMeters(milesDistance)
+    };
+  } else {
+    return {
+      term: body.submission['search'] || 'restaurant',
+      location: body.submission['location'],
+      price: body.submission['price'],
+      sort_by: 'rating',
+      limit: 30,
+      radius: milesToMeters(milesDistance)
+    };
+  }
+};
+
 
 module.exports = {
   metersToMiles,
   milesToMeters,
   restaurantMessage,
-  selectRandomRestaurants
+  selectRandomRestaurants,
+  setClientObject
 };
