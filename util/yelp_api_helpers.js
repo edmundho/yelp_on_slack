@@ -61,7 +61,7 @@ const locationsImage = locations => ({
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
-  const locationsImage = locationsImage(locations);
+  const image = locationsImage(locations);
   
   const restaurantPoll = {
     "text": "Where should we go eat?",
@@ -69,7 +69,7 @@ const restaurantMessage = (businesses, webHook) => {
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      locationsImage
+      image
     ]
   };
 
