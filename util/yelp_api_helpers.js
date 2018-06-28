@@ -57,9 +57,9 @@ const restaurantMessage = (businesses, webHook) => {
     "attachments": [
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
-      buildRestaurantMessage(businesses[2], 2),
-      { "image_url": imageUrlBuilder(locations) }
-    ]
+      buildRestaurantMessage(businesses[2], 2)
+    ],
+    "image_url": imageUrlBuilder(locations)
   };
 
   webHookUrl.send(restaurantPoll, function (err, res) {
