@@ -83,13 +83,13 @@ const restaurantMessage = (businesses, webHook) => {
     ]
   };
 
-  webHookUrl.send(restaurantPoll, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      console.log('Message successfully sent');
-    }
-  });
+  // webHookUrl.send(restaurantPoll, function (err, res) {
+  //   if (err) {
+  //     console.log('Error:', err);
+  //   } else {
+  //     console.log('Message successfully sent');
+  //   }
+  // });
 
   axios.get(imageUrl).then(url => {
     const testGoogleImage = {
