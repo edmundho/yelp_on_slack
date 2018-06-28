@@ -46,7 +46,7 @@ const buildRestaurantMessage = (restaurant, num) => (
     "title_link": restaurant.url,
     "thumb_url": restaurant.image_url,
     "color": "#ff0000",
-    "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg"
+    // "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg"
   }
 );
 
@@ -55,15 +55,16 @@ const restaurantMessage = (businesses, webHook) => {
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
   
   const restaurantPoll = {
-    // "text": "Where should we go eat?",
-            // "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+    "text": "Where should we go eat?",
+            "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
     "attachments": [
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      { "text": "hello" }
     ],
-            // "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg"
+    "attachments": [
+      {"image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg"}
+    ]
   };
 
   webHookUrl.send(restaurantPoll, function (err, res) {
