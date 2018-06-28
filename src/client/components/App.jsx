@@ -8,9 +8,10 @@ class App extends Component {
       
       <div className='header'>
         
-        <div>Yelp on Slack</div>
+        <div className='header-app-name'>Yelp on Slack</div>
  
-          <div> <a href="">Github</a>
+          <div> 
+            <a href="">Github</a>
             <a href="">Linkedins</a>          
           </div>
       </div>
