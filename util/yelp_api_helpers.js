@@ -80,7 +80,7 @@ const selectRandomRestaurants = (businesses) => {
 const setClientObject = (body) => {
   const milesDistance = body.submission['distance'] || 5;
 
-  if (body.submission.price === 0) {
+  if (body.submission['price'] === 0) {
     return {
       term: body.submission['search'] || 'restaurant',
       location: body.submission['location'],
