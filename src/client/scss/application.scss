@@ -145,15 +145,23 @@ table {
   align-items: center;
   font-family: 'Montserrat',
   sans-serif;
-  // background-image: url('https://camo.githubusercontent.com/77d51bed58191a49e5900e72fa45d8ab010b41c4/687474703a2f2f692e696d6775722e636f6d2f494d524c6c39442e706e67');
-  // background-size: 100% 100%;
-  background-color: rgb(238, 237, 237);
-  background-repeat: no-repeat;
+background: -moz-linear-gradient(-45deg, #d6665e 10%, #e54a42 22%, #e84e43 75%, #d6665e 90%);
+/* FF3.6-15 */
+
+background: -webkit-linear-gradient(-45deg, #d6665e 10%, #e54a42 22%, #e84e43 75%, #d6665e 90%);
+/* Chrome10-25,Safari5.1-6 */
+
+background: linear-gradient(135deg, #d6665e 10%, #e54a42 22%, #e84e43 75%, #d6665e 90%);
+/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6665e', endColorstr='#d6665e', GradientType=1);
+/* IE6-9 fallback on horizontal gradient */
+  
 }
 
 
 .header-container {
-   background-color: rgb(255, 255, 255);
+  //  background-color: rgb(255, 255, 255);
    width: 100%;
    display: flex;
    justify-content: center;
@@ -162,7 +170,7 @@ table {
   display: flex;
   justify-content: space-between;
   width: 70%;
-  background-color: rgb(255, 255, 255);
+  // background-color: rgb(255, 255, 255);
   height: 74px;
   align-items: center;
 
@@ -172,9 +180,9 @@ table {
 // https: //www.xmple.com/wallpaper/brown-linear-white-gradient-highlight--c2-d2b48c-ffffff-l-50-a-60-f-21-image/
 
 .content-container {
-  height: 100%;
+  height: 80%;
   width: 100%;
-  background-image: url(http://res.cloudinary.com/nenry/image/upload/v1530145204/slack_bg.jpg);
+  // background-image: url(http://res.cloudinary.com/nenry/image/upload/v1530145204/slack_bg.jpg);
   background-position: 50%;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -182,9 +190,27 @@ table {
     }
 
 .header-app-name {
-  background-color: rgb(221, 63, 23);
+  // background-color: rgb(219, 57, 16);
   padding: 10px;
-  border-radius: 5px;
+  // border-radius: 20px;
+  border-left: 1px solid gray
+  border-right 1px solid gray;
+  font-size: 15px;
+  // color: rgb(250, 250, 250);
+}
+
+.logo-plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ align-content: center;
+ text-align: center;
+ vertical-align: middle;
+}
+
+img {
+  height: 20%;
+  width: 10%;
 }
 
   
