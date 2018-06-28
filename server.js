@@ -114,25 +114,30 @@ app.post('/interactive-component', (req, res) => {
   
       // we send an empty response because slack requires us to respond within 3 seconds or else timeout
       res.send('');
-
+      const searchObj = YelpAPIUtil.setClientObject(body);
       // ping yelp api with our search terms from dialog form
-      client.search({
-        term: body.submission['search'],
-        location: body.submission['location'],
-        price: body.submission['price'],
-        sort_by: 'rating',
-        radius: YelpAPIUtil.milesToMeters(body.submission['distance'])
-      }).then(restaurants => {
+      client.search(searchObj).then(restaurants => {
         // select random, unique restaurants from payload
         const businesses = YelpAPIUtil.selectRandomRestaurants(restaurants.jsonBody.businesses);
         // send poll to channel that made request
         YelpAPIUtil.restaurantMessage(businesses, channel.webhook_url);
+      }, (err) => {
+        res.sendStatus('Not enough restaurants');
+      }).then( someRes => {
+        const pinTarget = {
+          token: channel.access_token,
+          channel: channel.id,
+          timestamp: body.action_ts
+        };
+        axios.post("https://slack.com/api/pins.add", qs.stringify(pinTarget));
       });
       
     } else {
       debug("Token mismatch");
       res.sendStatus(500);
       }
+    }, () => {
+      res.sendStatus(505);
     }
   );
 
