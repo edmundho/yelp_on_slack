@@ -1,5 +1,6 @@
 const { IncomingWebhook } = require('@slack/client');
 const imageUrlBuilder = require('./location_pins');
+const axios = require('axios');
 
 const metersToMiles = (meters) => (meters * 0.0006).toFixed(1);
 const milesToMeters = (miles) => (miles * 1609.34).toFixed();
@@ -56,30 +57,42 @@ const locationsImage = locations => ({
   "image_url": imageUrlBuilder(locations),
   "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
   "color": "#ff0000"
-})
+});
+
+const locationsImage2 = imageUrl => ({
+    "title": "Locations",
+    "text": imageUrl,
+    "image_url": imageUrl,
+    "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+    "color": "#ff0000"
+});
 
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
   const image = locationsImage(locations);
-  
-  const restaurantPoll = {
-    "text": "Where should we go eat?",
-    "attachments": [
-      buildRestaurantMessage(businesses[0], 0),
-      buildRestaurantMessage(businesses[1], 1),
-      buildRestaurantMessage(businesses[2], 2),
-      image
-    ]
-  };
+  const imageUrl = imageUrlBuilder(locations);
 
-  webHookUrl.send(restaurantPoll, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      console.log('Message successfully sent');
-    }
+  axios.get(imageUrl).then( url => {
+    const restaurantPoll = {
+      "text": "Where should we go eat?",
+      "attachments": [
+        buildRestaurantMessage(businesses[0], 0),
+        buildRestaurantMessage(businesses[1], 1),
+        buildRestaurantMessage(businesses[2], 2),
+        locationsImage2(url)
+      ]
+    };
+  
+    webHookUrl.send(restaurantPoll, function (err, res) {
+      if (err) {
+        console.log('Error:', err);
+      } else {
+        console.log('Message successfully sent');
+      }
+    });
   });
+  
 };
 
 const selectRandomRestaurants = (businesses) => {
