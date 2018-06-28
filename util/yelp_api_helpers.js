@@ -50,10 +50,10 @@ const buildRestaurantMessage = (restaurant, num) => (
 
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
-
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
   
-  const test = {
+  const restaurantPoll = {
+    "text": "Where should we go eat?",
     "attachments": [
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
@@ -62,7 +62,7 @@ const restaurantMessage = (businesses, webHook) => {
     ]
   };
 
-  webHookUrl.send(test, function (err, res) {
+  webHookUrl.send(restaurantPoll, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
@@ -74,7 +74,8 @@ const restaurantMessage = (businesses, webHook) => {
 const selectRandomRestaurants = (businesses) => {
   const arr = [];
   while (arr.length < 3) {
-    var randomNum = Math.floor(Math.random() * businesses.length);
+    const randomNum = Math.floor(Math.random() * businesses.length);
+
     if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
     arr.push(businesses[randomNum]);
   }
