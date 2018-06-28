@@ -59,19 +59,10 @@ const locationsImage = locations => ({
   "color": "#ff0000"
 });
 
-const locationsImage2 = imageUrl => ({
-    "title": "Locations",
-    "text": imageUrl,
-    "image_url": imageUrl,
-    "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
-    "color": "#ff0000"
-});
-
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
   const image = locationsImage(locations);
-  const imageUrl = imageUrlBuilder(locations);
 
   const restaurantPoll = {
     "text": "Where should we go eat?",
@@ -83,35 +74,37 @@ const restaurantMessage = (businesses, webHook) => {
     ]
   };
 
-  // webHookUrl.send(restaurantPoll, function (err, res) {
-  //   if (err) {
-  //     console.log('Error:', err);
-  //   } else {
-  //     console.log('Message successfully sent');
-  //   }
-  // });
-
-  axios.get(imageUrl).then(url => {
-    const testGoogleImage = {
-      "attachments": [{
-        "title": "Slack API Documentation",
-        "title_link": "https://api.slack.com/",
-        "fields": [{
-          "title": "Priority",
-          "value": "High",
-          "short": false
-        }],
-        "image_url": url
-      }]
-    };
-
-    webHookUrl.send(testGoogleImage, function (err, res) {
-      if (err) {
-        console.log('Error:', err);
-      } else {
-        console.log('Message successfully sent');
-      }});
+  webHookUrl.send(restaurantPoll, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
   });
+
+  // Currently causes /yack command to yield operation_timeout
+  // const imageUrl = imageUrlBuilder(locations);
+  // axios.get(imageUrl).then(url => {
+  //   const testGoogleImage = {
+  //     "attachments": [{
+  //       "title": "Slack API Documentation",
+  //       "title_link": "https://api.slack.com/",
+  //       "fields": [{
+  //         "title": "Priority",
+  //         "value": "High",
+  //         "short": false
+  //       }],
+  //       "image_url": url
+  //     }]
+  //   };
+
+  //   webHookUrl.send(testGoogleImage, function (err, res) {
+  //     if (err) {
+  //       console.log('Error:', err);
+  //     } else {
+  //       console.log('Message successfully sent');
+  //     }});
+  // });
   
 };
 
@@ -129,26 +122,7 @@ const selectRandomRestaurants = (businesses) => {
 
 const setClientObject = (body) => {
   const milesDistance = body.submission['distance'] || 5;
-
-  // if (body.submission['price'] === 0) {
-  //   return {
-  //     term: body.submission['search'] || 'restaurant',
-  //     location: body.submission['location'],
-  //     sort_by: 'rating',
-  //     limit: 30,
-  //     radius: milesToMeters(milesDistance)
-  //   };
-  // } else {
-  //   return {
-  //     term: body.submission['search'] || 'restaurant',
-  //     location: body.submission['location'],
-  //     price: body.submission['price'],
-  //     sort_by: 'rating',
-  //     limit: 30,
-  //     radius: milesToMeters(milesDistance)
-  //   };
-  // }
-
+  
   return {
     term: body.submission['search'] || 'restaurant',
     location: body.submission['location'],
