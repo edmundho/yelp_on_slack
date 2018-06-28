@@ -80,20 +80,24 @@ const selectRandomRestaurants = (businesses) => {
 const setClientObject = (body) => {
   const milesDistance = body.submission['distance'] || 5;
 
-  const searchObj = {
-    term: body.submission['search'] || 'restaurant',
-    location: body.submission['location'],
-    price: body.submission['price'],
-    sort_by: 'rating',
-    limit: 30,
-    radius: milesToMeters(milesDistance)
-  };
-
-  if (searchObj.price === 0) {
-    delete searchObj.price;
+  if (body.submission.price === 0) {
+    return {
+      term: body.submission['search'] || 'restaurant',
+      location: body.submission['location'],
+      price: body.submission['price'],
+      sort_by: 'rating',
+      limit: 30,
+      radius: milesToMeters(milesDistance)
+    };
+  } else {
+    return {
+      term: body.submission['search'] || 'restaurant',
+      location: body.submission['location'],
+      sort_by: 'rating',
+      limit: 30,
+      radius: milesToMeters(milesDistance)
+    };
   }
-
-  return searchObj;
 };
 
 
