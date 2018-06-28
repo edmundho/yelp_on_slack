@@ -1,5 +1,5 @@
 const { IncomingWebhook } = require('@slack/client');
-const imageUrl = require('./location_pins');
+const imageUrlBuilder = require('./location_pins');
 
 const metersToMiles = (meters) => (meters * 0.0006).toFixed(1);
 const milesToMeters = (miles) => (miles * 1609.34).toFixed();
@@ -58,7 +58,7 @@ const restaurantMessage = (businesses, webHook) => {
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      { "image_url": imageUrl(locations) }
+      { "image_url": imageUrlBuilder(locations) }
     ]
   };
 
