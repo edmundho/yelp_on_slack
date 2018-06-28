@@ -58,8 +58,8 @@ const restaurantMessage = (businesses, webHook) => {
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      { "text": `${locations[0].latitude}`,
-      "image_url": imageUrlBuilder(locations) }
+      // { "text": `${locations[0].latitude}`,
+      { "text": imageUrlBuilder(locations) }
     ]
   };
 
