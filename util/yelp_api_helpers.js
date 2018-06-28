@@ -98,6 +98,7 @@ const setClientObject = (body) => {
   //     radius: milesToMeters(milesDistance)
   //   };
   // }
+
   return {
     term: body.submission['search'] || 'restaurant',
     location: body.submission['location'],
