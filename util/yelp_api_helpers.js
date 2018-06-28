@@ -58,7 +58,9 @@ const restaurantMessage = (businesses, webHook) => {
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      { "image_url": imageUrlBuilder(locations) }
+      { 
+        "image_url": imageUrlBuilder(locations),
+        "color": "#6a5acd" }
     ]
   };
 
