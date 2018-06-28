@@ -54,7 +54,7 @@ const locationsImage = locations => ({
   "title": "Locations",
   "text": imageUrlBuilder(locations),
   "image_url": imageUrlBuilder(locations),
-  // "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+  "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
   "color": "#ff0000"
 })
 
