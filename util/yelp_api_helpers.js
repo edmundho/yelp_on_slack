@@ -51,7 +51,10 @@ const buildRestaurantMessage = (restaurant, num) => (
 );
 
 const locationsImage = locations => ({
-  "image_url": imageUrlBuilder(locations)
+  "title": "Locations",
+  // "text": imageUrlBuilder(locations),
+  "image_url": imageUrlBuilder(locations),
+  "color": "#ff0000"
 })
 
 const restaurantMessage = (businesses, webHook) => {
@@ -60,7 +63,6 @@ const restaurantMessage = (businesses, webHook) => {
   
   const restaurantPoll = {
     "text": "Where should we go eat?",
-    // "text": imageUrlBuilder(locations),
     "attachments": [
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
