@@ -5,7 +5,7 @@ const imageUrlBuilder = function (locations) {
   const url = `http://maps.googleapis.com/maps/api/staticmap?size=${imageSize}&scale=2&maptype=roadmap&`;
 
   const mapStyle = "style=feature:administrative.land_parcel|visibility:off&style=feature:administrative.neighborhood|visibility:off&&style=feature:poi|element:labels.text|visibility:on&style=feature:poi.attraction|visibility:off&style=feature:poi.business|visibility:off&style=feature:poi.government|visibility:off&style=feature:poi.medical|visibility:off&style=feature:poi.place_of_worship|visibility:off&style=feature:poi.school|visibility:off&style=feature:poi.sports_complex|visibility:off&style=feature:road|element:labels|visibility:on&style=feature:road.arterial|element:labels|visibility:on&style=feature:road.local|element:labels|visibility:on&style=feature:transit|visibility:off&style=feature:water&";
-  const key = `key=AIzaSyAQKSDo0VMri-sNqXodTlNw9KcNQPJVOPc&.png`;
+  const key = `key=AIzaSyAQKSDo0VMri-sNqXodTlNw9KcNQPJVOPc&.jpg`;
 
   const firstBizLoc = `${locations[0].latitude},${locations[0].longitude}`;
   const secondBizLoc = `${locations[1].latitude},${locations[1].longitude}`;
