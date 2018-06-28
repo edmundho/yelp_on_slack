@@ -91,14 +91,27 @@ const restaurantMessage = (businesses, webHook) => {
     }
   });
 
-  axios.get(imageUrl).then(url => (
-    webHookUrl.send(url, function (err, res) {
+  axios.get(imageUrl).then(url => {
+    const testGoogleImage = {
+      "attachments": [{
+        "title": "Slack API Documentation",
+        "title_link": "https://api.slack.com/",
+        "fields": [{
+          "title": "Priority",
+          "value": "High",
+          "short": false
+        }],
+        "image_url": url
+      }]
+    };
+
+    webHookUrl.send(testGoogleImage, function (err, res) {
       if (err) {
         console.log('Error:', err);
       } else {
         console.log('Message successfully sent');
-      }})
-    ));
+      }});
+  });
   
 };
 
