@@ -75,12 +75,13 @@ const restaurantMessage = (businesses, webHook) => {
 
   axios.get(imageUrl).then( url => {
     const restaurantPoll = {
-      "text": "Where should we go eat?",
+      // "text": "Where should we go eat?",
+      "text": url,
       "attachments": [
         buildRestaurantMessage(businesses[0], 0),
         buildRestaurantMessage(businesses[1], 1),
         buildRestaurantMessage(businesses[2], 2),
-        locationsImage2(url)
+        image
       ]
     };
   
