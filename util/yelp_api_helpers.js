@@ -64,47 +64,47 @@ const restaurantMessage = (businesses, webHook) => {
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
   const image = locationsImage(locations);
 
-  const restaurantPoll = {
-    "text": "Where should we go eat?",
-    "attachments": [
-      buildRestaurantMessage(businesses[0], 0),
-      buildRestaurantMessage(businesses[1], 1),
-      buildRestaurantMessage(businesses[2], 2),
-      image
-    ]
-  };
+  // const restaurantPoll = {
+  //   "text": "Where should we go eat?",
+  //   "attachments": [
+  //     buildRestaurantMessage(businesses[0], 0),
+  //     buildRestaurantMessage(businesses[1], 1),
+  //     buildRestaurantMessage(businesses[2], 2),
+  //     image
+  //   ]
+  // };
 
-  webHookUrl.send(restaurantPoll, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
-    } else {
-      console.log('Message successfully sent');
-    }
-  });
-
-  // Currently causes /yack command to yield operation_timeout
-  // const imageUrl = imageUrlBuilder(locations);
-  // axios.get(imageUrl).then(url => {
-  //   const testGoogleImage = {
-  //     "attachments": [{
-  //       "title": "Slack API Documentation",
-  //       "title_link": "https://api.slack.com/",
-  //       "fields": [{
-  //         "title": "Priority",
-  //         "value": "High",
-  //         "short": false
-  //       }],
-  //       "image_url": url
-  //     }]
-  //   };
-
-  //   webHookUrl.send(testGoogleImage, function (err, res) {
-  //     if (err) {
-  //       console.log('Error:', err);
-  //     } else {
-  //       console.log('Message successfully sent');
-  //     }});
+  // webHookUrl.send(restaurantPoll, function (err, res) {
+  //   if (err) {
+  //     console.log('Error:', err);
+  //   } else {
+  //     console.log('Message successfully sent');
+  //   }
   // });
+
+  // Currently causes /yack command to yield operation_timeout??
+  const imageUrl = imageUrlBuilder(locations);
+  axios.get(imageUrl).then(url => {
+    const testGoogleImage = {
+      "attachments": [{
+        "title": "Slack API Documentation",
+        "title_link": "https://api.slack.com/",
+        "fields": [{
+          "title": "Priority",
+          "value": "High",
+          "short": false
+        }],
+        "image_url": url
+      }]
+    };
+
+    webHookUrl.send(testGoogleImage, function (err, res) {
+      if (err) {
+        console.log('Error:', err);
+      } else {
+        console.log('Message successfully sent');
+      }});
+  });
   
 };
 
@@ -122,7 +122,7 @@ const selectRandomRestaurants = (businesses) => {
 
 const setClientObject = (body) => {
   const milesDistance = body.submission['distance'] || 5;
-  
+
   return {
     term: body.submission['search'] || 'restaurant',
     location: body.submission['location'],
