@@ -84,7 +84,6 @@ const setClientObject = (body) => {
     return {
       term: body.submission['search'] || 'restaurant',
       location: body.submission['location'],
-      price: body.submission['price'],
       sort_by: 'rating',
       limit: 30,
       radius: milesToMeters(milesDistance)
@@ -93,6 +92,7 @@ const setClientObject = (body) => {
     return {
       term: body.submission['search'] || 'restaurant',
       location: body.submission['location'],
+      price: body.submission['price'],
       sort_by: 'rating',
       limit: 30,
       radius: milesToMeters(milesDistance)
