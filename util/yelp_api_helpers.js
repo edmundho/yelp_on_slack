@@ -73,26 +73,32 @@ const restaurantMessage = (businesses, webHook) => {
   const image = locationsImage(locations);
   const imageUrl = imageUrlBuilder(locations);
 
-  axios.get(imageUrl).then( url => {
-    const restaurantPoll = {
-      // "text": "Where should we go eat?",
-      "text": url,
-      "attachments": [
-        buildRestaurantMessage(businesses[0], 0),
-        buildRestaurantMessage(businesses[1], 1),
-        buildRestaurantMessage(businesses[2], 2),
-        image
-      ]
-    };
-  
-    webHookUrl.send(restaurantPoll, function (err, res) {
+  const restaurantPoll = {
+    "text": "Where should we go eat?",
+    "attachments": [
+      buildRestaurantMessage(businesses[0], 0),
+      buildRestaurantMessage(businesses[1], 1),
+      buildRestaurantMessage(businesses[2], 2),
+      image
+    ]
+  };
+
+  webHookUrl.send(restaurantPoll, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
+    } else {
+      console.log('Message successfully sent');
+    }
+  });
+
+  axios.get(imageUrl).then(url => (
+    webHookUrl.send(url, function (err, res) {
       if (err) {
         console.log('Error:', err);
       } else {
         console.log('Message successfully sent');
-      }
-    });
-  });
+      }})
+    ));
   
 };
 
