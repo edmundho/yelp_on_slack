@@ -77,10 +77,30 @@ const selectRandomRestaurants = (businesses) => {
   return arr;
 };
 
+const setClientObject = (body) => {
+  const milesDistance = body.submission['distance'] || 5;
+
+  const searchObj = {
+    term: body.submission['search'] || 'restaurant',
+    location: body.submission['location'],
+    price: body.submission['price'],
+    sort_by: 'rating',
+    limit: 30,
+    radius: milesToMeters(milesDistance)
+  };
+
+  if (searchObj.price === 0) {
+    delete searchObj.price;
+  }
+
+  return searchObj;
+};
+
 
 module.exports = {
   metersToMiles,
   milesToMeters,
   restaurantMessage,
-  selectRandomRestaurants
+  selectRandomRestaurants,
+  setClientObject
 };
