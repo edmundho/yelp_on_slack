@@ -1,5 +1,6 @@
 const { IncomingWebhook } = require('@slack/client');
 const imageUrlBuilder = require('./location_pins');
+const request = require('request');
 const axios = require('axios');
 
 const metersToMiles = (meters) => (meters * 0.0006).toFixed(1);
@@ -51,17 +52,43 @@ const buildRestaurantMessage = (restaurant, num) => (
   }
 );
 
-const locationsImage = locations => ({
-  "title": "Locations",
-  "text": imageUrlBuilder(locations),
-  "image_url": imageUrlBuilder(locations),
-  "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
-  "color": "#ff0000"
-});
+const locationsImage = locations => {
+  const imageUploadUrl = imageUrlBuilder(locations);
+
+  const options = {
+    uri: 'https://api.imgur.com/3/image',
+    method: 'POST',
+    headers: {
+      "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
+    },
+    body: {
+      "image": imageUploadUrl
+    }
+  }
+
+  request(options, (error, response, body) => {
+    const JSONresponse = JSON.parse(body);
+    if (JSONresponse.success) {
+      // return JSONresponse.data.link;
+      return {
+        "title": "Locations",
+        "text": imageUrlBuilder(locations),
+        "image_url": JSONresponse.data.link,
+        "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+        "color": "#ff0000"
+      };
+    } else {
+      console.log(JSONresponse);
+      console.log(JSONresponse.status);
+    }
+  })
+
+}
 
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
+  const image = locationsImage(locations);
   
   const restaurantPoll = {
     "text": "Where should we go eat?",
@@ -69,7 +96,7 @@ const restaurantMessage = (businesses, webHook) => {
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      // image
+      image
     ]
   };
 
