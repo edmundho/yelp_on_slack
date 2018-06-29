@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { yelpLogo } from './yelp.jsx';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className='whole-container'>
@@ -52,7 +53,7 @@ class App extends Component {
           <div className='header-text'>Yelp, Slack Integration</div>
           <div className='logo-plus'>
           
-            <img className='yelp-logo' src="https://res.cloudinary.com/nenry/image/upload/v1530208197/homepage-internet-yelp-web-page-screen-logo-icon.svg" alt=""/> 
+            {yelpLogo}
             <div className='plus'>
             +
             </div>
