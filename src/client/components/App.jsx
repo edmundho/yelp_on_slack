@@ -7,7 +7,7 @@ class App extends React.Component {
 			<div id="wrapper">
 
 					<header id="header" class="alt">
-              <span class="logo"><img src="images/logo.svg" alt="" /></span>
+              {yelpLogo}
               <h1>Yelp on Slack</h1>
               <p>Insert some text here</p>
             </header>
@@ -29,9 +29,9 @@ class App extends React.Component {
                     <header class="major">
                       <h2>What is Yelp on Slack?</h2>
                     </header>
-                <p> Yelp on Slack gathers the best restaurants according to your selected location and will output the top 3 best-rated restaurants.
-       These top 3 selections will also vary because who want's to eat the same thing everyday for lunch? In addition, we integrated Slack's greatest emojis
-           so you can quickly vote amongst your coworkers on where to go.</p>
+                <p> Can't decide what's for lunch? Tired of always going to the same place? Have no fear, Yelp on Slack is here. 
+                    Yelp on Slack is an extension that delivers a curated list of restaurants for you and your team to vote on. Give it a try and let's eat!
+                </p>
                     <ul class="actions">
                       <li><a href="generic.html" class="button">Learn More</a></li>
                     </ul>
