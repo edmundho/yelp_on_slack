@@ -9,4 +9,8 @@ node_modules
 node_modules/
 ./package-lock.json
 package-lock.json
+<<<<<<< HEAD
 ./build/bundle.js
+=======
+build/bundle.js
+>>>>>>> 1cc22dae10fffa7ca5f06b73dfc87de73d1519b4

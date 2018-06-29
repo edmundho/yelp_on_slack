@@ -1,4 +1,7 @@
 const { IncomingWebhook } = require('@slack/client');
+const imageUrlBuilder = require('./location_pins');
+const request = require('request');
+const axios = require('axios');
 
 const metersToMiles = (meters) => (meters * 0.0006).toFixed(1);
 const milesToMeters = (miles) => (miles * 1609.34).toFixed();
@@ -43,33 +46,106 @@ const buildRestaurantMessage = (restaurant, num) => (
     ],
     "title": restaurant.name,
     "title_link": restaurant.url,
-    "thumb_url": restaurant.image_url
+    "thumb_url": restaurant.image_url,
+    "color": "#ff0000"
+    // "image_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg"
   }
 );
 
+const locationsImage = locations => {
+  const imageUploadUrl = imageUrlBuilder(locations);
+
+  const options = {
+    uri: 'https://api.imgur.com/3/image',
+    method: 'POST',
+    headers: {
+      "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
+    },
+    body: {
+      "image": imageUploadUrl
+    }
+  }
+
+  request(options, (error, response, body) => {
+    const JSONresponse = JSON.parse(body);
+    if (JSONresponse.success) {
+      // return JSONresponse.data.link;
+      return {
+        "title": "Locations",
+        "text": imageUrlBuilder(locations),
+        "image_url": JSONresponse.data.link,
+        "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+        "color": "#ff0000"
+      };
+    } else {
+      console.log(JSONresponse);
+      console.log(JSONresponse.status);
+      return {
+        "title": "Locations",
+        "text": imageUrlBuilder(locations),
+        "image_url": "https://i.imgur.com/A10CY1d.jpg",
+        "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+        "color": "#ff0000"
+      };
+    }
+  })
+
+}
+
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
-  const test = {
+  const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
+  const image = locationsImage(locations);
+  
+  const restaurantPoll = {
+    "text": "Where should we go eat?",
     "attachments": [
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
-      buildRestaurantMessage(businesses[2], 2)
+      buildRestaurantMessage(businesses[2], 2),
+      image
     ]
   };
 
-  webHookUrl.send(test, function (err, res) {
+  webHookUrl.send(restaurantPoll, function (err, res) {
     if (err) {
       console.log('Error:', err);
     } else {
       console.log('Message successfully sent');
     }
   });
+
+  // Currently causes /yack command to yield operation_timeout??
+  // const imageUrl = imageUrlBuilder(locations);
+  // axios.get(imageUrl).then(url => {
+  //   const testGoogleImage = {
+  //     "attachments": [{
+  //       "title": "Slack API Documentation",
+  //       "title_link": "https://api.slack.com/",
+  //       "fields": [{
+  //         "title": "Priority",
+  //         "value": "High",
+  //         "short": false
+  //       }],
+  //       "image_url": url
+  //     }]
+  //   };
+
+  //   webHookUrl.send(testGoogleImage, function (err, res) {
+  //     if (err) {
+  //       console.log('Error:', err);
+  //     } else {
+  //       console.log('Message successfully sent');
+  //     }});
+  // });
+  
 };
 
 const selectRandomRestaurants = (businesses) => {
   const arr = [];
   while (arr.length < 3) {
-    var randomNum = Math.floor(Math.random() * businesses.length);
+    const randomNum = Math.floor(Math.random() * businesses.length);
+
     if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
     arr.push(businesses[randomNum]);
   }
@@ -79,25 +155,6 @@ const selectRandomRestaurants = (businesses) => {
 
 const setClientObject = (body) => {
   const milesDistance = body.submission['distance'] || 5;
-
-  // if (body.submission['price'] === 0) {
-  //   return {
-  //     term: body.submission['search'] || 'restaurant',
-  //     location: body.submission['location'],
-  //     sort_by: 'rating',
-  //     limit: 30,
-  //     radius: milesToMeters(milesDistance)
-  //   };
-  // } else {
-  //   return {
-  //     term: body.submission['search'] || 'restaurant',
-  //     location: body.submission['location'],
-  //     price: body.submission['price'],
-  //     sort_by: 'rating',
-  //     limit: 30,
-  //     radius: milesToMeters(milesDistance)
-  //   };
-  // }
 
   return {
     term: body.submission['search'] || 'restaurant',
