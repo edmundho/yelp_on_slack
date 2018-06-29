@@ -27,11 +27,11 @@ class App extends React.Component {
                 <div class="spotlight">
                   <div class="content">
                     <header class="major">
-                      <h2>Ipsum sed adipiscing</h2>
+                      <h2>What is Yelp on Slack?</h2>
                     </header>
-                    <p>Sed lorem ipsum dolor sit amet nullam consequat feugiat consequat magna
-										adipiscing magna etiam amet veroeros. Lorem ipsum dolor tempus sit cursus.
-										Tempus nisl et nullam lorem ipsum dolor sit amet aliquam.</p>
+                <p> Yelp on Slack gathers the best restaurants according to your selected location and will output the top 3 best-rated restaurants.
+       These top 3 selections will also vary because who want's to eat the same thing everyday for lunch? In addition, we integrated Slack's greatest emojis
+           so you can quickly vote amongst your coworkers on where to go.</p>
                     <ul class="actions">
                       <li><a href="generic.html" class="button">Learn More</a></li>
                     </ul>
