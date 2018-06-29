@@ -26,8 +26,7 @@ class App extends React.Component {
 					<nav id="nav">
               <ul>
                 <li><a href="#intro" class="active">Introduction</a></li>
-                <li><a href="#first">First Section</a></li>
-                <li><a href="#second">Second Section</a></li>
+                <li><a href="#first">Features</a></li>
                 <li><a href="#cta">Get Started</a></li>
               </ul>
             </nav>
@@ -79,42 +78,6 @@ class App extends React.Component {
                 </footer>
               </section>
 
-							<section id="second" class="main special">
-                <header class="major">
-                  <h2>Ipsum consequat</h2>
-                  <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-                    posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
-                </header>
-                <ul class="statistics">
-                  <li class="style1">
-                    <span class="icon fa-code-fork"></span>
-                    <strong>5,120</strong> Etiam
-									</li>
-                  <li class="style2">
-                    <span class="icon fa-folder-open-o"></span>
-                    <strong>8,192</strong> Magna
-									</li>
-                  <li class="style3">
-                    <span class="icon fa-signal"></span>
-                    <strong>2,048</strong> Tempus
-									</li>
-                  <li class="style4">
-                    <span class="icon fa-laptop"></span>
-                    <strong>4,096</strong> Aliquam
-									</li>
-                  <li class="style5">
-                    <span class="icon fa-diamond"></span>
-                    <strong>1,024</strong> Nullam
-									</li>
-                </ul>
-                <p class="content">Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum ac arcu sit amet, fermentum pellentesque et purus. Integer maximus varius lorem, sed convallis diam accumsan sed. Etiam porttitor placerat sapien, sed eleifend a enim pulvinar faucibus semper quis ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer eget purus nec nulla mattis et accumsan ut magna libero. Morbi auctor iaculis porttitor. Sed ut magna ac risus et hendrerit scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras eu ornare dui curabitur lacinia.</p>
-                <footer class="major">
-                  <ul class="actions special">
-                    <li><a href="generic.html" class="button">Learn More</a></li>
-                  </ul>
-                </footer>
-              </section>
-
 							<section id="cta" class="main special">
                 <header class="major">
                   <h2>Learn more about Yelp on Slack</h2>
@@ -141,7 +104,7 @@ class App extends React.Component {
               <li><a class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
                 </ul>
               </section>
-          <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a></p>
             </footer>
 
           </div>
