@@ -117,14 +117,13 @@ class App extends React.Component {
 
 							<section id="cta" class="main special">
                 <header class="major">
-                  <h2>Congue imperdiet</h2>
-                  <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-                    posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+                  <h2>Learn more about Yelp on Slack</h2>
+                  <p id="explore-text">Explore our code or visit the Slack app store below</p>
                 </header>
                 <footer class="major">
                   <ul class="actions special">
-                    <li><a href="generic.html" class="button primary">Get Started</a></li>
-                    <li><a href="generic.html" class="button">Learn More</a></li>
+                    <li><a href="https://github.com/edmundho/yelp_on_slack" class="button primary">GITHUB</a></li>
+                    <li><a href="generic.html" class="button">APP STORE</a></li>
                   </ul>
                 </footer>
               </section>
@@ -157,7 +156,7 @@ class App extends React.Component {
                   <li><a href="#" class="icon fa-dribbble alt"><span class="label">Dribbble</span></a></li>
                 </ul>
               </section>
-              <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          <p class="copyright">&copy;  2015 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
             </footer>
 
           </div>
