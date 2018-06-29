@@ -5,6 +5,8 @@
 
 Deciding where to go for lunch is a common issue in most workspaces. Often, with no one willing to make a final decision, teams resort to going to the same restaurant time and time again. Yelp on Slack is an app dedicated to solving this issue. Users provide basic info such as a max distance and a price range, and the app returns a curated list of restaurants that match the criteria in a poll format. Team members can then vote for their desired option and enjoy a nice lunch with the team.
 
+![Demo](https://i.imgur.com/Tl93xIJ.gif)
+
 ## Technologies
 
 ### MERN Stack:
