@@ -7,7 +7,7 @@ class App extends React.Component {
 			<div id="wrapper">
 
 					<header id="header" class="alt">
-              <span class="logo"><img src="images/logo.svg" alt="" /></span>
+              {yelpLogo}
               <h1>Yelp on Slack</h1>
               <a href="https://slack.com/oauth/authorize?client_id=387620765190.386684586035&scope=incoming-webhook,commands,users:read,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
             </header>
@@ -29,14 +29,14 @@ class App extends React.Component {
                     <header class="major">
                       <h2>What is Yelp on Slack?</h2>
                     </header>
-                <p> Yelp on Slack gathers the best restaurants according to your selected location and will output the top 3 best-rated restaurants.
-       These top 3 selections will also vary because who want's to eat the same thing everyday for lunch? In addition, we integrated Slack's greatest emojis
-           so you can quickly vote amongst your coworkers on where to go.</p>
+                <p> Can't decide what's for lunch? Tired of always going to the same place? Have no fear, Yelp on Slack is here. 
+                    Yelp on Slack is an extension that delivers a curated list of restaurants for you and your team to vote on. Give it a try and let's eat!
+                </p>
                     <ul class="actions">
                       <li><a href="generic.html" class="button">Learn More</a></li>
                     </ul>
                   </div>
-                  <span class="image"><img src="images/pic01.jpg" alt="" /></span>
+              <span class="image"><img src="https://i.imgur.com/Tl93xIJ.gif" alt="" /></span>
                 </div>
               </section>
 
@@ -106,14 +106,13 @@ class App extends React.Component {
 
 							<section id="cta" class="main special">
                 <header class="major">
-                  <h2>Congue imperdiet</h2>
-                  <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-                    posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+                  <h2>Learn more about Yelp on Slack</h2>
+                  <p id="explore-text">Explore our code or visit the Slack app store below</p>
                 </header>
                 <footer class="major">
                   <ul class="actions special">
-                    <li><a href="generic.html" class="button primary">Get Started</a></li>
-                    <li><a href="generic.html" class="button">Learn More</a></li>
+                    <li><a href="https://github.com/edmundho/yelp_on_slack" class="button primary">GITHUB</a></li>
+                    <li><a href="generic.html" class="button">APP STORE</a></li>
                   </ul>
                 </footer>
               </section>
@@ -146,7 +145,7 @@ class App extends React.Component {
                   <li><a href="#" class="icon fa-dribbble alt"><span class="label">Dribbble</span></a></li>
                 </ul>
               </section>
-              <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          <p class="copyright">&copy;  2015 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
             </footer>
 
           </div>
