@@ -2263,10 +2263,10 @@ input, select, textarea {
 			.icon.alt:before {
 				display: block;
 				font-size: 1.25em;
-				width: 2em;
-				height: 2em;
+				width: 1.5em;
+				height: 1.5em;
 				text-align: center;
-				line-height: 2em;
+				line-height: 1.5em;
 			}
 
 		.icon.style1 {
@@ -3661,6 +3661,16 @@ input, select, textarea {
 
 /* Footer */
 
+  .developer-text {
+    text-align: center;
+  }
+
+  .developer-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 	#footer {
 		display: -moz-flex;
 		display: -webkit-flex;
@@ -3672,7 +3682,8 @@ input, select, textarea {
 		flex-wrap: wrap;
 		padding: 5em 5em 3em 5em ;
 		width: calc(100% + 2em);
-		margin: 0 0 3em -2em;
+    margin: 0 0 3em -2em;
+    justify-content: center;
 	}
 
 		#footer > * {
