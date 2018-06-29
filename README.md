@@ -3,7 +3,7 @@
 
 ## Background and Overview
 
-Deciding on a place to go for lunch is a common issue amongst teams in the workplace. Often times, with no one willing to make a final decision, teams resort to going to the same restaurant time and time again. Yelp on Slack solves this issue by organizing a curated list of restaurants based on user inputted filters, and allows team members to vote on a location.
+Deciding where to go for lunch is a common issue in most workspaces. Often, with no one willing to make a final decision, teams resort to going to the same restaurant time and time again. Yelp on Slack is an app dedicated to solving this issue. Users provide basic info such as a max distance and a price range, and the app returns a curated list of restaurants that match the criteria in a poll format. Team members can then vote for their desired option and enjoy a nice lunch with the team.
 
 ## Technologies
 
