@@ -47,7 +47,7 @@ class App extends React.Component {
                       <li><a href="generic.html" class="button">Learn More</a></li>
                     </ul>
                   </div>
-                  <span class="image"><img src="images/pic01.jpg" alt="" /></span>
+              <span class="image"><img src="https://i.imgur.com/Tl93xIJ.gif" alt="" /></span>
                 </div>
               </section>
 
