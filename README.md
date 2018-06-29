@@ -101,10 +101,10 @@ const selectRandomRestaurants = (businesses) => {
 
 
 ## Developers
-[Marshall Cheng](https://github.com/marshallycheng)
-[Travis Nguyen](https://github.com/travishn)
-[Henry Nguyen](https://github.com/nenry)
-[Edmund Ho](https://github.com/edmundho)
+[Marshall](https://github.com/marshallycheng)
+[Travis](https://github.com/travishn)
+[Henry](https://github.com/nenry)
+[Edmund](https://github.com/edmundho)
 
 ### Potential Future Features(difficult)
 - [ ] Yelp on Slack will put in a reservation for the selected restaurant from poll
