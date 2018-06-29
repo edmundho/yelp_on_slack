@@ -42,9 +42,7 @@ class App extends React.Component {
                 <p> Can't decide what's for lunch? Tired of always going to the same place? Have no fear, Yelp on Slack is here. 
                     Yelp on Slack is an extension that delivers a curated list of restaurants for you and your team to vote on. Give it a try and let's eat!
                 </p>
-                    <ul class="actions">
-                      <li><a href="generic.html" class="button">Learn More</a></li>
-                    </ul>
+ 
                   </div>
               <span class="image"><img src="https://i.imgur.com/Tl93xIJ.gif" alt="" /></span>
                 </div>
