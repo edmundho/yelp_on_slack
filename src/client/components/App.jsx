@@ -7,7 +7,18 @@ class App extends React.Component {
 			<div id="wrapper">
 
 					<header id="header" class="alt">
-              {yelpLogo}
+            <div className='slack-yelp-add'>
+
+
+              {yelpLogo} 
+              <div className='add-sign'>
+                +
+              </div>
+
+        
+            <img className='slack-logo' src="https://res.cloudinary.com/nenry/image/upload/v1530205092/slack_256.png" alt=""/>
+           
+            </div>
               <h1>Yelp on Slack</h1>
               <p>Insert some text here</p>
             </header>
