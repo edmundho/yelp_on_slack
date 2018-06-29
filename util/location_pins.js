@@ -11,9 +11,9 @@ const imageUrlBuilder = function (locations) {
   const secondBizLoc = `${locations[1].latitude},${locations[1].longitude}`;
   const thirdBizLoc = `${locations[2].latitude},${locations[2].longitude}`;
 
-  const firstBizMark = `markers=anchor:center%7C${firstBizLoc}&`;
-  const secondBizMark = `markers=anchor:center%7C${secondBizLoc}&`;
-  const thirdBizMark = `markers=anchor:center%7C${thirdBizLoc}&`;
+  const firstBizMark = `markers=anchor:center%7Clabel:1%7C${firstBizLoc}&`;
+  const secondBizMark = `markers=anchor:center%7Clabel:2%7C${secondBizLoc}&`;
+  const thirdBizMark = `markers=anchor:center%7Clabel:3%7C${thirdBizLoc}&`;
 
 
   return (url + mapStyle + firstBizMark + secondBizMark + thirdBizMark + key);
