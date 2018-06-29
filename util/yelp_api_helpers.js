@@ -70,7 +70,7 @@ const restaurantMessage = (businesses, webHook) => {
       buildRestaurantMessage(businesses[0], 0),
       buildRestaurantMessage(businesses[1], 1),
       buildRestaurantMessage(businesses[2], 2),
-      image
+      // image
     ]
   };
 
