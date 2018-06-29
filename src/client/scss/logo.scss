@@ -1,0 +1,28 @@
+#yelp-logo {
+  height: 115px;
+  width: 120px;
+}
+
+.slack-logo {
+  height: 132px;
+  width: 130px;
+  display: flex;
+  position: relative;
+  top: -3px;
+  
+}
+
+.slack-yelp-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-sign {
+  font-size: 50px;
+  color: white;
+  font-weight: 600;
+  margin-left: 10px;
+  margin-right: 13px;
+}
