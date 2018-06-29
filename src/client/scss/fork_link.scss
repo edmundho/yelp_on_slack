@@ -1,0 +1,17 @@
+#repo-link {
+
+}
+
+#repo-link a {
+  display: inline-block;
+  background: darkorchid;
+  color: rgb(225, 225, 225);
+  // color: whitesmoke;
+  border-top: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 2px 55px;
+  transform: rotate(-45deg) translateX(-30%);
+  letter-spacing: 2px;
+}
