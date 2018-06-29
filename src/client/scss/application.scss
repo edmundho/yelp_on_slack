@@ -294,8 +294,20 @@ svg {
 }
 
 .linkedin-logo {
-  img{
+
     height: 40px;
     width: 40px;
-  }
+
+}
+
+.github-logo {
+    width: 40px;
+    height: 40px;
+
+}
+
+
+.git-link-logos {
+  display: flex;
+
 }

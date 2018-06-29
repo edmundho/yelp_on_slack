@@ -10,13 +10,28 @@ class App extends Component {
         
         <div className='header-app-name'>Yelp on Slack</div>
  
-          <div> 
-            <a href="">Linkedins</a>
-            <div className='linkedin-logo'>
-                <img src="http://res.cloudinary.com/nenry/image/upload/v1530235167/In-White-128px-R.png" alt="" />
-                <img src="https://res.cloudinary.com/nenry/image/upload/v1530235183/In-2CRev-128px-R.png" alt="" />
-                <img src="http://res.cloudinary.com/nenry/image/upload/v1530235159/In-Black-128px-R.png" alt="" />
-                <img src="http://res.cloudinary.com/nenry/image/upload/v1530235167/In-White-128px-R.png" alt="" />
+          <div className='git-link-logos'> 
+    
+
+       
+            <a href="">
+                  <img className='github-logo' src="http://res.cloudinary.com/nenry/image/upload/v1530234927/GitHub-Mark-Light-120px-plus.png" alt=""/>
+            </a>
+            
+            <div className=''>
+                <a href="">
+                  <img className='linkedin-logo'src="http://res.cloudinary.com/nenry/image/upload/v1530235167/In-White-128px-R.png" alt="" />
+                </a>
+                <a href="">
+                  <img className='linkedin-logo' src="https://res.cloudinary.com/nenry/image/upload/v1530235183/In-2CRev-128px-R.png" alt="" />
+                </a>
+                <a href="">
+                  <img className='linkedin-logo' src="http://res.cloudinary.com/nenry/image/upload/v1530235159/In-Black-128px-R.png" alt="" />
+                </a>
+
+                <a href="">
+                  <img className='linkedin-logo' src="http://res.cloudinary.com/nenry/image/upload/v1530235167/In-White-128px-R.png" alt="" />
+                </a>
               
               </div>          
     
