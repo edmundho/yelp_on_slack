@@ -53,10 +53,24 @@ class App extends React.Component {
 
 							<section id="first" class="main special">
                 <header class="major">
-                  <h2>Magna veroeros</h2>
+                  <h2>How to use</h2>
                 </header>
                 <ul class="features">
-                  <li>
+            <li>1. Click Add to Slack button above</li>
+            <li>2. Enter /letseat in your chat</li>
+            <li>3. Fill out the form and press submit</li>
+        
+              <li>4. Vote with 
+                <img src="https://res.cloudinary.com/nenry/image/upload/v1530304321/fire_1f525.png" alt=""/>
+                <img src="https://res.cloudinary.com/nenry/image/upload/v1530304364/Emoji_u1f44d.svg.png" alt=""/>
+                <img src="https://res.cloudinary.com/nenry/image/upload/v1530304403/white-medium-star_2b50.png" alt=""/>
+              </li>
+      
+
+
+            <li>5. Time to eat!</li>
+              {/* <img src="https://res.cloudinary.com/nenry/image/upload/v1530303470/yelponslackexample.png" alt=""/> */}
+                  {/* <li>
                     <span class="icon major style1 fa-code"></span>
                     <h3>Ipsum consequat</h3>
                     <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
@@ -70,7 +84,7 @@ class App extends React.Component {
                     <span class="icon major style5 fa-diamond"></span>
                     <h3>Dolor nullam</h3>
                     <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
-                  </li>
+                  </li> */}
                 </ul>
                 <footer class="major">
                   <ul class="actions special">
