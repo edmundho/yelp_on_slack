@@ -7,9 +7,20 @@ class App extends React.Component {
 			<div id="wrapper">
 
 					<header id="header" class="alt">
-              {yelpLogo}
+            <div className='slack-yelp-add'>
+
+
+              {yelpLogo} 
+              <div className='add-sign'>
+                +
+              </div>
+
+        
+            <img className='slack-logo' src="https://res.cloudinary.com/nenry/image/upload/v1530205092/slack_256.png" alt=""/>
+           
+            </div>
               <h1>Yelp on Slack</h1>
-              <p>Insert some text here</p>
+              <a href="https://slack.com/oauth/authorize?client_id=387620765190.386684586035&scope=incoming-webhook,commands,users:read,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
             </header>
 
 					<nav id="nav">
@@ -106,14 +117,13 @@ class App extends React.Component {
 
 							<section id="cta" class="main special">
                 <header class="major">
-                  <h2>Congue imperdiet</h2>
-                  <p>Donec imperdiet consequat consequat. Suspendisse feugiat congue<br />
-                    posuere. Nulla massa urna, fermentum eget quam aliquet.</p>
+                  <h2>Learn more about Yelp on Slack</h2>
+                  <p id="explore-text">Explore our code or visit the Slack app store below</p>
                 </header>
                 <footer class="major">
                   <ul class="actions special">
-                    <li><a href="generic.html" class="button primary">Get Started</a></li>
-                    <li><a href="generic.html" class="button">Learn More</a></li>
+                    <li><a href="https://github.com/edmundho/yelp_on_slack" class="button primary">GITHUB</a></li>
+                    <li><a href="generic.html" class="button">APP STORE</a></li>
                   </ul>
                 </footer>
               </section>
@@ -131,8 +141,7 @@ class App extends React.Component {
               <li><a class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
                 </ul>
               </section>
-
-              <p class="copyright"> Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
             </footer>
 
           </div>

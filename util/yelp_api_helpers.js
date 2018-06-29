@@ -64,7 +64,7 @@ const locationsImage = locations => {
     body: {
       "image": imageUploadUrl
     }
-  }
+  };
 
   request(options, (error, response, body) => {
     const JSONresponse = JSON.parse(body);
@@ -88,9 +88,9 @@ const locationsImage = locations => {
         "color": "#ff0000"
       };
     }
-  })
+  });
 
-}
+};
 
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
