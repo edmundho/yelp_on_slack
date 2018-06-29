@@ -3056,9 +3056,9 @@ input, select, textarea {
 		text-align: center;
 	}
 
-		#header h1 {
+		/* #header h1 {
 			margin: 0 0 0.25em 0;
-		}
+		} */
 
 		#header p {
 			font-size: 1.25em;
@@ -3066,7 +3066,7 @@ input, select, textarea {
 		}
 
 		#header.alt {
-			padding: 7em 5em 1.75em 5em ;
+			padding: 7em 5em 4em 5em ;
 		}
 
 			#header.alt h1 {

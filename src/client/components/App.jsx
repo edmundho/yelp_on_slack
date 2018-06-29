@@ -19,8 +19,8 @@ class App extends React.Component {
             <img className='slack-logo' src="https://res.cloudinary.com/nenry/image/upload/v1530205092/slack_256.png" alt=""/>
            
             </div>
-              <h1>Yelp on Slack</h1>
-              <a href="https://slack.com/oauth/authorize?client_id=387620765190.386684586035&scope=incoming-webhook,commands,users:read,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+          <h1>Yelp on Slack</h1>
+              <a  href="https://slack.com/oauth/authorize?client_id=387620765190.386684586035&scope=incoming-webhook,commands,users:read,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
             </header>
 
 					<nav id="nav">
