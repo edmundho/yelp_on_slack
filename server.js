@@ -90,7 +90,8 @@ app.post('/posttest', (req, res) => {
     axios.post('https://slack.com/api/dialog.open', qs.stringify(dialog))
       .then((result) => {
         debug('dialog.open: %o', result.data);
-        res.send(JSON.stringify(req.body));
+        // send empty response so we don't time out
+        res.send('');
       }).catch((error) => {
         debug('dialog.open call failed: $o', error);
         res.sendStatus(501);
