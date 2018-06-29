@@ -11,8 +11,15 @@ class App extends Component {
         <div className='header-app-name'>Yelp on Slack</div>
  
           <div> 
-            <a href="">Github</a>
-            <a href="">Linkedins</a>          
+            <a href="">Linkedins</a>
+            <div className='linkedin-logo'>
+                <img src="http://res.cloudinary.com/nenry/image/upload/v1530235167/In-White-128px-R.png" alt="" />
+                <img src="https://res.cloudinary.com/nenry/image/upload/v1530235183/In-2CRev-128px-R.png" alt="" />
+                <img src="http://res.cloudinary.com/nenry/image/upload/v1530235159/In-Black-128px-R.png" alt="" />
+                <img src="http://res.cloudinary.com/nenry/image/upload/v1530235167/In-White-128px-R.png" alt="" />
+              
+              </div>          
+    
           </div>
       </div>
       
