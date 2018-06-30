@@ -19,14 +19,15 @@ class App extends React.Component {
             <img className='slack-logo' src="https://res.cloudinary.com/nenry/image/upload/v1530205092/slack_256.png" alt=""/>
            
             </div>
-              <h1>Yelp on Slack</h1>
-              <a href="https://slack.com/oauth/authorize?client_id=387620765190.386684586035&scope=incoming-webhook,commands,users:read,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+          <h1 id='slack-header' >Yelp on Slack</h1>
+          <h2 id='sub-header'>Deciding where to eat, made easy</h2>
+              <a  href="https://slack.com/oauth/authorize?client_id=387620765190.386684586035&scope=incoming-webhook,commands,users:read,chat:write:bot"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
             </header>
 
 					<nav id="nav">
               <ul>
                 <li><a href="#intro" class="active">Introduction</a></li>
-                <li><a href="#first">Features</a></li>
+                <li><a href="#first">How to use</a></li>
                 <li><a href="#cta">Privacy</a></li>
               </ul>
             </nav>
@@ -50,29 +51,31 @@ class App extends React.Component {
 
 							<section id="first" class="main special">
                 <header class="major">
-                  <h2>Magna veroeros</h2>
+                  <h2>How to use</h2>
                 </header>
                 <ul class="features">
                   <li>
-                    <span class="icon major style1 fa-code"></span>
-                    <h3>Ipsum consequat</h3>
-                    <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
+            
+          
+                <span class="icon major style1 fab fa-slack-hash"></span>
+                    <h3>Add to Slack</h3>
+                    <p>Once you add to slack. Type <b>/letseat</b> in the chat</p>
                   </li>
                   <li>
-                    <span class="icon major style3 fa-copy"></span>
-                    <h3>Amed sed feugiat</h3>
-                    <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
+                <span id='edit' class="icon major style3 fal fa-edit"></span>
+                    <h3>Food Form</h3>
+                    <p>Fill out the form according to your preferences and press submit.</p>
                   </li>
                   <li>
-                    <span class="icon major style5 fa-diamond"></span>
-                    <h3>Dolor nullam</h3>
-                    <p>Sed lorem amet ipsum dolor et amet nullam consequat a feugiat consequat tempus veroeros sed consequat.</p>
+                <span class="icon major style5 fas fa-utensils"></span>
+                    <h3>Choose a meal</h3>
+                    <p>Behold! The best rated top 3 restaurants appear and vote with the respective emoji between your friends. </p>
                   </li>
                 </ul>
                 <footer class="major">
-                  <ul class="actions special">
+                  {/* <ul class="actions special">
                     <li><a href="generic.html" class="button">Learn More</a></li>
-                  </ul>
+                  </ul> */}
                 </footer>
               </section>
 
