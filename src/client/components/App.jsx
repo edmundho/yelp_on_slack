@@ -99,10 +99,10 @@ class App extends React.Component {
                 <h2>About the Project</h2>
                 <p class='developer-text'>Yelp on Slack was developed over the course of five days by a team of four software developers. We're a group of passionate engineers with a host of other great projects. Check them out on our Githubs!</p>
                 <ul class="icons">
-              <li><a class="icon fa-github alt" href="https://github.com/Nenry"><span class="label">GitHub</span></a> Henry</li>
-              <li><a class="icon fa-github alt" href="https://github.com/edmundho"><span class="label">GitHub</span></a> Edmund</li>
-              <li><a class="icon fa-github alt" href="https://github.com/marshallycheng"><span class="label">GitHub</span></a> Marshall</li>
-              <li><a class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/Nenry"><span class="label">GitHub</span></a> Henry</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/edmundho"><span class="label">GitHub</span></a> Edmund</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/marshallycheng"><span class="label">GitHub</span></a> Marshall</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
                 </ul>
               </section>
           <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a></p>
