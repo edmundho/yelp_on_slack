@@ -100,12 +100,12 @@ const restaurantMessage = (businesses, webHook) => {
   };
 
   request(options, (error, response, body) => {
-    console.log(body.data.link);
-    // const JSONresponse = JSON.parse(body);
-    if (body.success) {
+    // console.log(body.data.link);
+    const JSONresponse = JSON.parse(body);
+    if (JSONresponse.success) {
       const imageAttachment = {
         "title": "Map:",
-        "image_url": body.data.link,
+        "image_url": JSONresponse.data.link,
         "color": "#ff0000"
       };
       const restaurantPoll = {
@@ -126,8 +126,8 @@ const restaurantMessage = (businesses, webHook) => {
         }
       });
     } else {
-      console.log(body);
-      console.log(body.status);
+      console.log(JSONresponse);
+      console.log(JSONresponse.status);
     }
   });
 
