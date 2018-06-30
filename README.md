@@ -84,7 +84,7 @@ When we store channels' information in our database, we want to account for the 
 
 We use a bayesian average based on reviews/ratings in order to determine which restaurants should be returned for a given set of filters. We use the Fisher-Yates shuffle algorithm to determine which restaurants of those should be returned. Our goal for this was to return only credible restaurants with good average ratings while also changing up the results every poll, even if the same filters were used. We considered many different strategies of selecting restaurants, and eventually settled on this one for its accessibility and ease of implementation. 
 
-```javascripts
+```javascript
 // Fisher Yates Shuffle Algorithm
 const selectRandomRestaurants = (businesses) => {
   const arr = [];
