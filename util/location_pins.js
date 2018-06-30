@@ -1,6 +1,6 @@
 
 const imageUrlBuilder = function (locations) {
-  const imageSize = '350x200';
+  const imageSize = '450x150';
 
   const url = `http://maps.googleapis.com/maps/api/staticmap?size=${imageSize}&scale=2&maptype=roadmap&`;
 
