@@ -66,7 +66,7 @@ class App extends React.Component {
                   <li>
                 <span id='edit' class="icon major style3 fal fa-edit"></span>
                     <h3>Food Form</h3>
-                    <p>Fill out the form according to your preferences and press submit</p>
+                    <p>Fill out the form according to your preferences and press submit.</p>
                   </li>
                   <li>
                 <span class="icon major style5 fas fa-utensils"></span>
