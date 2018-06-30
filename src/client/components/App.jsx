@@ -27,7 +27,7 @@ class App extends React.Component {
 					<nav id="nav">
               <ul>
                 <li><a href="#intro" class="active">Introduction</a></li>
-                <li><a href="#first">Features</a></li>
+                <li><a href="#first">How to use</a></li>
                 <li><a href="#cta">Get Started</a></li>
               </ul>
             </nav>
@@ -53,7 +53,7 @@ class App extends React.Component {
 
 							<section id="first" class="main special">
                 <header class="major">
-                  <h2>Magna veroeros</h2>
+                  <h2>How to use</h2>
                 </header>
                 <ul class="features">
                   <li>
@@ -61,7 +61,7 @@ class App extends React.Component {
           
                 <span class="icon major style1 fab fa-slack-hash"></span>
                     <h3>Add to Slack</h3>
-                    <p>Once you add to slack. Type /letseat in the chat</p>
+                    <p>Once you add to slack. Type <b>/letseat</b> in the chat</p>
                   </li>
                   <li>
                 <span id='edit' class="icon major style3 fal fa-edit"></span>
