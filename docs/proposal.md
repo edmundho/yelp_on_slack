@@ -6,10 +6,9 @@ Yelp on Slack is an app that facilitates lunch place decision making.
 Deciding on a place to go for lunch is a common issue amongst teams in the workplace. Often times, with no one willing to make a final decision, teams resort to going to the same restaurant time after time. With Yelp on Slack, we intend to solve this problem by filtering data from nearby restaurants based on the average rating and review count, and presenting a curated list of options based on the user’s inputs.
 
 ## Functionality & MVPs
-- [ ] Users can input a location, a maximum distance, a price range, and a time range for the poll
-- [ ] Yelp on Slack will return a curated list of restaurant options along with a timed poll for users to vote using emojis
-- [ ] If the poll is inconclusive, yack will independently select an option
-- [ ] Menu, types of food, highlighted dish, and photos will be displayed for selected restaurants
+- [x] Users can input a location, a maximum distance, and a price range for the poll
+- [x] Yelp on Slack will return a curated list of restaurant options along with a timed poll for users to vote using emojis
+- [x] Type of food, highlighted dish, yelp link and photos will be displayed for three selected restaurants
 
 ### Bonus Features:
 - [ ] Yelp on Slack will put in a reservation for the selected restaurant from poll
