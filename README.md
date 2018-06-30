@@ -1,104 +1,114 @@
 # Yelp on Slack
-Yelp on Slack is an app that facilitates lunch place decision making.
+[Description Page](https://yelponslack.herokuapp.com/)
 
 ## Background and Overview
 
-Deciding on a place to go for lunch is a common issue amongst teams in the workplace. Often times, with no one willing to make a final decision, teams resort to going to the same restaurant time after time. With Yelp on Slack, we intend to solve this problem by filtering data from nearby restaurants based on the average rating and review count, and presenting a curated list of options based on the user’s inputs.
+Deciding where to go for lunch is a common issue in most workspaces. Often, with no one willing to make a final decision, teams resort to going to the same restaurant time and time again. Yelp on Slack is an app dedicated to solving this issue. Users provide basic info such as a max distance and a price range, and the app returns a curated list of restaurants that match the criteria in a poll format. Team members can then vote for their desired option and enjoy a nice lunch with the team.
 
-## Functionality & MVPs
-- [ ] Users can input a location, a maximum distance, a price range, and a time range for the poll
-- [ ] Yelp on Slack will return a curated list of restaurant options along with a timed poll for users to vote using emojis
-- [ ] If the poll is inconclusive, yack will independently select an option
-- [ ] Menu, types of food, highlighted dish, and photos will be displayed for selected restaurants
+![Demo](https://i.imgur.com/Tl93xIJ.gif)
 
-### Bonus Features:
+## Technologies
+
+### MERN Stack:
+* Description page:
+  * React (v16.4.0)
+* Backend:
+  * MongoDB, mLab
+  * Express
+  * Node
+
+### APIs
+* Yelp Fusion API
+  * Search (Search businesses based on filters)
+  * Business Show (Grab info on specific businesses)
+* Slack API
+  * Incoming Webhooks (Sending messages)
+  * Slash commands (Receiving requests)
+  * Dialog Options (Creating submission form)
+
+
+### Implementation Details
+Yelp on Slack was designed to ping the Slack API twice and the Yelp API once every cycle. These are the steps of a cycle:
+
+1. The cycle begins with a user installing our app. Once installed, our database stores that channel and its unique webhook url, which allows us to post messages in that channel. 
+2. When a user uses the slash command `/letseat`, we receive that request at our predetermined route, which will then send off a preconstructed dialog object to the Slack API based off a `trigger_id`, which allows us to target the particular user who sent the request.
+3. The user then fills out the form with their chosen filters, and when they submit it, it again hits another predetermined route. There, we parse the filters and reorganize the data and send off a request to the Yelp API. 
+4. We again reorganize the restaurant data from Yelp and format it into a message which is sent to the channel that the request originated from via the stored webhook in our database. 
+
+### Code Snippets
+This is the route for accepting form submissions. We parse the data, reorganize it, and sent off a request to Yelp Fusion API
+```javascript
+//route to accept button-presses and form submissions
+app.post('/interactive-component', (req, res) => {
+  const body = JSON.parse(req.body.payload);
+  Channel.findOne({channel_id: body.channel.id}).then( channel => {
+    // check for verification token
+    if (body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+      debug(`Form submission received: ${body.submission.trigger_id}`);
+  
+      // we send an empty response because slack requires us to respond within 3 seconds or else timeout
+      res.send('');
+      const searchObj = YelpAPIUtil.setClientObject(body);
+      // ping yelp api with our search terms from dialog form
+      client.search(searchObj).then(restaurants => {
+        // select random, unique restaurants from payload
+        const businesses = YelpAPIUtil.selectRandomRestaurants(restaurants.jsonBody.businesses);
+        // send poll to channel that made request
+        YelpAPIUtil.restaurantMessage(businesses, channel.webhook_url);
+      }, (err) => {
+        res.sendStatus('Not enough restaurants');
+      });
+    } else {
+      debug("Token mismatch");
+      res.sendStatus(500);
+      }
+    }, () => {
+      res.sendStatus(505);
+    }
+  );
+
+});
+```
+
+When we store channels' information in our database, we want to account for the possibility that channels may reinstall, which will update webhook urls. By using `findOneAndUpdate()`, we can account for this and update the webhook as necessary without needing to create a new entry, which keeps our database clear of unnecessary data. 
+```javascript
+     const conditions = { channel_id: channelId};
+      const newEntry = { channel_id: channelId, access_token: channelAccessToken, webhook_url: webHookUrl };
+      // if channel already exists, update it with new info. if it doesn't, create it
+      Channel.findOneAndUpdate(conditions, newEntry, {upsert: true}, function(err){
+        if (err) return res.send(500, {error: err});
+        // redirect to home/splash page upon successful authorization
+        return res.redirect('https://yelponslack.herokuapp.com');
+      });
+```
+
+We use a bayesian average based on reviews/ratings in order to determine which restaurants should be returned for a given set of filters. We use the Fisher-Yates shuffle algorithm to determine which restaurants of those should be returned. Our goal for this was to return only credible restaurants with good average ratings while also changing up the results every poll, even if the same filters were used. We considered many different strategies of selecting restaurants, and eventually settled on this one for its accessibility and ease of implementation. 
+
+```javascripts
+// Fisher Yates Shuffle Algorithm
+const selectRandomRestaurants = (businesses) => {
+  const arr = [];
+  while (arr.length < 3) {
+    const randomNum = Math.floor(Math.random() * businesses.length);
+
+    if (arr.indexOf(randomNum) > -1 || arr.includes(businesses[randomNum])) continue;
+    arr.push(businesses[randomNum]);
+  }
+
+  return arr;
+};
+```
+
+
+## Developers
+[Marshall](https://github.com/marshallycheng)
+[Travis](https://github.com/travishn)
+[Henry](https://github.com/nenry)
+[Edmund](https://github.com/edmundho)
+
+### Potential Future Features(difficult)
 - [ ] Yelp on Slack will put in a reservation for the selected restaurant from poll
 - [ ] Alerts that notify slack channel members when a poll is closing within a specified time
 - [ ] Automatically starts poll on specified day for companies that have weekly team lunches
 - [ ] Implement Google Maps API to provide directions to restaurant
 - [ ] Create an option for users to vote on to create a new poll with a different curated list of restaurant options
-
-## Technologies and Technical Challenges
-
-### Mern Stack:
-* Frontend:
-  * React (v16.4.0)
-* Backend:
-  * MongoDB
-  * Express.js
-  * Node.js
-### APIs:
-* Yelp Fusion API
-* Slack API
-  * Incoming Webhook
-  * Slash Commands
-
-### Accessing Dataset
-* Utilize user input to hit the fusion api at the backend search route to access restaurants in surrounding area
-* Create a composite score as a function of average rating and total number of reviews to select top three restaurants
-* Request information from Yelp Fusion API for each restaurant to be displayed as a message using Slack API
-
-### Formatting Data
-* Create a request to the Fusion API and format the information from the dataset to create a timed poll using the Slack API
-* Explore the capabilities of the slack interface in terms of formatting for display of restaurant information
-
-### Slack API
-* Integrate webhooks and slash commands for starting a poll and shortcut commands
-* Employ Slack message builder to create restaurant poll form with individual restaurant information
-
-### UX
-* Frontend Interface
-  * Integrate an “Add to Slack” button that installs the Yelp on Slack app to the user’s slack workplace
-  * Provide basic setup instructions and slash commands
-* Backend
-  * Our backend will act as a middleman for formatting data between Slack and Yelp APIs
-  * After completing the restaurant poll form, slack sends JSON to our backend, which we configure to the appropriate query params format to send to yelp
-  * Our backend takes yelp responses and filters the JSON dataset based on a composite score function, sending it back to slack for users to view using the Slack API
-
-## Accomplished Over the Weekend
-* Completed tutorials on Express.js, Node.js, and MongoDB
-* Completed heroku set up for the app
-* Determined data format and availability provided by Yelp Fusion API
-* Created webhooks on group channel for slack message builder api tests
-* Constructed form options for creation of timed poll 
-* Connected data yielded from Yelp Fusion API to Slack API to display messages in a specific channel
-
-## Group Members & Work Breakdown
-**Travis Nguyen**, 
-**Marshall Cheng**, 
-**Henry Nguyen**, 
-**Edmund Ho**
-
-
-### Day 1
-  - Determine need for own composite score function for filtering of restaurant data **GROUP**
-  - Complete dialog option to create an interactive timed poll **Marshall**
-  - Determine necessary restaurant information to display to slack users **Henry**
-  - Format the data provided by Yelp Fusion API and correctly display as message using Slack message builder API **Travis**
-  - Research Oauth of Slack API and determine need for database (storing channel webhooks) **Edmund**
-
-### Day 2
-  - Create slash command to create a timed poll **Henry**
-  - Start on conversion of timed poll results to create request to Yelp Fusion API **Marshall**
-  - Research slack api auth tokens and present findings to group mates **Edmund**
-  - Implement alert that notifies slack channel members that a poll is closing within a specified time frame **Travis**
-
-### Day 3
-  - Reconvene to ensure data and project files are in an organized state **GROUP**
-  - Run tests to ensure whether data yielded from Yelp Fusion API meet group expectations (Bayesian rating filter from yelp) **GROUP**
-  - Walk through process of app to ensure members have general understanding of data flow **GROUP**
-  - Reconfigure data in slack message builder to create interactive and presentable messages for slack users **GROUP**
-
-
-### Day 4
-  - Setup necessary files and components to create splash page for app **Henry**
-  - Create user auth for when teams add app to their workspace (determine which users have option of initializing a poll) **Edmund / Travis**
-  - Create button that users can click to automatically install the app in their workspace **Marshall**
-
-### Day 5
-  - Style the splash page **Henry / Travis**
-  - Add directions to front end to ensure users understand purpose and commands of app **Marshall / Edmund**
-
-### Day 6
- - Look over project and ensure everything is functioning correctly **GROUP**
- - Make styling changes to ensure great UI/UX **GROUP**

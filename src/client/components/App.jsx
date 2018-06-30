@@ -28,7 +28,7 @@ class App extends React.Component {
               <ul>
                 <li><a href="#intro" class="active">Introduction</a></li>
                 <li><a href="#first">How to use</a></li>
-                <li><a href="#cta">Get Started</a></li>
+                <li><a href="#cta">Privacy</a></li>
               </ul>
             </nav>
 
@@ -43,9 +43,7 @@ class App extends React.Component {
                 <p> Can't decide what's for lunch? Tired of always going to the same place? Have no fear, Yelp on Slack is here. 
                     Yelp on Slack is an extension that delivers a curated list of restaurants for you and your team to vote on. Give it a try and let's eat!
                 </p>
-                    <ul class="actions">
-                      <li><a href="generic.html" class="button">Learn More</a></li>
-                    </ul>
+ 
                   </div>
               <span class="image"><img src="https://i.imgur.com/Tl93xIJ.gif" alt="" /></span>
                 </div>
@@ -83,8 +81,8 @@ class App extends React.Component {
 
 							<section id="cta" class="main special">
                 <header class="major">
-                  <h2>Learn more about Yelp on Slack</h2>
-                  <p id="explore-text">Explore our code or visit the Slack app store below</p>
+                  <h2>Privacy Policy</h2>
+                  <p id="explore-text">This privacy policy is for those who have concerns about how their personal information may be used online. Yelp on Slack does not store any of your personally identifiable information. We only store permissions as necessary to make posts to your channel for you. We do not use cookies for tracking purposes and will never use this application for profit. We are not directly affiliated with Yelp. If you have any concerns, feel free to contact us at contact@appacademy.io</p>
                 </header>
                 <footer class="major">
                   <ul class="actions special">
@@ -99,7 +97,7 @@ class App extends React.Component {
 					<footer id="footer">
               <section class="developer-section">
                 <h2>About the Project</h2>
-                <p class='developer-text'>Yelp on Slack was developed over the course of 5 days by a team of four software developers. We're a group of passionate engineers with a host of other great projects. Check them out on our Githubs!</p>
+                <p class='developer-text'>Yelp on Slack was developed over the course of five days by a team of four software developers. We're a group of passionate engineers with a host of other great projects. Check them out on our Githubs!</p>
                 <ul class="icons">
               <li><a class="icon fa-github alt" href="https://github.com/Nenry"><span class="label">GitHub</span></a> Henry</li>
               <li><a class="icon fa-github alt" href="https://github.com/edmundho"><span class="label">GitHub</span></a> Edmund</li>
