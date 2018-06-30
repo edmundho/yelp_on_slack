@@ -104,10 +104,9 @@ const restaurantMessage = (businesses, webHook) => {
     const JSONresponse = JSON.parse(body);
     if (JSONresponse.success) {
       const imageAttachment = {
-        "title": "Locations",
-        "text": JSONresponse.data,
+        "title": "Map:",
+        // "text": JSONresponse.data,
         "image_url": JSONresponse.data.link,
-        "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
         "color": "#ff0000"
       };
       const restaurantPoll = {
