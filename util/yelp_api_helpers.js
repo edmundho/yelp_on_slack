@@ -105,7 +105,6 @@ const restaurantMessage = (businesses, webHook) => {
     if (JSONresponse.success) {
       const imageAttachment = {
         "title": "Map:",
-        // "text": JSONresponse.data,
         "image_url": JSONresponse.data.link,
         "color": "#ff0000"
       };
