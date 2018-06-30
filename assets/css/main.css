@@ -162,7 +162,7 @@ input, select, textarea {
 		-ms-transition: color 0.2s ease, border-bottom 0.2s ease;
 		transition: color 0.2s ease, border-bottom 0.2s ease;
 		text-decoration: none;
-		border-bottom: dotted 1px;
+		/* border-bottom: dotted 1px; */
 		color: inherit;
 	}
 
@@ -2085,7 +2085,7 @@ input, select, textarea {
 			input[type="radio"] + label:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
+				/* font-family: FontAwesome; */
 				font-style: normal;
 				font-weight: normal;
 				text-transform: none !important;
@@ -2225,9 +2225,9 @@ input, select, textarea {
 		.icon:before {
 			-moz-osx-font-smoothing: grayscale;
 			-webkit-font-smoothing: antialiased;
-			font-family: FontAwesome;
+			/* font-family: FontAwesome; */
 			font-style: normal;
-			font-weight: normal;
+			/* font-weight: normal; */
 			text-transform: none !important;
 		}
 
@@ -3057,9 +3057,9 @@ input, select, textarea {
 		text-align: center;
 	}
 
-		#header h1 {
+		/* #header h1 {
 			margin: 0 0 0.25em 0;
-		}
+		} */
 
 		#header p {
 			font-size: 1.25em;
@@ -3067,11 +3067,11 @@ input, select, textarea {
 		}
 
 		#header.alt {
-			padding: 7em 5em 1.75em 5em ;
+			padding: 7em 5em 3em 5em ;
 		}
 
 			#header.alt h1 {
-				font-size: 3.25em;
+				font-size: 2.75em;
 			}
 
 			#header.alt > * {

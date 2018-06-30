@@ -23,6 +23,36 @@
   font-size: 40px;
   color: white;
   font-weight: 600;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#slack-header {
+  margin: 0;
+  font-weight: 400;
+}
+
+#sub-header {
+  font-size: 20px;
+  // font-weight: 200;
+  margin-bottom: 30px;
+}
+
+.vote-emoji {
+  height: 40px;
+  width: 40px;
+}
+
+.add-to-slack {
+ display: flex;
+ position: relative;
+ left: 10px;
+}
+
+
+
+#edit{
+  font-family: FontAwesome;
+  font-weight: none;
+
 }
