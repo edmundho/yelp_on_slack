@@ -69,7 +69,6 @@ const locationsImage = locations => {
   request(options, (error, response, body) => {
     const JSONresponse = JSON.parse(body);
     if (JSONresponse.success) {
-      // return JSONresponse.data.link;
       return {
         "title": "Locations",
         "text": imageUrlBuilder(locations),
