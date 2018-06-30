@@ -69,11 +69,7 @@ class App extends React.Component {
                   <li>
                 <span class="icon major style5 fas fa-utensils"></span>
                     <h3>Choose a meal</h3>
-<<<<<<< HEAD
                     <p>Behold! The best rated top 3 restaurants appear, then vote with the corresponding emoji within the channel. </p>
-=======
-                    <p>Behold! The best rated top 3 restaurants appear and vote with the respective emoji between your friends</p>
->>>>>>> fa6945fa32ef6d2a03b9434f6a49b7e81476f3cd
                   </li>
                 </ul>
                 <footer class="major">
