@@ -59,17 +59,17 @@ class App extends React.Component {
           
                 <span class="icon major style1 fab fa-slack-hash"></span>
                     <h3>Add to Slack</h3>
-                    <p>Once you add to slack. Type <b>/letseat</b> in the chat</p>
+                    <p>Once you install the app, type <b>/letseat</b> in the chat</p>
                   </li>
                   <li>
                 <span id='edit' class="icon major style3 fal fa-edit"></span>
                     <h3>Food Form</h3>
-                    <p>Fill out the form according to your preferences and press submit.</p>
+                    <p>Fill out the form according to your preferences and press submit</p>
                   </li>
                   <li>
                 <span class="icon major style5 fas fa-utensils"></span>
                     <h3>Choose a meal</h3>
-                    <p>Behold! The best rated top 3 restaurants appear and vote with the respective emoji between your friends. </p>
+                    <p>Behold! The best rated top 3 restaurants appear and vote with the respective emoji between your friends</p>
                   </li>
                 </ul>
                 <footer class="major">
