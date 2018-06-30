@@ -25,10 +25,10 @@ class App extends React.Component {
             </header>
 
 					<nav id="nav">
-              <ul>
-                <li><a href="#intro" class="active">Introduction</a></li>
-                <li><a href="#first">How to use</a></li>
-                <li><a href="#cta">Privacy</a></li>
+              <ul id="nav-buttons">
+                  <li><a href="#intro" class="active">Introduction</a></li>
+                  <li><a href="#first">How To Use</a></li>
+                  <li><a href="#cta">Privacy Policy</a></li>
               </ul>
             </nav>
 
@@ -69,7 +69,11 @@ class App extends React.Component {
                   <li>
                 <span class="icon major style5 fas fa-utensils"></span>
                     <h3>Choose a meal</h3>
+<<<<<<< HEAD
+                    <p>Behold! The best rated top 3 restaurants appear, then vote with the corresponding emoji within the channel. </p>
+=======
                     <p>Behold! The best rated top 3 restaurants appear and vote with the respective emoji between your friends</p>
+>>>>>>> fa6945fa32ef6d2a03b9434f6a49b7e81476f3cd
                   </li>
                 </ul>
                 <footer class="major">
