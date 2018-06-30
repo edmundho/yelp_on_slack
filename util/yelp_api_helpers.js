@@ -94,7 +94,7 @@ const restaurantMessage = (businesses, webHook) => {
     headers: {
       "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
     },
-    body: {
+    formData: {
       "image": imageUrlBuilder(locations)
     }
   };
