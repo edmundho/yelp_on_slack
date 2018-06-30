@@ -24,7 +24,7 @@ const buildRestaurantMessage = (restaurant, num) => (
       "value": restaurant.price,
       "short": true
     },
-    {
+    { 
       "title": "Reviews",
       "value": restaurant.review_count,
       "short": true
@@ -69,7 +69,7 @@ const locationsImage = locations => {
   request(options, (error, response, body) => {
     const JSONresponse = JSON.parse(body);
     if (JSONresponse.success) {
-      return {
+      const imageAttachment = {
         "title": "Locations",
         "text": imageUrlBuilder(locations),
         "image_url": JSONresponse.data.link,
@@ -79,13 +79,6 @@ const locationsImage = locations => {
     } else {
       console.log(JSONresponse);
       console.log(JSONresponse.status);
-      return {
-        "title": "Locations",
-        "text": imageUrlBuilder(locations),
-        "image_url": "https://i.imgur.com/A10CY1d.jpg",
-        "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
-        "color": "#ff0000"
-      };
     }
   });
 
@@ -94,25 +87,69 @@ const locationsImage = locations => {
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
-  // const image = locationsImage(locations);
-  
-  const restaurantPoll = {
-    "text": "Where should we go eat?",
-    "attachments": [
-      buildRestaurantMessage(businesses[0], 0),
-      buildRestaurantMessage(businesses[1], 1),
-      buildRestaurantMessage(businesses[2], 2),
-      // image
-    ]
+
+  const options = {
+    uri: 'https://api.imgur.com/3/image',
+    method: 'POST',
+    headers: {
+      "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
+    },
+    body: {
+      "image": imageUrlBuilder(locations)
+    }
   };
 
-  webHookUrl.send(restaurantPoll, function (err, res) {
-    if (err) {
-      console.log('Error:', err);
+  request(options, (error, response, body) => {
+    const JSONresponse = JSON.parse(body);
+    if (JSONresponse.success) {
+      const imageAttachment = {
+        "title": "Locations",
+        "text": JSONresponse.data,
+        "image_url": JSONresponse.data.link,
+        "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
+        "color": "#ff0000"
+      };
+      const restaurantPoll = {
+        "text": "Where should we go eat?",
+        "attachments": [
+          buildRestaurantMessage(businesses[0], 0),
+          buildRestaurantMessage(businesses[1], 1),
+          buildRestaurantMessage(businesses[2], 2),
+          imageAttachment
+        ]
+      };
+
+      webHookUrl.send(restaurantPoll, function (err, res) {
+        if (err) {
+          console.log('Error:', err);
+        } else {
+          console.log('Message successfully sent');
+        }
+      });
     } else {
-      console.log('Message successfully sent');
+      console.log(JSONresponse);
+      console.log(JSONresponse.status);
     }
   });
+
+  // comment out for testing
+  // const restaurantPoll = {
+  //   "text": "Where should we go eat?",
+  //   "attachments": [
+  //     buildRestaurantMessage(businesses[0], 0),
+  //     buildRestaurantMessage(businesses[1], 1),
+  //     buildRestaurantMessage(businesses[2], 2),
+  //     // image
+  //   ]
+  // };
+
+  // webHookUrl.send(restaurantPoll, function (err, res) {
+  //   if (err) {
+  //     console.log('Error:', err);
+  //   } else {
+  //     console.log('Message successfully sent');
+  //   }
+  // });
 
   // Currently causes /yack command to yield operation_timeout??
   // const imageUrl = imageUrlBuilder(locations);
