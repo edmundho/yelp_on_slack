@@ -116,7 +116,6 @@ input, select, textarea {
 /* Type */
 
 	body {
-		background-color: #935d8c;
 		color: rgba(255, 255, 255, 0.65);
   }
   
@@ -3075,30 +3074,34 @@ input, select, textarea {
 				-moz-transition: opacity 3s ease;
 				-webkit-transition: opacity 3s ease;
 				-ms-transition: opacity 3s ease;
-				transition: opacity 3s ease;
 				-moz-transition-delay: 0.2s;
 				-webkit-transition-delay: 0.2s;
 				-ms-transition-delay: 0.2s;
-				transition-delay: 0.2s;
+				transition: opacity 2.5s ease;
+				transition-delay: 0.7s;
 				opacity: 1;
 			}
 
 			#header.alt .logo {
-				-moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
+				/* -moz-transition: opacity 1.25s ease, -moz-transform 0.5s ease;
 				-webkit-transition: opacity 1.25s ease, -webkit-transform 0.5s ease;
 				-ms-transition: opacity 1.25s ease, -ms-transform 0.5s ease;
-				transition: opacity 1.25s ease, transform 0.5s ease;
 				-moz-transition-delay: 0s;
 				-webkit-transition-delay: 0s;
-				-ms-transition-delay: 0s;
-				transition-delay: 0s;
-				display: block;
-				margin: 0 0 1.5em 0;
+				-ms-transition-delay: 0s; */
+				/* transition: opacity 1.25s ease, transform 0.5s ease; */
+				/* transition-delay: 0s; */
+				transform: scale(1.05);
+				transition: transform 0.5s ease, opacity 1.25s ease;
+				transition-delay: 0.25s;
+
+				/* display: flex;
+				justify-content: center; */
 			}
 
 				#header.alt .logo img {
 					display: block;
-					margin: 0 auto;
+					margin-top: 1.75em;
 					max-width: 75%;
 				}
 
