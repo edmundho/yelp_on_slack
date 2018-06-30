@@ -7,7 +7,7 @@ class App extends React.Component {
 			<div id="wrapper">
 
 					<header id="header" class="alt">
-            <div className='slack-yelp-add'>
+            <div className='slack-yelp-add logo'>
 
 
               {yelpLogo} 
