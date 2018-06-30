@@ -6,10 +6,9 @@ Yelp on Slack is an app that facilitates lunch place decision making.
 Deciding on a place to go for lunch is a common issue amongst teams in the workplace. Often times, with no one willing to make a final decision, teams resort to going to the same restaurant time after time. With Yelp on Slack, we intend to solve this problem by filtering data from nearby restaurants based on the average rating and review count, and presenting a curated list of options based on the user’s inputs.
 
 ## Functionality & MVPs
-- [ ] Users can input a location, a maximum distance, a price range, and a time range for the poll
-- [ ] Yelp on Slack will return a curated list of restaurant options along with a timed poll for users to vote using emojis
-- [ ] If the poll is inconclusive, yack will independently select an option
-- [ ] Menu, types of food, highlighted dish, and photos will be displayed for selected restaurants
+- [x] Users can input a location, a maximum distance, and a price range for the poll
+- [x] Yelp on Slack will return a curated list of restaurant options along with a timed poll for users to vote using emojis
+- [x] Type of food, highlighted dish, yelp link and photos will be displayed for three selected restaurants
 
 ### Bonus Features:
 - [ ] Yelp on Slack will put in a reservation for the selected restaurant from poll
@@ -64,41 +63,40 @@ Deciding on a place to go for lunch is a common issue amongst teams in the workp
 * Connected data yielded from Yelp Fusion API to Slack API to display messages in a specific channel
 
 ## Group Members & Work Breakdown
-**Marshall Cheng**, 
-**Travis Nguyen**, 
-**Henry Nguyen**, 
-**Edmund Ho**
-
+ **Travis Nguyen**,
+ **Marshall Cheng**, 
+ **Henry Nguyen**, 
+ **Edmund Ho**
 
 ### Day 1
   - Determine need for own composite score function for filtering of restaurant data **GROUP**
-  - Complete dialog option to create an interactive timed poll **Marshall**
+  - Create slash command to create an interactive form utilizing Slack API **Marshall**
   - Determine necessary restaurant information to display to slack users **Henry**
   - Format the data provided by Yelp Fusion API and correctly display as message using Slack message builder API **Travis**
   - Research Oauth of Slack API and determine need for database (storing channel webhooks) **Edmund**
-
-### Day 2
-  - Create slash command to create a timed poll **Henry**
-  - Start on conversion of timed poll results to create request to Yelp Fusion API **Marshall**
+ 
+ ### Day 2
+  - Setup MongoDB and host database on Mlab **Henry**
+  - Format selection values of interactive form according to Yelp Fusion API query params **Marshall**
   - Research slack api auth tokens and present findings to group mates **Edmund**
-  - Implement alert that notifies slack channel members that a poll is closing within a specified time frame **Travis**
+  - Begin conversion of interactive poll values to create request to Yelp Fusion API  **Travis**
 
 ### Day 3
-  - Reconvene to ensure data and project files are in an organized state **GROUP**
-  - Run tests to ensure whether data yielded from Yelp Fusion API meet group expectations (Bayesian rating filter from yelp) **GROUP**
-  - Walk through process of app to ensure members have general understanding of data flow **GROUP**
-  - Reconfigure data in slack message builder to create interactive and presentable messages for slack users **GROUP**
-
+- Reconvene to ensure data and project files are in an organized state **GROUP**
+- Run tests to ensure whether data yielded from Yelp Fusion API meet group expectations (Bayesian rating filter from yelp) **GROUP**
+- Walk through process of app to ensure members have general understanding of data flow **GROUP**
+- Reconfigure data in slack message builder to create interactive and presentable messages for slack users **GROUP**
 
 ### Day 4
-  - Setup necessary files and components to create splash page for app **Henry**
-  - Create user auth for when teams add app to their workspace (determine which users have option of initializing a poll) **Edmund / Travis**
-  - Create button that users can click to automatically install the app in their workspace **Marshall**
+- Setup necessary files and components to create splash page for app **Henry**
+- Create user auth for when teams add app to their workspace (determine which users have option of initializing a poll) **Edmund / Travis**
+- Create button that users can click to automatically install the app in their workspace **Marshall**
 
 ### Day 5
-  - Style the splash page **Henry / Travis**
-  - Add directions to front end to ensure users understand purpose and commands of app **Marshall / Edmund**
+- Style the splash page **Henry / Travis**
+- Add directions to front end to ensure users understand purpose and commands of app **Marshall / Edmund**
 
 ### Day 6
- - Look over project and ensure everything is functioning correctly **GROUP**
- - Make styling changes to ensure great UI/UX **GROUP**
+- Look over project and ensure everything is functioning correctly **GROUP**
+- Make styling changes to ensure great UI/UX **GROUP**
+

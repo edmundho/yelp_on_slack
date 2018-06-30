@@ -7,7 +7,7 @@ class App extends React.Component {
 			<div id="wrapper">
 
 					<header id="header" class="alt">
-            <div className='slack-yelp-add'>
+            <div className='slack-yelp-add logo'>
 
 
               {yelpLogo} 
@@ -59,23 +59,24 @@ class App extends React.Component {
           
                 <span class="icon major style1 fab fa-slack-hash"></span>
                     <h3>Add to Slack</h3>
-                    <p>Once you add to slack. Type <b>/letseat</b> in the chat</p>
+                    <p>Once you install the app, type <b>/letseat</b> in the chat</p>
                   </li>
                   <li>
                 <span id='edit' class="icon major style3 fal fa-edit"></span>
                     <h3>Food Form</h3>
-                    <p>Fill out the form according to your preferences and press submit.</p>
+                    <p>Fill out the form according to your preferences and press submit</p>
                   </li>
                   <li>
                 <span class="icon major style5 fas fa-utensils"></span>
                     <h3>Choose a meal</h3>
+<<<<<<< HEAD
                     <p>Behold! The best rated top 3 restaurants appear, then vote with the corresponding emoji within the channel. </p>
+=======
+                    <p>Behold! The best rated top 3 restaurants appear and vote with the respective emoji between your friends</p>
+>>>>>>> fa6945fa32ef6d2a03b9434f6a49b7e81476f3cd
                   </li>
                 </ul>
                 <footer class="major">
-                  {/* <ul class="actions special">
-                    <li><a href="generic.html" class="button">Learn More</a></li>
-                  </ul> */}
                 </footer>
               </section>
 
@@ -99,10 +100,10 @@ class App extends React.Component {
                 <h2>About the Project</h2>
                 <p class='developer-text'>Yelp on Slack was developed over the course of five days by a team of four software developers. We're a group of passionate engineers with a host of other great projects. Check them out on our Githubs!</p>
                 <ul class="icons">
-              <li><a class="icon fa-github alt" href="https://github.com/Nenry"><span class="label">GitHub</span></a> Henry</li>
-              <li><a class="icon fa-github alt" href="https://github.com/edmundho"><span class="label">GitHub</span></a> Edmund</li>
-              <li><a class="icon fa-github alt" href="https://github.com/marshallycheng"><span class="label">GitHub</span></a> Marshall</li>
-              <li><a class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/Nenry"><span class="label">GitHub</span></a> Henry</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/edmundho"><span class="label">GitHub</span></a> Edmund</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/marshallycheng"><span class="label">GitHub</span></a> Marshall</li>
+              <li><a id='edit' class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
                 </ul>
               </section>
           <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a></p>
