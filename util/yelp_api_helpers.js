@@ -100,7 +100,7 @@ const restaurantMessage = (businesses, webHook) => {
   };
 
   request(options, (error, response, body) => {
-    // console.log(body);
+    console.log(body.data.link);
     // const JSONresponse = JSON.parse(body);
     if (body.success) {
       const imageAttachment = {
