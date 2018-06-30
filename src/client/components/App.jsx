@@ -73,9 +73,6 @@ class App extends React.Component {
                   </li>
                 </ul>
                 <footer class="major">
-                  {/* <ul class="actions special">
-                    <li><a href="generic.html" class="button">Learn More</a></li>
-                  </ul> */}
                 </footer>
               </section>
 
