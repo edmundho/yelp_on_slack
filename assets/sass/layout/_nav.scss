@@ -28,10 +28,12 @@
 			padding-top: 4.25em;
 		}
 
+		
 		ul {
 			margin: 0;
 			padding: 0;
 			list-style: none;
+
 
 			li {
 				@include vendor('transition', (
