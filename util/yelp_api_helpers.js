@@ -51,38 +51,6 @@ const buildRestaurantMessage = (restaurant, num) => (
   }
 );
 
-// const locationsImage = locations => {
-//   const imageUploadUrl = imageUrlBuilder(locations);
-
-//   const options = {
-//     uri: 'https://api.imgur.com/3/image',
-//     method: 'POST',
-//     headers: {
-//       "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
-//     },
-//     body: {
-//       "image": imageUploadUrl
-//     }
-//   };
-
-//   request(options, (error, response, body) => {
-//     const JSONresponse = JSON.parse(body);
-//     if (JSONresponse.success) {
-//       const imageAttachment = {
-//         "title": "Locations",
-//         "text": imageUrlBuilder(locations),
-//         "image_url": JSONresponse.data.link,
-//         "thumb_url": "https://cdn.vox-cdn.com/thumbor/qI3R0shcA0ycV2ghLmpbkNtNf4s=/0x0:1100x733/1200x800/filters:focal(0x0:1100x733)/cdn.vox-cdn.com/assets/884081/Yelp_Logo_No_Outline_Color-01.jpg",
-//         "color": "#ff0000"
-//       };
-//     } else {
-//       console.log(JSONresponse);
-//       console.log(JSONresponse.status);
-//     }
-//   });
-
-// };
-
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
   const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
@@ -129,49 +97,6 @@ const restaurantMessage = (businesses, webHook) => {
     }
   });
 
-  // comment out for testing
-  // const restaurantPoll = {
-  //   "text": "Where should we go eat?",
-  //   "attachments": [
-  //     buildRestaurantMessage(businesses[0], 0),
-  //     buildRestaurantMessage(businesses[1], 1),
-  //     buildRestaurantMessage(businesses[2], 2),
-  //     // image
-  //   ]
-  // };
-
-  // webHookUrl.send(restaurantPoll, function (err, res) {
-  //   if (err) {
-  //     console.log('Error:', err);
-  //   } else {
-  //     console.log('Message successfully sent');
-  //   }
-  // });
-
-  // Currently causes /yack command to yield operation_timeout??
-  // const imageUrl = imageUrlBuilder(locations);
-  // axios.get(imageUrl).then(url => {
-  //   const testGoogleImage = {
-  //     "attachments": [{
-  //       "title": "Slack API Documentation",
-  //       "title_link": "https://api.slack.com/",
-  //       "fields": [{
-  //         "title": "Priority",
-  //         "value": "High",
-  //         "short": false
-  //       }],
-  //       "image_url": url
-  //     }]
-  //   };
-
-  //   webHookUrl.send(testGoogleImage, function (err, res) {
-  //     if (err) {
-  //       console.log('Error:', err);
-  //     } else {
-  //       console.log('Message successfully sent');
-  //     }});
-  // });
-  
 };
 
 const selectRandomRestaurants = (businesses) => {
