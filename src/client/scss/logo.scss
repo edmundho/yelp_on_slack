@@ -1,0 +1,60 @@
+#yelp-logo {
+  height: 115px;
+  width: 120px;
+  margin-top: 1.75em;
+}
+
+.slack-logo {
+  height: 140px;
+  width: 130px;
+  display: flex;
+  position: relative;
+  top: -3px;
+  
+}
+
+.slack-yelp-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-sign {
+  font-size: 40px;
+  color: white;
+  font-weight: 600;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 1.3em;
+}
+
+#slack-header {
+  margin: 0;
+  font-weight: 400;
+}
+
+#sub-header {
+  font-size: 19px;
+  margin-bottom: 40px;
+  margin-top: 5px;
+}
+
+.vote-emoji {
+  height: 40px;
+  width: 40px;
+}
+
+.add-to-slack {
+ display: flex;
+ position: relative;
+ left: 10px;
+}
+
+
+
+#edit{
+  font-family: FontAwesome;
+  font-weight: none;
+
+}

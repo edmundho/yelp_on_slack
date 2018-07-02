@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "--inspect"
+    "start": "nodemon server.js",
+    "postinstall": "webpack --optimize-minimize",
+    "webpack": "./node_modules/.bin/webpack -w"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +26,22 @@
     "nodemon": "^1.17.5",
     "qs": "^6.5.2",
     "querystring": "^0.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "request": "^2.87.0",
     "yelp-fusion": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.12.2",
+    "webpack-cli": "^3.0.8"
   }
 }
