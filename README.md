@@ -25,6 +25,9 @@ Deciding where to go for lunch is a common issue in most workspaces. Often, with
   * Incoming Webhooks (Sending messages)
   * Slash commands (Receiving requests)
   * Dialog Options (Creating submission form)
+* Google Maps Static API
+  * Pin restaurant locations to google map image
+  * imgur API for uploading google images in order to post in Slack channels
 
 
 ### Implementation Details
