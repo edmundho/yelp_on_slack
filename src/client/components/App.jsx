@@ -38,7 +38,7 @@ class App extends React.Component {
                 <div class="spotlight">
                   <div class="content">
                     <header class="major">
-                      <h2>What is Yelp on Slack?</h2>
+                      <h2>A new way to decide what's for lunch</h2>
                     </header>
                 <p> Can't decide what's for lunch? Tired of always going to the same place? Have no fear, Yelp on Slack is here. 
                     Yelp on Slack is an extension that delivers a curated list of restaurants for you and your team to vote on. Give it a try and let's eat!
@@ -103,7 +103,7 @@ class App extends React.Component {
               <li><a id='edit' class="icon fa-github alt" href="https://github.com/travishn"><span class="label">GitHub</span></a> Travis</li>
                 </ul>
               </section>
-          <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP</a></p>
+          <p class="copyright">&copy;  2018 App Academy Yelp on Slack Project | Design: <a href="https://html5up.net">HTML5 UP | </a></p>
             </footer>
 
           </div>
