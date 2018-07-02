@@ -1,6 +1,6 @@
 // submission form
 const form = JSON.stringify({
-  title: 'Create a Poll',
+  title: 'Yelp on Slack',
   callback_id: 'submit-form',
   submit_label: 'Submit',
   elements: [
