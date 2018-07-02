@@ -95,6 +95,7 @@ class App extends React.Component {
               <section class="developer-section">
                 <h2>About the Project</h2>
                 <p class='developer-text'>Yelp on Slack was developed over the course of five days by a team of four software developers. We're a group of passionate engineers with a host of other great projects. Check us out on our Githubs!</p>
+                <p class='developer-text'>For questions or comments, reach us at: yelponslack@gmail.com</p>
                 <ul class="icons">
               <li><a id='edit' class="icon fa-github alt" href="https://github.com/Nenry"><span class="label">GitHub</span></a> Henry</li>
               <li><a id='edit' class="icon fa-github alt" href="https://github.com/edmundho"><span class="label">GitHub</span></a> Edmund</li>
