@@ -40,8 +40,7 @@ class App extends React.Component {
                     <header class="major">
                       <h2>A new way to decide what's for lunch</h2>
                     </header>
-                <p> Can't decide what's for lunch? Tired of always going to the same place? Have no fear, Yelp on Slack is here. 
-                    Yelp on Slack is an extension that delivers a curated list of restaurants for you and your team to vote on. Give it a try and let's eat!
+                <p> Deciding where to go for lunch is a common issue in most workspaces. Often, with no one willing to make a final decision, teams resort to going to the same restaurant time and time again. Yelp on Slack is an app dedicated to solving this issue. Users provide basic info such as a max distance and a price range, and the app returns a curated list of restaurants that match the criteria in a poll format. Team members can then vote for their desired option and enjoy a nice lunch with the team.
                 </p>
  
                   </div>
