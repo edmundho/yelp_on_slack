@@ -69,7 +69,7 @@ app.get('/auth', (req, res) => {
 
 // /yack slash command sends HTTP post request to this url. We send back a dialog window.
 app.post('/posttest', (req, res) => {
-
+  res.send('');
   // trigger id lets us match up our response to whatever action triggered it
   const { token, channel_id, trigger_id} = req.body;
   let slackAccessToken;
@@ -91,7 +91,6 @@ app.post('/posttest', (req, res) => {
       .then((result) => {
         debug('dialog.open: %o', result.data);
         // send empty response so we don't time out
-        res.send('');
       }).catch((error) => {
         debug('dialog.open call failed: $o', error);
         res.sendStatus(501);
