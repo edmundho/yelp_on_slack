@@ -53,50 +53,68 @@ const buildRestaurantMessage = (restaurant, num) => (
 
 const restaurantMessage = (businesses, webHook) => {
   const webHookUrl = new IncomingWebhook(webHook);
-  const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
 
-  const options = {
-    uri: 'https://api.imgur.com/3/image',
-    method: 'POST',
-    headers: {
-      "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
-    },
-    formData: {
-      "image": imageUrlBuilder(locations)
-    }
+  const restaurantPoll = {
+    "text": "Where should we go eat?",
+    "attachments": [
+      buildRestaurantMessage(businesses[0], 0),
+      buildRestaurantMessage(businesses[1], 1),
+      buildRestaurantMessage(businesses[2], 2)
+    ]
   };
 
-  request(options, (error, response, body) => {
-    const JSONresponse = JSON.parse(body);
-    if (JSONresponse.success) {
-      const imageAttachment = {
-        "title": "Map:",
-        "image_url": JSONresponse.data.link,
-        "color": "#ff0000"
-      };
-      const restaurantPoll = {
-        "text": "Where should we go eat?",
-        "attachments": [
-          buildRestaurantMessage(businesses[0], 0),
-          buildRestaurantMessage(businesses[1], 1),
-          buildRestaurantMessage(businesses[2], 2),
-          imageAttachment
-        ]
-      };
-
-      webHookUrl.send(restaurantPoll, function (err, res) {
-        if (err) {
-          console.log('Error:', err);
-        } else {
-          console.log('Message successfully sent');
-        }
-      });
+  webHookUrl.send(restaurantPoll, function (err, res) {
+    if (err) {
+      console.log('Error:', err);
     } else {
-      console.log(JSONresponse);
-      console.log(JSONresponse.status);
+      console.log('Message successfully sent');
     }
   });
 
+  // Google Maps Image: 
+  // const locations = [businesses[0].coordinates, businesses[1].coordinates, businesses[2].coordinates];
+
+  // const options = {
+  //   uri: 'https://api.imgur.com/3/image',
+  //   method: 'POST',
+  //   headers: {
+  //     "Authorization": "Client-ID " + process.env.IMGUR_CLIENT_ID
+  //   },
+  //   formData: {
+  //     "image": imageUrlBuilder(locations)
+  //   }
+  // };
+
+  // request(options, (error, response, body) => {
+  //   const JSONresponse = JSON.parse(body);
+  //   if (JSONresponse.success) {
+  //     const imageAttachment = {
+  //       "title": "Map:",
+  //       "image_url": JSONresponse.data.link,
+  //       "color": "#ff0000"
+  //     };
+  //     const restaurantPoll = {
+  //       "text": "Where should we go eat?",
+  //       "attachments": [
+  //         buildRestaurantMessage(businesses[0], 0),
+  //         buildRestaurantMessage(businesses[1], 1),
+  //         buildRestaurantMessage(businesses[2], 2),
+  //         imageAttachment
+  //       ]
+  //     };
+
+  //     webHookUrl.send(restaurantPoll, function (err, res) {
+  //       if (err) {
+  //         console.log('Error:', err);
+  //       } else {
+  //         console.log('Message successfully sent');
+  //       }
+  //     });
+  //   } else {
+  //     console.log(JSONresponse);
+  //     console.log(JSONresponse.status);
+  //   }
+  // });
 };
 
 const selectRandomRestaurants = (businesses) => {
